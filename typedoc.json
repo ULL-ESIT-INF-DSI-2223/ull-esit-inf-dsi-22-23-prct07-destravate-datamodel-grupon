@@ -1,0 +1,7 @@
+{
+  "entryPoints": [
+    "./src/ejercicio-PE/Arithmeticable.ts"
+  ],
+
+  "out": "./docs"
+}
