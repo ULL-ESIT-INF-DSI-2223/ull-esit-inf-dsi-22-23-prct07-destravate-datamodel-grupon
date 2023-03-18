@@ -36,7 +36,7 @@
     "prettier": "^2.8.4",
     "ts-node": "^10.9.1",
     "tsc-watch": "^6.0.0",
-    "typescript": "^5.0.2"
+    "typedoc": "^0.23.27"
   },
   "dependencies": {
     "inquirer": "^6.3.1",
