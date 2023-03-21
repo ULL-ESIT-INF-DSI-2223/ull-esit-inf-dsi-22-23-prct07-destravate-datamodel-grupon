@@ -1,4 +1,4 @@
-export class UserStatistics {
+export class Statistics {
     constructor(private _week_kilometers: number, private _week_unevenness: number, private _month_kilometers: number, private _month_unevenness: number, private _year_kilometers: number, private _year_unevenness: number) {
         if (_week_kilometers < 0) {
             throw "La cantidad de kilómetros de la semana no puede ser negativa";

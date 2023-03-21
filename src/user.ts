@@ -1,11 +1,11 @@
 import { Activities } from "./activities";
-import { UserStatistics } from "./user_statistics";
+import { Statistics } from "./statistics";
 import { Group } from "./group";
 import { Challenge } from "./challenge";
 import { Route } from "./route";
 
 export class User {
-    constructor(private _id: string, private _name: string, private _activity: Activities, private _friends: Set<string>, private _groups: Set<number>, private _statistics: UserStatistics, private _favourite_routes: Set<number>, private _active_challenges: Set<number>, private _historical: Set<[Date, number]>) {
+    constructor(private _id: string, private _name: string, private _activity: Activities, private _friends: Set<string>, private _groups: Set<number>, private _statistics: Statistics, private _favourite_routes: Set<number>, private _active_challenges: Set<number>, private _historical: Set<[Date, number]>) {
         if (_friends.has(_id)) {
             throw "Un usuario no puede ser amigo de sí mismo";
         }
@@ -128,11 +128,11 @@ export class User {
         }
     }
 
-    get statistics(): UserStatistics {
+    get statistics(): Statistics {
         return this._statistics;
     }
     
-    set statistics(statistics: UserStatistics) {
+    set statistics(statistics: Statistics) {
         this._statistics = statistics;
     }
 
