@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import "mocha";
-import { Route } from "../src/Route";
+import { Route } from "../src/route";
 
 describe("Test de la clase Route", () => {
   it("Constructor ", () => {

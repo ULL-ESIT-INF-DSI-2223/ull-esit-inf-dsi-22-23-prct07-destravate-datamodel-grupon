@@ -1,6 +1,6 @@
 /**
  *
- * Tipo que reperesenta una cordenada con longitud y latitud
+ * Tipo que representa una cordenada con longitud y latitud
  *
  */
 export type Cords = {

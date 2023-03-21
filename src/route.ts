@@ -1,5 +1,5 @@
-import { Cords } from "./types/Cords";
-import { Activity } from "./types/Activity";
+import { Cords } from "./types/cords";
+import { Activity } from "./types/activity";
 
 /**
  *

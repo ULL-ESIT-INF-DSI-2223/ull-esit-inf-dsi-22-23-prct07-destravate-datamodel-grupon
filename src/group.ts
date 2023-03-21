@@ -1,4 +1,4 @@
-import { Activity } from "./types/Activity";
+import { Activity } from "./types/activity";
 
 /**
  *
