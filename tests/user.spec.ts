@@ -5,7 +5,17 @@ import { Statistics } from "../src/statistics";
 import { Group } from "../src/group";
 import { Route } from "../src/route";
 import { Challenge } from "../src/challenge";
+import { Coord } from "../src/coord";
 
+/**
+ *
+ * Clase que representa un usuario
+ * Atributos
+ *  id - ID único del usuario
+ *  name_ - Nombre del grupo.
+ *  participants_ids_ - Colleción de IDs de usuarios miembros del grupo.
+ *
+ */
 describe("User class tests", () => {
   it("User constructor", () => {
     expect(
@@ -401,12 +411,16 @@ describe("User class tests", () => {
     );
     expect(user.addGroup(7)).to.be.true;
     expect(user.groups).to.be.eql(new Set<number>([2, 5, 7]));
-    //expect(user.addGroup(new Group(8, ))).to.be.true;
+    expect(user.addGroup(new Group(8, "Grupo 8", ["pepaso", "rodrigodigo"], new Statistics(15, 600, 30, 900, 180, 12000), new Set<number>([2, 3, 4]), new Set<[Date, number]>([[new Date(), 4],
+    [new Date("2022-12-17T03:24:00"), 2],
+    [new Date("2021-08-12T03:24:00"), 3]])))).to.be.true;
     expect(user.groups).to.be.eql(new Set<number>([2, 5, 7, 8]));
     expect(user.addGroup(-1)).to.be.false;
     expect(user.addGroup(5.5)).to.be.false;
     expect(user.addGroup(5)).to.be.false;
-    //expect(user.addGroup(new Group(7, ))).to.be.false;
+    expect(user.addGroup(new Group(7, "Grupo 7", ["pepaso", "rodrigodigo"], new Statistics(15, 600, 30, 900, 180, 12000), new Set<number>([2, 3, 4]), new Set<[Date, number]>([[new Date(), 4],
+    [new Date("2022-12-17T03:24:00"), 2],
+    [new Date("2021-08-12T03:24:00"), 3]])))).to.be.false;
   });
 
   it("removeGroup function", () => {
@@ -423,10 +437,14 @@ describe("User class tests", () => {
     );
     expect(user.removeGroup(7)).to.be.true;
     expect(user.groups).to.be.eql(new Set<number>([2, 5, 8]));
-    //expect(user.removeGroup(new Group(8, ))).to.be.true;
+    expect(user.addGroup(new Group(8, "Grupo 8", ["pepaso", "rodrigodigo"], new Statistics(15, 600, 30, 900, 180, 12000), new Set<number>([2, 3, 4]), new Set<[Date, number]>([[new Date(), 4],
+    [new Date("2022-12-17T03:24:00"), 2],
+    [new Date("2021-08-12T03:24:00"), 3]])))).to.be.true;
     expect(user.groups).to.be.eql(new Set<number>([2, 5]));
     expect(user.removeGroup(8)).to.be.false;
-    //expect(user.removeGroup(new Group(7, ))).to.be.false;
+    expect(user.removeGroup(new Group(7, "Grupo 7", ["pepaso", "rodrigodigo"], new Statistics(15, 600, 30, 900, 180, 12000), new Set<number>([2, 3, 4]), new Set<[Date, number]>([[new Date(), 4],
+    [new Date("2022-12-17T03:24:00"), 2],
+    [new Date("2021-08-12T03:24:00"), 3]])))).to.be.true;
   });
 
   it("statistics property", () => {
@@ -487,12 +505,12 @@ describe("User class tests", () => {
     );
     expect(user.addFavouriteRoute(7)).to.be.true;
     expect(user.favourite_routes).to.be.eql(new Set<number>([6, 4, 7]));
-    //expect(user.addFavouriteRoute(new Route(8, ))).to.be.true;
+    expect(user.addFavouriteRoute(new Route(8, "Las Cañadas", new Coord(20.3, -2.2), new Coord(20.4, -2.0), 2000, 200, ["pepaso", "rodrigodigo"], "Running", 200))).to.be.true;
     expect(user.favourite_routes).to.be.eql(new Set<number>([6, 4, 7, 8]));
     expect(user.addFavouriteRoute(-1)).to.be.false;
     expect(user.addFavouriteRoute(6.5)).to.be.false;
     expect(user.addFavouriteRoute(6)).to.be.false;
-    //expect(user.addFavouriteRoute(new Route(7, ))).to.be.false;
+    expect(user.addFavouriteRoute(new Route(7, "Cruz del Carmen - Punta del Hidalgo", new Coord(21.3, -1.2), new Coord(20.9, -1.8), 10000, 1000, ["pepaso", "marcelo"], "Running", 150))).to.be.false;
   });
 
   it("removeFavouriteRoute function", () => {
@@ -509,10 +527,10 @@ describe("User class tests", () => {
     );
     expect(user.removeFavouriteRoute(7)).to.be.true;
     expect(user.favourite_routes).to.be.eql(new Set<number>([6, 4, 8]));
-    //expect(user.removeFavouriteRoute(new Route(8, ))).to.be.true;
+    expect(user.removeFavouriteRoute(new Route(8, "Las Cañadas", new Coord(20.3, -2.2), new Coord(20.4, -2.0), 2000, 200, ["pepaso", "rodrigodigo"], "Running", 200))).to.be.true;
     expect(user.favourite_routes).to.be.eql(new Set<number>([6, 4]));
     expect(user.removeFavouriteRoute(8)).to.be.false;
-    //expect(user.removeFavouriteRoute(new Route(7, ))).to.be.false;
+    expect(user.removeFavouriteRoute(new Route(7, "Cruz del Carmen - Punta del Hidalgo", new Coord(21.3, -1.2), new Coord(20.9, -1.8), 10000, 1000, ["pepaso", "marcelo"], "Running", 150))).to.be.false;
   });
 
   it("active_challenges property", () => {
@@ -679,7 +697,7 @@ describe("User class tests", () => {
         [new Date("2022-12-17T03:24:00"), 2],
       ])
     );
-    //expect(user.addRouteToHistorical(new Date('2021-08-12T03:24:00'), new Route(3, ))).to.be.true;
+    expect(user.addRouteToHistorical(new Date('2021-08-12T03:24:00'), new Route(3, "El Teide", new Coord(21.3, -2.2), new Coord(20.4, -2.0), 3000, 200, ["pepaso", "rodrigodigo"], "Bicycle", 200))).to.be.true;
     expect(user.historical).to.be.eql(
       new Set<[Date, number]>([
         [new Date(), 4],
@@ -693,7 +711,7 @@ describe("User class tests", () => {
       .false;
     expect(user.addRouteToHistorical(new Date("2022-12-17T03:24:00"), 2.5)).to
       .be.false;
-    //expect(user.addRouteToHistorical(new Date('2025-08-12T03:24:00'), new Route(3, ))).to.be.false;
+    expect(user.addRouteToHistorical(new Date('2025-08-12T03:24:00'), new Route(3, "El Teide", new Coord(21.3, -2.2), new Coord(20.4, -2.0), 3000, 200, ["pepaso", "rodrigodigo"], "Bicycle", 200))).to.be.false;
   });
 
   it("removeRouteFromHistorical function", () => {
@@ -720,12 +738,12 @@ describe("User class tests", () => {
         [new Date("2021-08-12T03:24:00"), 3],
       ])
     );
-    //expect(user.removeActiveChallenge(new Date('2021-08-12T03:24:00'), new Route(3, ))).to.be.true;
+    expect(user.removeRouteFromHistorical(new Date('2021-08-12T03:24:00'), new Route(3, "El Teide", new Coord(21.3, -2.2), new Coord(20.4, -2.0), 3000, 200, ["pepaso", "rodrigodigo"], "Bicycle", 200))).to.be.true;
     expect(user.historical).to.be.eql(
       new Set<[Date, number]>([[new Date(), 4]])
     );
     expect(user.removeRouteFromHistorical(new Date("2022-12-17T03:24:00"), 2))
       .to.be.false;
-    //expect(user.removeActiveChallenge(new Date('2021-08-12T03:24:00'), new Route(3, ))).to.be.false;
+    expect(user.removeRouteFromHistorical(new Date('2021-08-12T03:24:00'), new Route(3, "El Teide", new Coord(21.3, -2.2), new Coord(20.4, -2.0), 3000, 200, ["pepaso", "rodrigodigo"], "Bicycle", 200))).to.be.false;
   });
 });

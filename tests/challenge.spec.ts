@@ -4,6 +4,7 @@ import { Challenge } from "../src/challenge";
 import { Route } from "../src/route";
 import { User } from "../src/user";
 import { Statistics } from "../src/statistics";
+import { Coord } from "../src/coord";
 
 describe("Challenge class tests", () => {
   it("Challenge constructor", () => {
@@ -135,12 +136,12 @@ describe("Challenge class tests", () => {
     );
     expect(challenge.addRoute(7)).to.be.true;
     expect(challenge.routes).to.be.eql(new Set<number>([2, 4, 5, 7]));
-    //expect(challenge.addRoute(new Route(8, ))).to.be.true;
+    expect(challenge.addRoute(new Route(8, "Las Cañadas", new Coord(20.3, -2.2), new Coord(20.4, -2.0), 2000, 200, ["pepaso", "rodrigodigo"], "Running", 200))).to.be.true;
     expect(challenge.routes).to.be.eql(new Set<number>([2, 4, 5, 7, 8]));
     expect(challenge.addRoute(-1)).to.be.false;
     expect(challenge.addRoute(6.5)).to.be.false;
     expect(challenge.addRoute(5)).to.be.false;
-    //expect(challenge.addRoute(new Route(7, ))).to.be.false;
+    expect(challenge.addRoute(new Route(7, "Cruz del Carmen - Punta del Hidalgo", new Coord(21.3, -1.2), new Coord(20.9, -1.8), 10000, 1000, ["pepaso", "marcelo"], "Running", 150))).to.be.false;
   });
 
   it("removeRoute function", () => {
@@ -154,10 +155,10 @@ describe("Challenge class tests", () => {
     );
     expect(challenge.removeRoute(7)).to.be.true;
     expect(challenge.routes).to.be.eql(new Set<number>([2, 4, 5, 8]));
-    //expect(challenge.removeRoute(new Route(8, ))).to.be.true;
+    expect(challenge.removeRoute(new Route(8, "Las Cañadas", new Coord(20.3, -2.2), new Coord(20.4, -2.0), 2000, 200, ["pepaso", "rodrigodigo"], "Running", 200))).to.be.true;
     expect(challenge.routes).to.be.eql(new Set<number>([2, 4, 5]));
     expect(challenge.removeRoute(8)).to.be.false;
-    //expect(challenge.removeRoute(new Route(7, ))).to.be.false;
+    expect(challenge.removeRoute(new Route(7, "Cruz del Carmen - Punta del Hidalgo", new Coord(21.3, -1.2), new Coord(20.9, -1.8), 10000, 1000, ["pepaso", "marcelo"], "Running", 150))).to.be.false;
   });
 
   it("activity property", () => {
