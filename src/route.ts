@@ -1,5 +1,6 @@
-import { Cords } from "./types/cords";
+import { Coord } from "./coord";
 import { Activity } from "./types/activity";
+import { User } from "./user";
 
 /**
  *
@@ -17,43 +18,141 @@ import { Activity } from "./types/activity";
  *
  */
 export class Route {
+  private _id: number;
+  private _name: string;
+  private _ini_cords: Coord;
+  private _end_cords: Coord;
+  private _length: number;
+  private _average_slope: number;
+  private _visitors_id: string[];
+  private _activity: Activity;
+  private _avg_score: number;
   constructor(
-    private id_: number,
-    private name_: string,
-    private ini_cords_: Cords,
-    private end_cords_: Cords,
-    private length_: number,
-    private average_slope_: number,
-    private visitors_id_: number[],
-    private activity_: Activity,
-    private avg_score_: number
-  ) {}
+    id: number,
+    name: string,
+    ini_cords: Coord,
+    end_cords: Coord,
+    length: number,
+    average_slope: number,
+    visitors_id: string[],
+    activity: Activity,
+    avg_score: number
+  ) {
+    if (id < 0 || id % 1 !== 0) {
+      throw `ID de ruta no válido`;
+    }
+    this._id = id;
+    this._name = name;
+    this._ini_cords = ini_cords;
+    this._end_cords = end_cords;
+    if (length < 0) {
+      throw `Longitud no válida`;
+    }
+    this._length = length;
+    if (average_slope < 0) {
+      throw `Pendiente media no válida`;
+    }
+    this._average_slope = average_slope;
+    this._visitors_id = visitors_id;
+    this._activity = activity;
+    if (avg_score < 0) {
+      throw `Puntuación media no válida`;
+    }
+    this._avg_score = avg_score;
+  }
 
   public get id(): number {
-    return this.id_;
+    return this._id;
   }
+  public set id(id: number) {
+    if (id < 0 || id % 1 !== 0) {
+      throw `ID de ruta no válido`;
+    }
+    this._id = id;
+  }
+
   public get name(): string {
-    return this.name_;
+    return this._name;
   }
-  public get ini_cords(): Cords {
-    return this.ini_cords_;
+  public set name(name: string) {
+    this._name = name;
   }
-  public get end_cords(): Cords {
-    return this.end_cords_;
+
+  public get ini_cords(): Coord {
+    return this._ini_cords;
   }
+  public set ini_cords(ini_cords: Coord) {
+    this._ini_cords = ini_cords;
+  }
+
+  public get end_cords(): Coord {
+    return this._end_cords;
+  }
+  public set end_cords(end_cords: Coord) {
+    this._end_cords = end_cords;
+  }
+
   public get length(): number {
-    return this.length_;
+    return this._length;
   }
+  public set length(length: number) {
+    if (length < 0) {
+      throw `Longitud no válida`;
+    }
+    this._length = length;
+  }
+
   public get average_slope(): number {
-    return this.average_slope_;
+    return this._average_slope;
   }
-  public get visitors_id(): number[] {
-    return this.visitors_id_;
+  public set average_slope(average_slope: number) {
+    if (average_slope < 0) {
+      throw `Pendiente media no válida`;
+    }
+    this._average_slope = average_slope;
   }
+
+  public get visitors_id(): string[] {
+    return this._visitors_id;
+  }
+  public set visitors_id(visitors_id: string[]) {
+    this._visitors_id = visitors_id;
+  }
+
   public get activity(): Activity {
-    return this.activity_;
+    return this._activity;
   }
+  public set activity(activity: Activity) {
+    this._activity = activity;
+  }
+
   public get avg_score(): number {
-    return this.avg_score_;
+    return this._avg_score;
+  }
+  public set avg_score(avg_score: number) {
+    if (avg_score < 0) {
+      throw `Puntuación media no válida`;
+    }
+    this._avg_score = avg_score;
+  }
+
+  /**
+   *
+   * @param visitor Id del usuario que a visitado o el propio usuario
+   * @returns Verdadero si se pudo
+   */
+  public addVisitor(visitor: string | User): boolean {
+    if (typeof visitor === "string") {
+      if (!this._visitors_id.includes(visitor)) {
+        this._visitors_id.push(visitor);
+        return true;
+      }
+    } else {
+      if (!this._visitors_id.includes(visitor.id)) {
+        this._visitors_id.push(visitor.id);
+        return true;
+      }
+    }
+    return false;
   }
 }
