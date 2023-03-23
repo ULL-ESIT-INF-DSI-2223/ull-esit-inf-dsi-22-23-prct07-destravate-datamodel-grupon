@@ -1,5 +1,5 @@
 import { Coord } from "./coord";
-import { Activity } from "./types/activity";
+import { Activity } from "../types/activity";
 import { User } from "./user";
 
 /**
@@ -27,6 +27,7 @@ export class Route {
   private _visitors_id: string[];
   private _activity: Activity;
   private _avg_score: number;
+
   constructor(
     id: number,
     name: string,
@@ -39,24 +40,24 @@ export class Route {
     avg_score: number
   ) {
     if (id < 0 || id % 1 !== 0) {
-      throw `ID de ruta no válido`;
+      throw new Error(`ID de ruta no válido`);
     }
     this._id = id;
     this._name = name;
     this._ini_cords = ini_cords;
     this._end_cords = end_cords;
     if (length < 0) {
-      throw `Longitud no válida`;
+      throw new Error(`Longitud no válida`);
     }
     this._length = length;
     if (average_slope < 0) {
-      throw `Pendiente media no válida`;
+      throw new Error(`Pendiente media no válida`);
     }
     this._average_slope = average_slope;
     this._visitors_id = visitors_id;
     this._activity = activity;
     if (avg_score < 0) {
-      throw `Puntuación media no válida`;
+      throw new Error(`Puntuación media no válida`);
     }
     this._avg_score = avg_score;
   }
@@ -66,7 +67,7 @@ export class Route {
   }
   public set id(id: number) {
     if (id < 0 || id % 1 !== 0) {
-      throw `ID de ruta no válido`;
+      throw new Error(`ID de ruta no válido`);
     }
     this._id = id;
   }
@@ -97,7 +98,7 @@ export class Route {
   }
   public set length(length: number) {
     if (length < 0) {
-      throw `Longitud no válida`;
+      throw new Error(`Longitud no válida`);
     }
     this._length = length;
   }
@@ -107,7 +108,7 @@ export class Route {
   }
   public set average_slope(average_slope: number) {
     if (average_slope < 0) {
-      throw `Pendiente media no válida`;
+      throw new Error(`Pendiente media no válida`);
     }
     this._average_slope = average_slope;
   }
@@ -131,7 +132,7 @@ export class Route {
   }
   public set avg_score(avg_score: number) {
     if (avg_score < 0) {
-      throw `Puntuación media no válida`;
+      throw new Error(`Puntuación media no válida`);
     }
     this._avg_score = avg_score;
   }

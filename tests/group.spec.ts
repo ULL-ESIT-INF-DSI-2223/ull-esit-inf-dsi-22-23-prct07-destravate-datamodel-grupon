@@ -1,17 +1,42 @@
 import { expect } from "chai";
 import "mocha";
-import { Route } from "../src/route";
-import { Statistics } from "../src/statistics";
-import { Coord } from "../src/coord";
-import { User } from "../src/user";
-import { Group } from "../src/group";
+import { Route } from "../src/classes/route";
+import { Statistics } from "../src/classes/statistics";
+import { Coord } from "../src/classes/coord";
+import { User } from "../src/classes/user";
+import { Group } from "../src/classes/group";
 
 describe("Group class test", () => {
   it("Group constructor ", () => {
+    const usu0 = new User(
+      "pepaso",
+      "Pepe",
+      "Running",
+      ["rodrigodigo", "marcelo"],
+      [2, 5],
+      new Statistics(5, 200, 10, 500, 50, 4000),
+      [6, 4],
+      [1, 3],
+      [[new Date(), 4]]
+    );
+    const usu1 =new User(
+      "tomasote",
+      "Tomás",
+      "Bicycle",
+      ["pepaso", "marcelo"],
+      [2, 4],
+      new Statistics(5, 250, 15, 600, 80, 5500),
+      [6, 4, 8],
+      [1, 3, 4],
+      [
+        [new Date(), 4],
+        [new Date("2022-12-17T03:24:00"), 2],
+      ]
+    )
     const myGroup = new Group(
       1,
       "Grupo1",
-      ["pepe", "juan"],
+      [usu0,usu1],
       [6, 4],
       [[new Date(), 4]]
     );
@@ -22,7 +47,7 @@ describe("Group class test", () => {
         new Group(
           -1,
           "Grupo1",
-          ["pepe", "juan"],
+          [usu0,usu1],
           [6, 4],
           [[new Date(), 4]]
         )
@@ -33,7 +58,7 @@ describe("Group class test", () => {
         new Group(
           1,
           "Grupo1",
-          ["pepe", "juan"],
+          [usu0,usu1],
           [6, 4],
           [[new Date("2025-12-17T03:24:00"), 4]]
         )
@@ -44,17 +69,53 @@ describe("Group class test", () => {
         new Group(
           1,
           "Grupo1",
-          ["pepe", "juan"],
+          [usu0,usu1],
+          [-1, 4],
+          [[new Date(), -1]]
+        )
+    ).to.throw("ID -1 de ruta no válido");
+
+    expect(
+      () =>
+        new Group(
+          1,
+          "Grupo1",
+          [usu0,usu1],
           [6, 4],
           [[new Date(), -1]]
         )
     ).to.throw("ID -1 de ruta del historial no válido");
   });
   it("id property", () => {
+    const usu0 = new User(
+      "pepaso",
+      "Pepe",
+      "Running",
+      ["rodrigodigo", "marcelo"],
+      [2, 5],
+      new Statistics(5, 200, 10, 500, 50, 4000),
+      [6, 4],
+      [1, 3],
+      [[new Date(), 4]]
+    );
+    const usu1 =new User(
+      "tomasote",
+      "Tomás",
+      "Bicycle",
+      ["pepaso", "marcelo"],
+      [2, 4],
+      new Statistics(5, 250, 15, 600, 80, 5500),
+      [6, 4, 8],
+      [1, 3, 4],
+      [
+        [new Date(), 4],
+        [new Date("2022-12-17T03:24:00"), 2],
+      ]
+    )
     const myGroup = new Group(
       1,
       "Grupo1",
-      ["pepe", "juan"],
+      [usu0,usu1],
       [6, 4],
       [[new Date(), 4]]
     );
@@ -64,10 +125,35 @@ describe("Group class test", () => {
     expect(() => (myGroup.id = -1)).to.throw("ID de Grupo no válido");
   });
   it("name property", () => {
+    const usu0 = new User(
+      "pepaso",
+      "Pepe",
+      "Running",
+      ["rodrigodigo", "marcelo"],
+      [2, 5],
+      new Statistics(5, 200, 10, 500, 50, 4000),
+      [6, 4],
+      [1, 3],
+      [[new Date(), 4]]
+    );
+    const usu1 =new User(
+      "tomasote",
+      "Tomás",
+      "Bicycle",
+      ["pepaso", "marcelo"],
+      [2, 4],
+      new Statistics(5, 250, 15, 600, 80, 5500),
+      [6, 4, 8],
+      [1, 3, 4],
+      [
+        [new Date(), 4],
+        [new Date("2022-12-17T03:24:00"), 2],
+      ]
+    )
     const myGroup = new Group(
       1,
       "Grupo1",
-      ["pepe", "juan"],
+      [usu0,usu1],
       [6, 4],
       [[new Date(), 4]]
     );
@@ -76,39 +162,157 @@ describe("Group class test", () => {
     expect(myGroup.name).to.be.eql("Grupo2");
   });
   it("members_id property", () => {
+    const usu0 = new User(
+      "pepaso",
+      "Pepe",
+      "Running",
+      ["rodrigodigo", "marcelo"],
+      [2, 5],
+      new Statistics(5, 200, 10, 500, 50, 4000),
+      [6, 4],
+      [1, 3],
+      [[new Date(), 4]]
+    );
+    const usu1 =new User(
+      "tomasote",
+      "Tomás",
+      "Bicycle",
+      ["pepaso", "marcelo"],
+      [2, 4],
+      new Statistics(5, 250, 15, 600, 80, 5500),
+      [6, 4, 8],
+      [1, 3, 4],
+      [
+        [new Date(), 4],
+        [new Date("2022-12-17T03:24:00"), 2],
+      ]
+    )
     const myGroup = new Group(
       1,
       "Grupo1",
-      ["pepe", "juan"],
+      [usu0,usu1],
       [6, 4],
       [[new Date(), 4]]
     );
-    expect(myGroup.members_id).to.be.eql(["pepe", "juan"]);
-    myGroup.members_id = ["Grupo2"];
-    expect(myGroup.members_id).to.be.eql(["Grupo2"]);
+    expect(myGroup.members_id).to.be.eql(["pepaso", "tomasote"]);
   });
   it("statistics property", () => {
+    const usu0 = new User(
+      "pepaso",
+      "Pepe",
+      "Running",
+      ["rodrigodigo", "marcelo"],
+      [2, 5],
+      new Statistics(5, 200, 10, 500, 50, 4000),
+      [6, 4],
+      [1, 3],
+      [[new Date(), 4]]
+    );
+    const usu1 =new User(
+      "tomasote",
+      "Tomás",
+      "Bicycle",
+      ["pepaso", "marcelo"],
+      [2, 4],
+      new Statistics(5, 250, 15, 600, 80, 5500),
+      [6, 4, 8],
+      [1, 3, 4],
+      [
+        [new Date(), 4],
+        [new Date("2022-12-17T03:24:00"), 2],
+      ]
+    )
     const myGroup = new Group(
       1,
       "Grupo1",
-      ["pepe", "juan"],
+      [usu0,usu1],
       [6, 4],
       [[new Date(), 4]]
     );
     expect(myGroup.statistics).to.be.eql(
+      new Statistics(10, 450, 25, 1100, 130, 9500)
+    );
+    expect (myGroup.removeMember("tomasote")).to.be.true;
+    expect (myGroup.removeMember("tomasote")).to.be.false;
+    expect (myGroup.statistics).to.be.eql(
       new Statistics(5, 200, 10, 500, 50, 4000)
     );
-    myGroup.statistics = new Statistics(5, 200, 10, 500, 50, 3000);
-    expect(myGroup.statistics).to.be.eql(
-      new Statistics(5, 200, 10, 500, 50, 3000)
+    expect (myGroup.addMember(usu1)).to.be.true;
+    expect (myGroup.addMember(usu1)).to.be.false;
+  });
+  it("members_ranking property", () => {
+    const usu0 = new User(
+      "pepaso",
+      "Pepe",
+      "Running",
+      ["rodrigodigo", "marcelo"],
+      [2, 5],
+      new Statistics(5, 200, 10, 500, 80, 4000),
+      [6, 4],
+      [1, 3],
+      [[new Date(), 4]]
     );
+    const usu1 =new User(
+      "tomasote",
+      "Tomás",
+      "Bicycle",
+      ["pepaso", "marcelo"],
+      [2, 4],
+      new Statistics(5, 250, 15, 600, 50, 5500),
+      [6, 4, 8],
+      [1, 3, 4],
+      [
+        [new Date(), 4],
+        [new Date("2022-12-17T03:24:00"), 2],
+      ]
+    )
+    const myGroup = new Group(
+      1,
+      "Grupo1",
+      [usu0,usu1],
+      [6, 4],
+      [[new Date(), 4]]
+    );
+    expect(myGroup.members_ranking).to.be.eql([usu1,usu0])
+    expect(myGroup.removeMember("tomasote")).to.be.true;
+    expect(myGroup.removeMember("tomasote")).to.be.false;
+    expect(myGroup.members_id).to.be.eql(["pepaso"])
+    expect(myGroup.members_ranking).to.be.eql([usu0])
+    expect(myGroup.addMember(usu1)).to.be.true;
+    expect(myGroup.addMember(usu1)).to.be.false;
+    expect(myGroup.members_ranking).to.be.eql([usu1,usu0])
   });
 
   it("favourite_routes property", () => {
+    const usu0 = new User(
+      "pepaso",
+      "Pepe",
+      "Running",
+      ["rodrigodigo", "marcelo"],
+      [2, 5],
+      new Statistics(5, 200, 10, 500, 50, 4000),
+      [6, 4],
+      [1, 3],
+      [[new Date(), 4]]
+    );
+    const usu1 =new User(
+      "tomasote",
+      "Tomás",
+      "Bicycle",
+      ["pepaso", "marcelo"],
+      [2, 4],
+      new Statistics(5, 250, 15, 600, 80, 5500),
+      [6, 4, 8],
+      [1, 3, 4],
+      [
+        [new Date(), 4],
+        [new Date("2022-12-17T03:24:00"), 2],
+      ]
+    )
     const myGroup = new Group(
       1,
       "Grupo1",
-      ["pepe", "juan"],
+      [usu0,usu1],
       [6, 4],
       [[new Date(), 4]]
     );
@@ -145,10 +349,35 @@ describe("Group class test", () => {
   });
 
   it("historical property", () => {
+    const usu0 = new User(
+      "pepaso",
+      "Pepe",
+      "Running",
+      ["rodrigodigo", "marcelo"],
+      [2, 5],
+      new Statistics(5, 200, 10, 500, 50, 4000),
+      [6, 4],
+      [1, 3],
+      [[new Date(), 4]]
+    );
+    const usu1 =new User(
+      "tomasote",
+      "Tomás",
+      "Bicycle",
+      ["pepaso", "marcelo"],
+      [2, 4],
+      new Statistics(5, 250, 15, 600, 80, 5500),
+      [6, 4, 8],
+      [1, 3, 4],
+      [
+        [new Date(), 4],
+        [new Date("2022-12-17T03:24:00"), 2],
+      ]
+    )
     const myGroup = new Group(
       1,
       "Grupo1",
-      ["pepe", "juan"],
+      [usu0,usu1],
       [6, 4],
       [[new Date("2022-12-14T03:24:00"), 4]]
     );

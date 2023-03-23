@@ -11,9 +11,9 @@ export class Coord {
   private _longitude: number;
 
   constructor(latitude: number, longitude: number) {
-    if (latitude < -90 || latitude > 90) throw "Latitud fuera de rango";
+    if (latitude < -90 || latitude > 90) throw new Error("Latitud fuera de rango");
     this._latitude = latitude;
-    if (longitude < -180 || longitude > 180) throw "Longitud fuera de rango";
+    if (longitude < -180 || longitude > 180) throw new Error("Longitud fuera de rango");
     this._longitude = longitude;
   }
 
@@ -22,7 +22,7 @@ export class Coord {
   }
 
   public set longitude(longitude: number) {
-    if (longitude < -180 || longitude > 180) throw "Longitud fuera de rango";
+    if (longitude < -180 || longitude > 180) throw new Error("Longitud fuera de rango");
     this._longitude = longitude;
   }
 
@@ -31,7 +31,7 @@ export class Coord {
   }
 
   public set latitude(latitude: number) {
-    if (latitude < -90 || latitude > 90) throw "Latitud fuera de rango";
+    if (latitude < -90 || latitude > 90) throw new Error("Latitud fuera de rango");
     this._latitude = latitude;
   }
 

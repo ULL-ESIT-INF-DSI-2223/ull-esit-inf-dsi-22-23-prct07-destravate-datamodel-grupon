@@ -1,6 +1,6 @@
 import "mocha";
 import { expect } from "chai";
-import { Coord } from "../src/coord";
+import { Coord } from "../src/classes/coord";
 
 describe("Coord class test", () => {
   it("Cooord constructor ", () => {

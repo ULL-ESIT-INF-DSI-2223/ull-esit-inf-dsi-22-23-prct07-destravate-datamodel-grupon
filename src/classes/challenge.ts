@@ -1,36 +1,46 @@
-import { Activity } from "./types/activity";
+import { Activity } from "../types/activity";
 import { User } from "./user";
 import { Route } from "./route";
 
 export class Challenge {
+  private _id: number
+  private _name: string
   private _routes: number[] = []
+  private _activity: Activity
+  private _total_kilometers: number
   private _users: string[] = []
   
   constructor(
-    private _id: number,
-    private _name: string,
+    id: number,
+    name: string,
     routes: number[],
-    private _activity: Activity,
-    private _total_kilometers: number,
+    activity: Activity,
+    total_kilometers: number,
     users: string[]
   ) {
-    if (_id < 0 || _id % 1 !== 0) {
+    if (id < 0 || id % 1 !== 0) {
       throw "ID del reto no válido";
+    } else {
+      this._id = id;
     }
+    this._name = name;
     const routes_set = new Set(routes);
-    routes_set.forEach((id) => {
-      if (id < 0 || id % 1 !== 0) {
-        throw new Error(`ID ${id} de ruta no válido`);
+    routes_set.forEach((route_id) => {
+      if (route_id < 0 || route_id % 1 !== 0) {
+        throw new Error(`ID ${route_id} de ruta no válido`);
       } else {
-        this._routes.push(id);
+        this._routes.push(route_id);
       }
     });
-    if (_total_kilometers < 0) {
+    this._activity = activity;
+    if (total_kilometers < 0) {
       throw "El total de kilómetros debe ser positivo";
+    } else {
+      this._total_kilometers = total_kilometers;
     }
     const users_set = new Set(users);
-    users_set.forEach((id) => {
-      this._users.push(id);
+    users_set.forEach((user_id) => {
+      this._users.push(user_id);
     });
   }
 
@@ -124,6 +134,7 @@ export class Challenge {
 
   set users(users: string[]) {
     const users_set = new Set(users);
+    this._users.splice(0);
     users_set.forEach((id) => {
       this._users.push(id);
     });

@@ -30,11 +30,11 @@ export class Group {
       throw new Error(`ID de Grupo no válido`);
     }
     const favourite_routes_set = new Set(favourite_routes);
-    favourite_routes_set.forEach((id) => {
-      if (id < 0 || id % 1 !== 0) {
-        throw new Error(`ID ${id} de ruta no válido`);
+    favourite_routes_set.forEach((route_id) => {
+      if (route_id < 0 || route_id % 1 !== 0) {
+        throw new Error(`ID ${route_id} de ruta no válido`);
       } else {
-        this._favourite_routes.push(id);
+        this._favourite_routes.push(route_id);
       }
     });
     const historical_set = new Set(historical);
@@ -85,6 +85,10 @@ export class Group {
   }
   public set name(name: string) {
     this._name = name;
+  }
+
+  public get members_ranking(): User[] {
+    return this._members_ranking;
   }
 
   public get members_id(): string[] {
@@ -171,23 +175,34 @@ export class Group {
       const s5 =  this.statistics.week_kilometers + member.statistics.year_kilometers;
       const s6 =  this.statistics.week_kilometers + member.statistics.year_unevenness;
       this._statistics = new Statistics(s1,s2,s3,s4,s5,s6);
+      this._members_ranking.push(member)
       this._members_ranking.sort((a,b) => (a.statistics.year_kilometers > b.statistics.year_kilometers) ? 1:-1)
       return true;
     }
     return false;
   }
+  
 
   public removeMember(member_id: string): boolean {
     const index = this._members_id.indexOf(member_id);
+    
     if (index > -1) {
-      const s1 =  this.statistics.week_kilometers - this._members_ranking[index].statistics.week_kilometers;
-      const s2 =  this.statistics.week_kilometers - this._members_ranking[index].statistics.week_unevenness;
-      const s3 =  this.statistics.week_kilometers - this._members_ranking[index].statistics.month_kilometers
-      const s4 =  this.statistics.week_kilometers - this._members_ranking[index].statistics.month_unevenness;
-      const s5 =  this.statistics.week_kilometers - this._members_ranking[index].statistics.year_kilometers;
-      const s6 =  this.statistics.week_kilometers - this._members_ranking[index].statistics.year_unevenness;
+      let index_in_ranking = index;
+      this.members_ranking.forEach((element,index2) => {
+        if(element.id ===member_id) {
+          index_in_ranking =index2;
+        }
+      });
+      const s1 =  this.statistics.week_kilometers - this._members_ranking[index_in_ranking].statistics.week_kilometers;
+      const s2 =  this.statistics.week_unevenness - this._members_ranking[index_in_ranking].statistics.week_unevenness;
+      const s3 =  this.statistics.month_kilometers - this._members_ranking[index_in_ranking].statistics.month_kilometers
+      const s4 =  this.statistics.month_unevenness - this._members_ranking[index_in_ranking].statistics.month_unevenness;
+      const s5 =  this.statistics.year_kilometers - this._members_ranking[index_in_ranking].statistics.year_kilometers;
+      const s6 =  this.statistics.year_unevenness - this._members_ranking[index_in_ranking].statistics.year_unevenness;
       this._members_id.splice(index, 1);
+      this._members_ranking.splice(index_in_ranking, 1);
       this._statistics = new Statistics(s1,s2,s3,s4,s5,s6);
+      
       this._members_ranking.sort((a,b) => (a.statistics.year_kilometers > b.statistics.year_kilometers) ? 1:-1)
       return true;
     }

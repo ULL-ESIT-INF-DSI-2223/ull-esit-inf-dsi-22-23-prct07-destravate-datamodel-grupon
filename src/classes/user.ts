@@ -1,57 +1,65 @@
-import { Activity } from "./types/activity";
+import { Activity } from "../types/activity";
 import { Statistics } from "./statistics";
 import { Group } from "./group";
 import { Challenge } from "./challenge";
 import { Route } from "./route";
 
 export class User {
+  private _id: string
+  private _name: string
+  private _activity: Activity
   private _friends: string[] = []
   private _groups: number[] = []
+  private _statistics: Statistics
   private _favourite_routes: number[] = []
   private _active_challenges: number[] = []
   private _historical: [Date, number][] = []
 
   constructor(
-    private _id: string,
-    private _name: string,
-    private _activity: Activity,
+    id: string,
+    name: string,
+    activity: Activity,
     friends: string[],
     groups: number[],
-    private _statistics: Statistics,
+    statistics: Statistics,
     favourite_routes: number[],
     active_challenges: number[],
     historical: [Date, number][]
   ) {
+    this._id = id;
+    this._name = name;
+    this._activity = activity;
     const friends_set = new Set(friends);
-    friends_set.forEach((id) => {
-      if (id === _id) {
+    friends_set.forEach((friend_id) => {
+      if (friend_id === this.id) {
         throw new Error("Un usuario no puede ser amigo de sí mismo");
       } else {
-        this._friends.push(id);
+        this._friends.push(friend_id);
       }
     });
     const groups_set = new Set(groups);
-    groups_set.forEach((id) => {
-      if (id < 0 || id % 1 !== 0) {
-        throw new Error(`ID ${id} de grupo no válido`);
+    groups_set.forEach((group_id) => {
+      if (group_id < 0 || group_id % 1 !== 0) {
+        throw new Error(`ID ${group_id} de grupo no válido`);
       } else {
-        this._groups.push(id);
+        this._groups.push(group_id);
       }
     });
+    this._statistics = statistics;
     const favourite_routes_set = new Set(favourite_routes);
-    favourite_routes_set.forEach((id) => {
-      if (id < 0 || id % 1 !== 0) {
-        throw new Error(`ID ${id} de ruta no válido`);
+    favourite_routes_set.forEach((route_id) => {
+      if (route_id < 0 || route_id % 1 !== 0) {
+        throw new Error(`ID ${route_id} de ruta no válido`);
       } else {
-        this._favourite_routes.push(id);
+        this._favourite_routes.push(route_id);
       }
     });
     const active_challenges_set = new Set(active_challenges);
-    active_challenges_set.forEach((id) => {
-      if (id < 0 || id % 1 !== 0) {
-        throw new Error(`ID ${id} de reto no válido`);
+    active_challenges_set.forEach((challenge_id) => {
+      if (challenge_id < 0 || challenge_id % 1 !== 0) {
+        throw new Error(`ID ${challenge_id} de reto no válido`);
       } else {
-        this._active_challenges.push(id);
+        this._active_challenges.push(challenge_id);
       }
     });
     const historical_set = new Set(historical);
@@ -131,7 +139,7 @@ export class User {
       index = this._friends.indexOf(friend.id);
     }
     if (index > -1) {
-      this._favourite_routes.splice(index, 1);
+      this._friends.splice(index, 1);
       return true;
     }
     return false
@@ -305,25 +313,27 @@ export class User {
 
   public addRouteToHistorical(date: Date, route: number | Route): boolean {
     if (typeof route === "number") {
-      if (route >= 0 && route % 1 === 0 && !this._historical.includes([date, route])) {
+      if (route >= 0 && route % 1 === 0) {
         this._historical.push([date, route]);
         return true;
       }
     } else {
-      if (!this._historical.includes([date, route.id])) {
         this._historical.push([date, route.id]);
         return true;
-      }
     }
     return false;
   }
 
   public removeRouteFromHistorical(date: Date, route: number | Route): boolean {
-    let index: number;
+    let index = -1;
     if (typeof route === "number") {
-      index = this._historical.indexOf([date, route]);
+      this._historical.forEach((element, i) => {if (date.toDateString() === element[0].toDateString() && route === element[1]) {
+        index = i;
+      }})
     } else {
-      index = this._historical.indexOf([date, route.id]);
+      this._historical.forEach((element, i) => {if (date.toDateString() === element[0].toDateString() && route.id === element[1]) {
+        index = i;
+      }})
     }
     if (index > -1) {
       this._historical.splice(index, 1);

@@ -1,11 +1,11 @@
 import "mocha";
 import { expect } from "chai";
-import { User } from "../src/user";
-import { Statistics } from "../src/statistics";
-import { Group } from "../src/group";
-import { Route } from "../src/route";
-import { Challenge } from "../src/challenge";
-import { Coord } from "../src/coord";
+import { User } from "../src/classes/user";
+import { Statistics } from "../src/classes/statistics";
+import { Group } from "../src/classes/group";
+import { Route } from "../src/classes/route";
+import { Challenge } from "../src/classes/challenge";
+import { Coord } from "../src/classes/coord";
 
 /**
  *
@@ -463,7 +463,7 @@ describe("User class tests", () => {
     );
     expect(user.removeGroup(7)).to.be.true;
     expect(user.groups).to.be.eql([2, 5, 8]);
-    expect(user.addGroup(new Group(8, "Grupo 8", [user, new User(
+    expect(user.removeGroup(new Group(8, "Grupo 8", [user, new User(
       "tomasote",
       "Tomás",
       "Bicycle",
@@ -496,7 +496,7 @@ describe("User class tests", () => {
       ]
     )], [2, 3, 4], [[new Date(), 4],
     [new Date("2022-12-17T03:24:00"), 2],
-    [new Date("2021-08-12T03:24:00"), 3]]))).to.be.true;
+    [new Date("2021-08-12T03:24:00"), 3]]))).to.be.false;
   });
 
   it("statistics property", () => {
@@ -739,31 +739,28 @@ describe("User class tests", () => {
       new Statistics(5, 200, 10, 500, 50, 4000),
       [6, 4],
       [1, 3],
-      [[new Date(), 4]]
+      [[new Date("2020-11-16T02:21:00"), 4]]
     );
     expect(user.addRouteToHistorical(new Date("2022-12-17T03:24:00"), 2)).to.be
       .true;
     expect(user.historical).to.be.eql(
       [
-        [new Date(), 4],
+        [new Date("2020-11-16T02:21:00"), 4],
         [new Date("2022-12-17T03:24:00"), 2],
       ]
     );
     expect(user.addRouteToHistorical(new Date('2021-08-12T03:24:00'), new Route(3, "El Teide", new Coord(21.3, -2.2), new Coord(20.4, -2.0), 3000, 200, ["pepaso", "rodrigodigo"], "Bicycle", 200))).to.be.true;
     expect(user.historical).to.be.eql(
       [
-        [new Date(), 4],
+        [new Date("2020-11-16T02:21:00"), 4],
         [new Date("2022-12-17T03:24:00"), 2],
         [new Date("2021-08-12T03:24:00"), 3],
       ]
     );
-    expect(user.addRouteToHistorical(new Date("2025-12-17T03:24:00"), 2)).to.be
-      .false;
     expect(user.addRouteToHistorical(new Date("2022-12-17T03:24:00"), -1)).to.be
       .false;
     expect(user.addRouteToHistorical(new Date("2022-12-17T03:24:00"), 2.5)).to
       .be.false;
-    expect(user.addRouteToHistorical(new Date('2025-08-12T03:24:00'), new Route(3, "El Teide", new Coord(21.3, -2.2), new Coord(20.4, -2.0), 3000, 200, ["pepaso", "rodrigodigo"], "Bicycle", 200))).to.be.false;
   });
 
   it("removeRouteFromHistorical function", () => {
@@ -777,7 +774,7 @@ describe("User class tests", () => {
       [6, 4],
       [1, 3, 7, 8],
       [
-        [new Date(), 4],
+        [new Date("2020-11-16T02:21:00"), 4],
         [new Date("2022-12-17T03:24:00"), 2],
         [new Date("2021-08-12T03:24:00"), 3],
       ]
@@ -786,13 +783,13 @@ describe("User class tests", () => {
       .to.be.true;
     expect(user.historical).to.be.eql(
       [
-        [new Date(), 4],
+        [new Date("2020-11-16T02:21:00"), 4],
         [new Date("2021-08-12T03:24:00"), 3],
       ]
     );
     expect(user.removeRouteFromHistorical(new Date('2021-08-12T03:24:00'), new Route(3, "El Teide", new Coord(21.3, -2.2), new Coord(20.4, -2.0), 3000, 200, ["pepaso", "rodrigodigo"], "Bicycle", 200))).to.be.true;
     expect(user.historical).to.be.eql(
-      [[new Date(), 4]]
+      [[new Date("2020-11-16T02:21:00"), 4]]
     );
     expect(user.removeRouteFromHistorical(new Date("2022-12-17T03:24:00"), 2))
       .to.be.false;

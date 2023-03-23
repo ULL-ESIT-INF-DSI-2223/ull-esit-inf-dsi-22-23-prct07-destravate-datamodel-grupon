@@ -1,10 +1,10 @@
 import "mocha";
 import { expect } from "chai";
-import { Challenge } from "../src/challenge";
-import { Route } from "../src/route";
-import { User } from "../src/user";
-import { Statistics } from "../src/statistics";
-import { Coord } from "../src/coord";
+import { Challenge } from "../src/classes/challenge";
+import { Route } from "../src/classes/route";
+import { User } from "../src/classes/user";
+import { Statistics } from "../src/classes/statistics";
+import { Coord } from "../src/classes/coord";
 
 describe("Challenge class tests", () => {
   it("Challenge constructor", () => {

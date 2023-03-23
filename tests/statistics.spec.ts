@@ -1,6 +1,6 @@
 import "mocha";
 import { expect } from "chai";
-import { Statistics } from "../src/statistics";
+import { Statistics } from "../src/classes/statistics";
 
 describe("Statistics class tests", () => {
   it("Statistics constructor", () => {
