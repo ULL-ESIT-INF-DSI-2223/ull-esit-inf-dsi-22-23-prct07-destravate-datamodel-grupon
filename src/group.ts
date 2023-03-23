@@ -1,5 +1,6 @@
 import { Route } from "./route";
 import { Statistics } from "./statistics";
+import { User } from "./user";
 /**
  *
  * Clase que representa una ruta
@@ -10,25 +11,64 @@ import { Statistics } from "./statistics";
  *
  */
 export class Group {
+  private _favourite_routes: number[] = [];
+  private _historical: [Date, number][] = [];
+  private _id: number;
+  private _name: string;
+  private _members_id: string[];
+  private _statistics: Statistics;
+  private _members_ranking: User[];
+
   constructor(
-    private _id: number,
-    private _name: string,
-    private _members_id: string[],
-    private _statistics: Statistics,
-    private _favourite_routes: Set<number>,
-    private _historical: Set<[Date, number]>
+    id: number,
+    name: string,
+    members: User[],
+    favourite_routes: number[],
+    historical: [Date, number][]
   ) {
-    if (_id < 0 || _id % 1 !== 0) {
-      throw `ID de Grupo no válido`;
+    if (id < 0 || id % 1 !== 0) {
+      throw new Error(`ID de Grupo no válido`);
     }
-    _historical.forEach((element) => {
-      if (element[0] > new Date()) {
-        throw "La fecha de una ruta del historial no puede ser futura";
-      }
-      if (element[1] < 0 || element[1] % 1 !== 0) {
-        throw `ID ${element[1]} de ruta del historial no válido`;
+    const favourite_routes_set = new Set(favourite_routes);
+    favourite_routes_set.forEach((id) => {
+      if (id < 0 || id % 1 !== 0) {
+        throw new Error(`ID ${id} de ruta no válido`);
+      } else {
+        this._favourite_routes.push(id);
       }
     });
+    const historical_set = new Set(historical);
+    historical_set.forEach((element) => {
+      if (element[0] > new Date()) {
+        throw new Error("La fecha de una ruta del historial no puede ser futura");
+      }
+      if (element[1] < 0 || element[1] % 1 !== 0) {
+        throw new Error(`ID ${element[1]} de ruta del historial no válido`);
+      } else {
+        this._historical.push(element);
+      }
+    });
+    this._id = id;
+    this._name = name;
+    this._members_id= [];
+    let s1 = 0;
+    let s2 = 0;
+    let s3 = 0;
+    let s4 = 0;
+    let s5 = 0;
+    let s6 = 0;
+    this._members_ranking = members;
+    this._members_ranking.sort((a,b) => (a.statistics.year_kilometers > b.statistics.year_kilometers) ? 1:-1)
+    members.forEach(member => {
+      this._members_id.push(member.id)
+      s1 = s1 + member.statistics.week_kilometers;
+      s2 = s2 + member.statistics.week_unevenness;
+      s3 = s3 + member.statistics.month_kilometers
+      s4 = s4 + member.statistics.month_unevenness;
+      s5 = s5 + member.statistics.year_kilometers;
+      s6 = s6 + member.statistics.year_unevenness;
+    });
+    this._statistics = new Statistics(s1,s2,s3,s4,s5,s6);
   }
 
   public get id(): number {
@@ -36,7 +76,7 @@ export class Group {
   }
   public set id(id: number) {
     if (id < 0 || id % 1 !== 0) {
-      throw `ID de Grupo no válido`;
+      throw new Error(`ID de Grupo no válido`);
     }
     this._id = id;
   }
@@ -46,43 +86,41 @@ export class Group {
   public set name(name: string) {
     this._name = name;
   }
+
   public get members_id(): string[] {
     return this._members_id;
-  }
-  public set members_id(members_id: string[]) {
-    this._members_id = members_id;
   }
 
   public get statistics(): Statistics {
     return this._statistics;
   }
 
-  public set statistics(statistics: Statistics) {
-    this._statistics = statistics;
-  }
-
-  get favourite_routes(): Set<number> {
+  get favourite_routes(): number[] {
     return this._favourite_routes;
   }
 
-  set favourite_routes(favourite_routes: Set<number>) {
-    favourite_routes.forEach((id) => {
+  set favourite_routes(favourite_routes: number[]) {
+    const favourite_routes_set = new Set(favourite_routes);
+    const tmp = this._favourite_routes.splice(0);
+    favourite_routes_set.forEach((id) => {
       if (id < 0 || id % 1 !== 0) {
-        throw `ID ${id} de ruta no válido`;
+        this._favourite_routes = tmp;
+        throw new Error(`ID ${id} de ruta no válido`);
+      } else {
+        this._favourite_routes.push(id);
       }
     });
-    this._favourite_routes = favourite_routes;
   }
 
   public addFavouriteRoute(route: number | Route): boolean {
     if (typeof route === "number") {
-      if (route >= 0 && route % 1 === 0 && !this._favourite_routes.has(route)) {
-        this._favourite_routes.add(route);
+      if (route >= 0 && route % 1 === 0 && !this._favourite_routes.includes(route)) {
+        this._favourite_routes.push(route);
         return true;
       }
     } else {
-      if (!this._favourite_routes.has(route.id)) {
-        this._favourite_routes.add(route.id);
+      if (!this._favourite_routes.includes(route.id)) {
+        this._favourite_routes.push(route.id);
         return true;
       }
     }
@@ -90,26 +128,70 @@ export class Group {
   }
 
   public removeFavouriteRoute(route: number | Route): boolean {
+    let index: number;
     if (typeof route === "number") {
-      return this._favourite_routes.delete(route);
+      index = this._favourite_routes.indexOf(route);
     } else {
-      return this._favourite_routes.delete(route.id);
+      index = this._favourite_routes.indexOf(route.id);
     }
+    if (index > -1) {
+      this._favourite_routes.splice(index, 1);
+      return true;
+    }
+    return false
   }
 
-  get historical(): Set<[Date, number]> {
+  get historical(): [Date, number][] {
     return this._historical;
   }
 
-  set historical(historical: Set<[Date, number]>) {
-    historical.forEach((element) => {
+  set historical(historical: [Date, number][]) {
+    const historical_set = new Set(historical);
+    const tmp = this._historical.splice(0);
+    historical_set.forEach((element) => {
       if (element[0] > new Date()) {
-        throw "La fecha de una ruta del historial no puede ser futura";
+        this._historical = tmp;
+        throw new Error("La fecha de una ruta del historial no puede ser futura");
       }
       if (element[1] < 0 || element[1] % 1 !== 0) {
-        throw `ID ${element[1]} de ruta del historial no válido`;
+        throw new Error(`ID ${element[1]} de ruta del historial no válido`);
+      } else {
+        this._historical.push(element);
       }
     });
-    this._historical = historical;
   }
+
+  public addMember(member: User): boolean {
+    if (!this._members_id.includes(member.id)) {
+      this._members_id.push(member.id)
+      const s1 =  this.statistics.week_kilometers + member.statistics.week_kilometers;
+      const s2 =  this.statistics.week_kilometers + member.statistics.week_unevenness;
+      const s3 =  this.statistics.week_kilometers + member.statistics.month_kilometers
+      const s4 =  this.statistics.week_kilometers + member.statistics.month_unevenness;
+      const s5 =  this.statistics.week_kilometers + member.statistics.year_kilometers;
+      const s6 =  this.statistics.week_kilometers + member.statistics.year_unevenness;
+      this._statistics = new Statistics(s1,s2,s3,s4,s5,s6);
+      this._members_ranking.sort((a,b) => (a.statistics.year_kilometers > b.statistics.year_kilometers) ? 1:-1)
+      return true;
+    }
+    return false;
+  }
+
+  public removeMember(member_id: string): boolean {
+    const index = this._members_id.indexOf(member_id);
+    if (index > -1) {
+      const s1 =  this.statistics.week_kilometers - this._members_ranking[index].statistics.week_kilometers;
+      const s2 =  this.statistics.week_kilometers - this._members_ranking[index].statistics.week_unevenness;
+      const s3 =  this.statistics.week_kilometers - this._members_ranking[index].statistics.month_kilometers
+      const s4 =  this.statistics.week_kilometers - this._members_ranking[index].statistics.month_unevenness;
+      const s5 =  this.statistics.week_kilometers - this._members_ranking[index].statistics.year_kilometers;
+      const s6 =  this.statistics.week_kilometers - this._members_ranking[index].statistics.year_unevenness;
+      this._members_id.splice(index, 1);
+      this._statistics = new Statistics(s1,s2,s3,s4,s5,s6);
+      this._members_ranking.sort((a,b) => (a.statistics.year_kilometers > b.statistics.year_kilometers) ? 1:-1)
+      return true;
+    }
+    return false;
+  }
+
 }

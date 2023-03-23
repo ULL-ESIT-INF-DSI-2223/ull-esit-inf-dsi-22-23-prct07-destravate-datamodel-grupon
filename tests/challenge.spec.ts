@@ -12,10 +12,10 @@ describe("Challenge class tests", () => {
       new Challenge(
         1,
         "Reto Extremo",
-        new Set<number>([2, 4, 5]),
+        [2, 4, 5],
         "Running",
         60,
-        new Set<string>(["pepaso", "rodrigodigo"])
+        ["pepaso", "rodrigodigo"]
       )
     ).to.be.instanceof(Challenge);
     expect(
@@ -23,10 +23,10 @@ describe("Challenge class tests", () => {
         new Challenge(
           -1,
           "Reto Extremo",
-          new Set<number>([2, 4, 5]),
+          [2, 4, 5],
           "Running",
           60,
-          new Set<string>(["pepaso", "rodrigodigo"])
+          ["pepaso", "rodrigodigo"]
         )
     ).to.throw("ID del reto no válido");
     expect(
@@ -34,10 +34,10 @@ describe("Challenge class tests", () => {
         new Challenge(
           1.5,
           "Reto Extremo",
-          new Set<number>([2, 4, 5]),
+          [2, 4, 5],
           "Running",
           60,
-          new Set<string>(["pepaso", "rodrigodigo"])
+          ["pepaso", "rodrigodigo"]
         )
     ).to.throw("ID del reto no válido");
     expect(
@@ -45,10 +45,10 @@ describe("Challenge class tests", () => {
         new Challenge(
           1,
           "Reto Extremo",
-          new Set<number>([-2, 4, 5]),
+          [-2, 4, 5],
           "Running",
           60,
-          new Set<string>(["pepaso", "rodrigodigo"])
+          ["pepaso", "rodrigodigo"]
         )
     ).to.throw("ID -2 de ruta no válido");
     expect(
@@ -56,10 +56,10 @@ describe("Challenge class tests", () => {
         new Challenge(
           1,
           "Reto Extremo",
-          new Set<number>([2, 4.5, 5]),
+          [2, 4.5, 5],
           "Running",
           60,
-          new Set<string>(["pepaso", "rodrigodigo"])
+          ["pepaso", "rodrigodigo"]
         )
     ).to.throw("ID 4.5 de ruta no válido");
     expect(
@@ -67,10 +67,10 @@ describe("Challenge class tests", () => {
         new Challenge(
           1,
           "Reto Extremo",
-          new Set<number>([2, 4, 5]),
+          [2, 4, 5],
           "Running",
           -10,
-          new Set<string>(["pepaso", "rodrigodigo"])
+          ["pepaso", "rodrigodigo"]
         )
     ).to.throw("El total de kilómetros debe ser positivo");
   });
@@ -79,10 +79,10 @@ describe("Challenge class tests", () => {
     const challenge: Challenge = new Challenge(
       1,
       "Reto Extremo",
-      new Set<number>([2, 4, 5]),
+      [2, 4, 5],
       "Running",
       60,
-      new Set<string>(["pepaso", "rodrigodigo"])
+      ["pepaso", "rodrigodigo"]
     );
     expect(challenge.id).to.be.equal(1);
     challenge.id = 3;
@@ -95,10 +95,10 @@ describe("Challenge class tests", () => {
     const challenge: Challenge = new Challenge(
       1,
       "Reto Extremo",
-      new Set<number>([2, 4, 5]),
+      [2, 4, 5],
       "Running",
       60,
-      new Set<string>(["pepaso", "rodrigodigo"])
+      ["pepaso", "rodrigodigo"]
     );
     expect(challenge.name).to.be.equal("Reto Extremo");
     challenge.name = "Transvulcania";
@@ -109,18 +109,18 @@ describe("Challenge class tests", () => {
     const challenge: Challenge = new Challenge(
       1,
       "Reto Extremo",
-      new Set<number>([2, 4, 5]),
+      [2, 4, 5],
       "Running",
       60,
-      new Set<string>(["pepaso", "rodrigodigo"])
+      ["pepaso", "rodrigodigo"]
     );
-    expect(challenge.routes).to.be.eql(new Set<number>([2, 4, 5]));
-    challenge.routes = new Set<number>([7, 8]);
-    expect(challenge.routes).to.be.eql(new Set<number>([7, 8]));
-    expect(() => (challenge.routes = new Set<number>([-1, 4, 5]))).to.throw(
+    expect(challenge.routes).to.be.eql([2, 4, 5]);
+    challenge.routes = [7, 8];
+    expect(challenge.routes).to.be.eql([7, 8]);
+    expect(() => (challenge.routes = [-1, 4, 5])).to.throw(
       "ID -1 de ruta no válido"
     );
-    expect(() => (challenge.routes = new Set<number>([2, 4.5, 5]))).to.throw(
+    expect(() => (challenge.routes = [2, 4.5, 5])).to.throw(
       "ID 4.5 de ruta no válido"
     );
   });
@@ -129,15 +129,15 @@ describe("Challenge class tests", () => {
     const challenge: Challenge = new Challenge(
       1,
       "Reto Extremo",
-      new Set<number>([2, 4, 5]),
+      [2, 4, 5],
       "Running",
       60,
-      new Set<string>(["pepaso", "rodrigodigo"])
+      ["pepaso", "rodrigodigo"]
     );
     expect(challenge.addRoute(7)).to.be.true;
-    expect(challenge.routes).to.be.eql(new Set<number>([2, 4, 5, 7]));
+    expect(challenge.routes).to.be.eql([2, 4, 5, 7]);
     expect(challenge.addRoute(new Route(8, "Las Cañadas", new Coord(20.3, -2.2), new Coord(20.4, -2.0), 2000, 200, ["pepaso", "rodrigodigo"], "Running", 200))).to.be.true;
-    expect(challenge.routes).to.be.eql(new Set<number>([2, 4, 5, 7, 8]));
+    expect(challenge.routes).to.be.eql([2, 4, 5, 7, 8]);
     expect(challenge.addRoute(-1)).to.be.false;
     expect(challenge.addRoute(6.5)).to.be.false;
     expect(challenge.addRoute(5)).to.be.false;
@@ -148,15 +148,15 @@ describe("Challenge class tests", () => {
     const challenge: Challenge = new Challenge(
       1,
       "Reto Extremo",
-      new Set<number>([2, 4, 5, 7, 8]),
+      [2, 4, 5, 7, 8],
       "Running",
       60,
-      new Set<string>(["pepaso", "rodrigodigo"])
+      ["pepaso", "rodrigodigo"]
     );
     expect(challenge.removeRoute(7)).to.be.true;
-    expect(challenge.routes).to.be.eql(new Set<number>([2, 4, 5, 8]));
+    expect(challenge.routes).to.be.eql([2, 4, 5, 8]);
     expect(challenge.removeRoute(new Route(8, "Las Cañadas", new Coord(20.3, -2.2), new Coord(20.4, -2.0), 2000, 200, ["pepaso", "rodrigodigo"], "Running", 200))).to.be.true;
-    expect(challenge.routes).to.be.eql(new Set<number>([2, 4, 5]));
+    expect(challenge.routes).to.be.eql([2, 4, 5]);
     expect(challenge.removeRoute(8)).to.be.false;
     expect(challenge.removeRoute(new Route(7, "Cruz del Carmen - Punta del Hidalgo", new Coord(21.3, -1.2), new Coord(20.9, -1.8), 10000, 1000, ["pepaso", "marcelo"], "Running", 150))).to.be.false;
   });
@@ -165,10 +165,10 @@ describe("Challenge class tests", () => {
     const challenge: Challenge = new Challenge(
       1,
       "Reto Extremo",
-      new Set<number>([2, 4, 5]),
+      [2, 4, 5],
       "Running",
       60,
-      new Set<string>(["pepaso", "rodrigodigo"])
+      ["pepaso", "rodrigodigo"]
     );
     expect(challenge.activity).to.be.equal("Running");
     challenge.activity = "Bicycle";
@@ -179,10 +179,10 @@ describe("Challenge class tests", () => {
     const challenge: Challenge = new Challenge(
       1,
       "Reto Extremo",
-      new Set<number>([2, 4, 5]),
+      [2, 4, 5],
       "Running",
       60,
-      new Set<string>(["pepaso", "rodrigodigo"])
+      ["pepaso", "rodrigodigo"]
     );
     expect(challenge.total_kilometers).to.be.equal(60);
     challenge.total_kilometers = 75.5;
@@ -196,17 +196,17 @@ describe("Challenge class tests", () => {
     const challenge: Challenge = new Challenge(
       1,
       "Reto Extremo",
-      new Set<number>([2, 4, 5]),
+      [2, 4, 5],
       "Running",
       60,
-      new Set<string>(["pepaso", "rodrigodigo"])
+      ["pepaso", "rodrigodigo"]
     );
     expect(challenge.users).to.be.eql(
-      new Set<string>(["pepaso", "rodrigodigo"])
+      ["pepaso", "rodrigodigo"]
     );
-    challenge.users = new Set<string>(["alfredillo", "tomasote"]);
+    challenge.users = ["alfredillo", "tomasote"];
     expect(challenge.users).to.be.eql(
-      new Set<string>(["alfredillo", "tomasote"])
+      ["alfredillo", "tomasote"]
     );
   });
 
@@ -214,14 +214,14 @@ describe("Challenge class tests", () => {
     const challenge: Challenge = new Challenge(
       1,
       "Reto Extremo",
-      new Set<number>([2, 4, 5]),
+      [2, 4, 5],
       "Running",
       60,
-      new Set<string>(["pepaso", "rodrigodigo"])
+      ["pepaso", "rodrigodigo"]
     );
     expect(challenge.addUser("alfredillo")).to.be.true;
     expect(challenge.users).to.be.eql(
-      new Set<string>(["pepaso", "rodrigodigo", "alfredillo"])
+      ["pepaso", "rodrigodigo", "alfredillo"]
     );
     expect(
       challenge.addUser(
@@ -229,20 +229,20 @@ describe("Challenge class tests", () => {
           "tomasote",
           "Tomás",
           "Bicycle",
-          new Set<string>(["pepaso", "marcelo"]),
-          new Set<number>([2, 4]),
+          ["pepaso", "marcelo"],
+          [2, 4],
           new Statistics(5, 250, 15, 600, 80, 5500),
-          new Set<number>([6, 4, 8]),
-          new Set<number>([1, 3, 4]),
-          new Set<[Date, number]>([
+          [6, 4, 8],
+          [1, 3, 4],
+          [
             [new Date(), 4],
             [new Date("2022-12-17T03:24:00"), 2],
-          ])
+          ]
         )
       )
     ).to.be.true;
     expect(challenge.users).to.be.eql(
-      new Set<string>(["pepaso", "rodrigodigo", "alfredillo", "tomasote"])
+      ["pepaso", "rodrigodigo", "alfredillo", "tomasote"]
     );
     expect(challenge.addUser("pepaso")).to.be.false;
     expect(
@@ -251,12 +251,12 @@ describe("Challenge class tests", () => {
           "pepaso",
           "Pepe",
           "Running",
-          new Set<string>(["rodrigodigo", "marcelo"]),
-          new Set<number>([2, 5]),
+          ["rodrigodigo", "marcelo"],
+          [2, 5],
           new Statistics(5, 200, 10, 500, 50, 4000),
-          new Set<number>([6, 4]),
-          new Set<number>([1, 3]),
-          new Set<[Date, number]>([[new Date(), 4]])
+          [6, 4],
+          [1, 3],
+          [[new Date(), 4]]
         )
       )
     ).to.be.false;
@@ -266,14 +266,14 @@ describe("Challenge class tests", () => {
     const challenge: Challenge = new Challenge(
       1,
       "Reto Extremo",
-      new Set<number>([2, 4, 5]),
+      [2, 4, 5],
       "Running",
       60,
-      new Set<string>(["pepaso", "rodrigodigo", "alfredillo", "tomasote"])
+      ["pepaso", "rodrigodigo", "alfredillo", "tomasote"]
     );
     expect(challenge.removeUser("alfredillo")).to.be.true;
     expect(challenge.users).to.be.eql(
-      new Set<string>(["pepaso", "rodrigodigo", "tomasote"])
+      ["pepaso", "rodrigodigo", "tomasote"]
     );
     expect(
       challenge.removeUser(
@@ -281,20 +281,20 @@ describe("Challenge class tests", () => {
           "tomasote",
           "Tomás",
           "Bicycle",
-          new Set<string>(["pepaso", "marcelo"]),
-          new Set<number>([2, 4]),
+          ["pepaso", "marcelo"],
+          [2, 4],
           new Statistics(5, 250, 15, 600, 80, 5500),
-          new Set<number>([6, 4, 8]),
-          new Set<number>([1, 3, 4]),
-          new Set<[Date, number]>([
+          [6, 4, 8],
+          [1, 3, 4],
+          [
             [new Date(), 4],
             [new Date("2022-12-17T03:24:00"), 2],
-          ])
+          ]
         )
       )
     ).to.be.true;
     expect(challenge.users).to.be.eql(
-      new Set<string>(["pepaso", "rodrigodigo"])
+      ["pepaso", "rodrigodigo"]
     );
     expect(challenge.removeUser("alfredillo")).to.be.false;
     expect(
@@ -303,15 +303,15 @@ describe("Challenge class tests", () => {
           "tomasote",
           "Tomás",
           "Bicycle",
-          new Set<string>(["pepaso", "marcelo"]),
-          new Set<number>([2, 4]),
+          ["pepaso", "marcelo"],
+          [2, 4],
           new Statistics(5, 250, 15, 600, 80, 5500),
-          new Set<number>([6, 4, 8]),
-          new Set<number>([1, 3, 4]),
-          new Set<[Date, number]>([
+          [6, 4, 8],
+          [1, 3, 4],
+          [
             [new Date(), 4],
             [new Date("2022-12-17T03:24:00"), 2],
-          ])
+          ]
         )
       )
     ).to.be.false;

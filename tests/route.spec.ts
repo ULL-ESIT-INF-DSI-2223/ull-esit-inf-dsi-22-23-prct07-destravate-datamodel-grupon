@@ -199,12 +199,12 @@ describe("Route class test", () => {
       "pepaso",
       "Pepe",
       "Running",
-      new Set<string>(["rodrigodigo", "marcelo"]),
-      new Set<number>([2, 5]),
+      ["rodrigodigo", "marcelo"],
+      [2, 5],
       new Statistics(5, 200, 10, 500, 50, 4000),
-      new Set<number>([6, 4]),
-      new Set<number>([1, 3]),
-      new Set<[Date, number]>([[new Date(), 4]])
+      [6, 4],
+      [1, 3],
+      [[new Date(), 4]]
     );
 
     expect(myRoute.visitors_id).to.be.eql([]);

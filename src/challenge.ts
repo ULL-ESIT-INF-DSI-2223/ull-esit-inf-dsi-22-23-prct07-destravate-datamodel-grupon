@@ -3,25 +3,35 @@ import { User } from "./user";
 import { Route } from "./route";
 
 export class Challenge {
+  private _routes: number[] = []
+  private _users: string[] = []
+  
   constructor(
     private _id: number,
     private _name: string,
-    private _routes: Set<number>,
+    routes: number[],
     private _activity: Activity,
     private _total_kilometers: number,
-    private _users: Set<string>
+    users: string[]
   ) {
     if (_id < 0 || _id % 1 !== 0) {
       throw "ID del reto no válido";
     }
-    _routes.forEach((id) => {
+    const routes_set = new Set(routes);
+    routes_set.forEach((id) => {
       if (id < 0 || id % 1 !== 0) {
-        throw `ID ${id} de ruta no válido`;
+        throw new Error(`ID ${id} de ruta no válido`);
+      } else {
+        this._routes.push(id);
       }
     });
     if (_total_kilometers < 0) {
       throw "El total de kilómetros debe ser positivo";
     }
+    const users_set = new Set(users);
+    users_set.forEach((id) => {
+      this._users.push(id);
+    });
   }
 
   get id(): number {
@@ -43,28 +53,32 @@ export class Challenge {
     this._name = name;
   }
 
-  get routes(): Set<number> {
+  get routes(): number[] {
     return this._routes;
   }
 
-  set routes(routes: Set<number>) {
-    routes.forEach((id) => {
+  set routes(routes: number[]) {
+    const routes_set = new Set(routes);
+    const tmp = this._routes.splice(0);
+    routes_set.forEach((id) => {
       if (id < 0 || id % 1 !== 0) {
-        throw `ID ${id} de ruta no válido`;
+        this._routes = tmp;
+        throw new Error(`ID ${id} de ruta no válido`);
+      } else {
+        this._routes.push(id);
       }
     });
-    this._routes = routes;
   }
 
   public addRoute(route: number | Route): boolean {
     if (typeof route === "number") {
-      if (route >= 0 && route % 1 === 0 && !this._routes.has(route)) {
-        this._routes.add(route);
+      if (route >= 0 && route % 1 === 0 && !this._routes.includes(route)) {
+        this._routes.push(route);
         return true;
       }
     } else {
-      if (!this._routes.has(route.id)) {
-        this._routes.add(route.id);
+      if (!this._routes.includes(route.id)) {
+        this._routes.push(route.id);
         return true;
       }
     }
@@ -72,11 +86,17 @@ export class Challenge {
   }
 
   public removeRoute(route: number | Route): boolean {
+    let index: number;
     if (typeof route === "number") {
-      return this._routes.delete(route);
+      index = this._routes.indexOf(route);
     } else {
-      return this._routes.delete(route.id);
+      index = this._routes.indexOf(route.id);
     }
+    if (index > -1) {
+      this._routes.splice(index, 1);
+      return true;
+    }
+    return false
   }
 
   get activity(): Activity {
@@ -98,23 +118,26 @@ export class Challenge {
     this._total_kilometers = total_kilometers;
   }
 
-  get users(): Set<string> {
+  get users(): string[] {
     return this._users;
   }
 
-  set users(users: Set<string>) {
-    this._users = users;
+  set users(users: string[]) {
+    const users_set = new Set(users);
+    users_set.forEach((id) => {
+      this._users.push(id);
+    });
   }
 
   public addUser(user: string | User): boolean {
     if (typeof user === "string") {
-      if (!this._users.has(user)) {
-        this._users.add(user);
+      if (!this._users.includes(user)) {
+        this._users.push(user);
         return true;
       }
     } else {
-      if (!this._users.has(user.id)) {
-        this._users.add(user.id);
+      if (!this._users.includes(user.id)) {
+        this._users.push(user.id);
         return true;
       }
     }
@@ -122,10 +145,16 @@ export class Challenge {
   }
 
   public removeUser(user: string | User): boolean {
+    let index: number;
     if (typeof user === "string") {
-      return this._users.delete(user);
+      index = this._users.indexOf(user);
     } else {
-      return this._users.delete(user.id);
+      index = this._users.indexOf(user.id);
     }
+    if (index > -1) {
+      this._users.splice(index, 1);
+      return true;
+    }
+    return false
   }
 }

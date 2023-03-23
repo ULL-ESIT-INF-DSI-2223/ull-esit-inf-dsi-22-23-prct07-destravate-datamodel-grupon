@@ -5,41 +5,64 @@ import { Challenge } from "./challenge";
 import { Route } from "./route";
 
 export class User {
+  private _friends: string[] = []
+  private _groups: number[] = []
+  private _favourite_routes: number[] = []
+  private _active_challenges: number[] = []
+  private _historical: [Date, number][] = []
+
   constructor(
     private _id: string,
     private _name: string,
     private _activity: Activity,
-    private _friends: Set<string>,
-    private _groups: Set<number>,
+    friends: string[],
+    groups: number[],
     private _statistics: Statistics,
-    private _favourite_routes: Set<number>,
-    private _active_challenges: Set<number>,
-    private _historical: Set<[Date, number]>
+    favourite_routes: number[],
+    active_challenges: number[],
+    historical: [Date, number][]
   ) {
-    if (_friends.has(_id)) {
-      throw "Un usuario no puede ser amigo de sí mismo";
-    }
-    _groups.forEach((id) => {
-      if (id < 0 || id % 1 !== 0) {
-        throw `ID ${id} de grupo no válido`;
+    const friends_set = new Set(friends);
+    friends_set.forEach((id) => {
+      if (id === _id) {
+        throw new Error("Un usuario no puede ser amigo de sí mismo");
+      } else {
+        this._friends.push(id);
       }
     });
-    _favourite_routes.forEach((id) => {
+    const groups_set = new Set(groups);
+    groups_set.forEach((id) => {
       if (id < 0 || id % 1 !== 0) {
-        throw `ID ${id} de ruta no válido`;
+        throw new Error(`ID ${id} de grupo no válido`);
+      } else {
+        this._groups.push(id);
       }
     });
-    _active_challenges.forEach((id) => {
+    const favourite_routes_set = new Set(favourite_routes);
+    favourite_routes_set.forEach((id) => {
       if (id < 0 || id % 1 !== 0) {
-        throw `ID ${id} de reto no válido`;
+        throw new Error(`ID ${id} de ruta no válido`);
+      } else {
+        this._favourite_routes.push(id);
       }
     });
-    _historical.forEach((element) => {
+    const active_challenges_set = new Set(active_challenges);
+    active_challenges_set.forEach((id) => {
+      if (id < 0 || id % 1 !== 0) {
+        throw new Error(`ID ${id} de reto no válido`);
+      } else {
+        this._active_challenges.push(id);
+      }
+    });
+    const historical_set = new Set(historical);
+    historical_set.forEach((element) => {
       if (element[0] > new Date()) {
-        throw "La fecha de una ruta del historial no puede ser futura";
+        throw new Error("La fecha de una ruta del historial no puede ser futura");
       }
       if (element[1] < 0 || element[1] % 1 !== 0) {
-        throw `ID ${element[1]} de ruta del historial no válido`;
+        throw new Error(`ID ${element[1]} de ruta del historial no válido`);
+      } else {
+        this._historical.push(element);
       }
     });
   }
@@ -68,26 +91,32 @@ export class User {
     this._activity = activity;
   }
 
-  get friends(): Set<string> {
+  get friends(): string[] {
     return this._friends;
   }
 
-  set friends(friends: Set<string>) {
-    if (friends.has(this._id)) {
-      throw "Un usuario no puede ser amigo de sí mismo";
-    }
-    this._friends = friends;
+  set friends(friends: string[]) {
+    const friends_set = new Set(friends);
+    const tmp = this._friends.splice(0);
+    friends_set.forEach((id) => {
+      if (id === this._id) {
+        this._friends = tmp;
+        throw new Error("Un usuario no puede ser amigo de sí mismo");
+      } else {
+        this._friends.push(id);
+      }
+    });
   }
 
   public addFriend(friend: string | User): boolean {
     if (typeof friend === "string") {
-      if (!this._friends.has(friend) && friend !== this.id) {
-        this._friends.add(friend);
+      if (!this._friends.includes(friend) && friend !== this.id) {
+        this._friends.push(friend);
         return true;
       }
     } else {
-      if (!this._friends.has(friend.id) && friend.id !== this.id) {
-        this._friends.add(friend.id);
+      if (!this._friends.includes(friend.id) && friend.id !== this.id) {
+        this._friends.push(friend.id);
         return true;
       }
     }
@@ -95,35 +124,45 @@ export class User {
   }
 
   public removeFriend(friend: string | User): boolean {
+    let index: number;
     if (typeof friend === "string") {
-      return this._friends.delete(friend);
+      index = this._friends.indexOf(friend);
     } else {
-      return this._friends.delete(friend.id);
+      index = this._friends.indexOf(friend.id);
     }
+    if (index > -1) {
+      this._favourite_routes.splice(index, 1);
+      return true;
+    }
+    return false
   }
 
-  get groups(): Set<number> {
+  get groups(): number[] {
     return this._groups;
   }
 
-  set groups(groups: Set<number>) {
-    groups.forEach((id) => {
+  set groups(groups: number[]) {
+    const groups_set = new Set(groups);
+    const tmp = this._groups.splice(0);
+    groups_set.forEach((id) => {
       if (id < 0 || id % 1 !== 0) {
-        throw `ID ${id} de grupo no válido`;
+        this._groups = tmp;
+        throw new Error(`ID ${id} de grupo no válido`);
+      } else {
+        this._groups.push(id);
       }
     });
-    this._groups = groups;
   }
 
   public addGroup(group: number | Group): boolean {
     if (typeof group === "number") {
-      if (group >= 0 && group % 1 === 0 && !this._groups.has(group)) {
-        this._groups.add(group);
+      if (group >= 0 && group % 1 === 0 && !this._groups.includes(group)) {
+        this._groups.push(group);
         return true;
       }
     } else {
-      if (!this._groups.has(group.id)) {
-        this._groups.add(group.id);
+      if (!this._groups.includes(group.id)) {
+        this._groups.push(group.id);
         return true;
       }
     }
@@ -131,11 +170,17 @@ export class User {
   }
 
   public removeGroup(group: number | Group): boolean {
+    let index: number;
     if (typeof group === "number") {
-      return this._groups.delete(group);
+      index = this._groups.indexOf(group);
     } else {
-      return this._groups.delete(group.id);
+      index = this._groups.indexOf(group.id);
     }
+    if (index > -1) {
+      this._groups.splice(index, 1);
+      return true;
+    }
+    return false;
   }
 
   get statistics(): Statistics {
@@ -146,28 +191,32 @@ export class User {
     this._statistics = statistics;
   }
 
-  get favourite_routes(): Set<number> {
+  get favourite_routes(): number[] {
     return this._favourite_routes;
   }
 
-  set favourite_routes(favourite_routes: Set<number>) {
-    favourite_routes.forEach((id) => {
+  set favourite_routes(favourite_routes: number[]) {
+    const favourite_routes_set = new Set(favourite_routes);
+    const tmp = this._favourite_routes.splice(0);
+    favourite_routes_set.forEach((id) => {
       if (id < 0 || id % 1 !== 0) {
-        throw `ID ${id} de ruta no válido`;
+        this._favourite_routes = tmp;
+        throw new Error(`ID ${id} de ruta no válido`);
+      } else {
+        this._favourite_routes.push(id);
       }
     });
-    this._favourite_routes = favourite_routes;
   }
 
   public addFavouriteRoute(route: number | Route): boolean {
     if (typeof route === "number") {
-      if (route >= 0 && route % 1 === 0 && !this._favourite_routes.has(route)) {
-        this._favourite_routes.add(route);
+      if (route >= 0 && route % 1 === 0 && !this._favourite_routes.includes(route)) {
+        this._favourite_routes.push(route);
         return true;
       }
     } else {
-      if (!this._favourite_routes.has(route.id)) {
-        this._favourite_routes.add(route.id);
+      if (!this._favourite_routes.includes(route.id)) {
+        this._favourite_routes.push(route.id);
         return true;
       }
     }
@@ -175,39 +224,45 @@ export class User {
   }
 
   public removeFavouriteRoute(route: number | Route): boolean {
+    let index: number;
     if (typeof route === "number") {
-      return this._favourite_routes.delete(route);
+      index = this._favourite_routes.indexOf(route);
     } else {
-      return this._favourite_routes.delete(route.id);
+      index = this._favourite_routes.indexOf(route.id);
     }
+    if (index > -1) {
+      this._favourite_routes.splice(index, 1);
+      return true;
+    }
+    return false
   }
 
-  get active_challenges(): Set<number> {
+  get active_challenges(): number[] {
     return this._active_challenges;
   }
 
-  set active_challenges(active_challenges: Set<number>) {
-    active_challenges.forEach((id) => {
+  set active_challenges(active_challenges: number[]) {
+    const active_challenges_set = new Set(active_challenges);
+    const tmp = this._active_challenges.splice(0);
+    active_challenges_set.forEach((id) => {
       if (id < 0 || id % 1 !== 0) {
-        throw `ID ${id} de reto no válido`;
+        this._active_challenges = tmp;
+        throw new Error(`ID ${id} de reto no válido`);
+      } else {
+        this._active_challenges.push(id);
       }
     });
-    this._active_challenges = active_challenges;
   }
 
   public addActiveChallenge(challenge: number | Challenge): boolean {
     if (typeof challenge === "number") {
-      if (
-        challenge >= 0 &&
-        challenge % 1 === 0 &&
-        !this._active_challenges.has(challenge)
-      ) {
-        this._active_challenges.add(challenge);
+      if (challenge >= 0 && challenge % 1 === 0 && !this._active_challenges.includes(challenge)) {
+        this._active_challenges.push(challenge);
         return true;
       }
     } else {
-      if (!this._active_challenges.has(challenge.id)) {
-        this._active_challenges.add(challenge.id);
+      if (!this._active_challenges.includes(challenge.id)) {
+        this._active_challenges.push(challenge.id);
         return true;
       }
     }
@@ -215,38 +270,48 @@ export class User {
   }
 
   public removeActiveChallenge(challenge: number | Challenge): boolean {
+    let index: number;
     if (typeof challenge === "number") {
-      return this._active_challenges.delete(challenge);
+      index = this._active_challenges.indexOf(challenge);
     } else {
-      return this._active_challenges.delete(challenge.id);
+      index = this._active_challenges.indexOf(challenge.id);
     }
+    if (index > -1) {
+      this._active_challenges.splice(index, 1);
+      return true;
+    }
+    return false
   }
 
-  get historical(): Set<[Date, number]> {
+  get historical(): [Date, number][] {
     return this._historical;
   }
 
-  set historical(historical: Set<[Date, number]>) {
-    historical.forEach((element) => {
+  set historical(historical: [Date, number][]) {
+    const historical_set = new Set(historical);
+    const tmp = this._historical.splice(0);
+    historical_set.forEach((element) => {
       if (element[0] > new Date()) {
-        throw "La fecha de una ruta del historial no puede ser futura";
+        this._historical = tmp;
+        throw new Error("La fecha de una ruta del historial no puede ser futura");
       }
       if (element[1] < 0 || element[1] % 1 !== 0) {
-        throw `ID ${element[1]} de ruta del historial no válido`;
+        throw new Error(`ID ${element[1]} de ruta del historial no válido`);
+      } else {
+        this._historical.push(element);
       }
     });
-    this._historical = historical;
   }
 
   public addRouteToHistorical(date: Date, route: number | Route): boolean {
     if (typeof route === "number") {
-      if (route >= 0 && route % 1 === 0 && date <= new Date()) {
-        this._historical.add([date, route]);
+      if (route >= 0 && route % 1 === 0 && !this._historical.includes([date, route])) {
+        this._historical.push([date, route]);
         return true;
       }
     } else {
-      if (date <= new Date()) {
-        this._historical.add([date, route.id]);
+      if (!this._historical.includes([date, route.id])) {
+        this._historical.push([date, route.id]);
         return true;
       }
     }
@@ -254,10 +319,16 @@ export class User {
   }
 
   public removeRouteFromHistorical(date: Date, route: number | Route): boolean {
+    let index: number;
     if (typeof route === "number") {
-      return this._historical.delete([date, route]);
+      index = this._historical.indexOf([date, route]);
     } else {
-      return this._historical.delete([date, route.id]);
+      index = this._historical.indexOf([date, route.id]);
     }
+    if (index > -1) {
+      this._historical.splice(index, 1);
+      return true;
+    }
+    return false
   }
 }
