@@ -1,6 +1,6 @@
 import "mocha";
 import { expect } from "chai";
-import { Statistics } from "../src/classes/statistics";
+import { Statistics } from "../../src/classes/statistics";
 
 describe("Statistics class tests", () => {
   it("Statistics constructor", () => {
@@ -163,5 +163,25 @@ describe("Statistics class tests", () => {
     expect(() => (user_statistics.year_unevenness = 499)).to.throw(
       "El desnivel total acumulado del año no puede ser menor al desnivel total acumulado del mes"
     );
+  });
+
+  it("toString function", () => {
+    const user_statistics: Statistics = new Statistics(
+      5,
+      200,
+      10,
+      500,
+      50,
+      4000
+    );
+    const output_string =
+      "  - Kilómetros de la semana: 5\n" +
+      "  - Desnivel de la semana: 200\n" +
+      "  - Kilómetros de la mes: 10\n" +
+      "  - Desnivel de la mes: 500\n" +
+      "  - Kilómetros de la año: 50\n" +
+      "  - Desnivel de la año: 4000\n";
+
+    expect(user_statistics.toString()).to.be.equal(output_string);
   });
 });

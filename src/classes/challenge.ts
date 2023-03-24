@@ -1,15 +1,26 @@
 import { Activity } from "../types/activity";
 import { User } from "./user";
 import { Route } from "./route";
+import { Stringable } from "../interfaces/stringable";
 
-export class Challenge {
-  private _id: number
-  private _name: string
-  private _routes: number[] = []
-  private _activity: Activity
-  private _total_kilometers: number
-  private _users: string[] = []
-  
+export class Challenge implements Stringable {
+  private _id: number;
+  private _name: string;
+  private _routes: number[] = [];
+  private _activity: Activity;
+  private _total_kilometers: number;
+  private _users: string[] = [];
+  /**
+   *
+   * Constructor de la clase Challenge
+   *
+   * @param id ID del Challenge
+   * @param name Nombre del Challenge
+   * @param routes Rutas del Challenge
+   * @param activity Actividad a realizar en el Challenge
+   * @param total_kilometers Kilómetros totales del Challenge
+   * @param users ID de usuarios que participan en el Challenge
+   */
   constructor(
     id: number,
     name: string,
@@ -79,7 +90,13 @@ export class Challenge {
       }
     });
   }
-
+  /**
+   *
+   * Función para añadir una ruta
+   *
+   * @param route ID de ruta o propio objeto
+   * @returns true si se ha podido añadir false si no
+   */
   public addRoute(route: number | Route): boolean {
     if (typeof route === "number") {
       if (route >= 0 && route % 1 === 0 && !this._routes.includes(route)) {
@@ -95,6 +112,13 @@ export class Challenge {
     return false;
   }
 
+  /**
+   *
+   * Función para eliminar una ruta
+   *
+   * @param route ID de ruta o propio objeto
+   * @returns true si se ha podido eliminar false si no
+   */
   public removeRoute(route: number | Route): boolean {
     let index: number;
     if (typeof route === "number") {
@@ -106,7 +130,7 @@ export class Challenge {
       this._routes.splice(index, 1);
       return true;
     }
-    return false
+    return false;
   }
 
   get activity(): Activity {
@@ -140,6 +164,13 @@ export class Challenge {
     });
   }
 
+  /**
+   *
+   * Función para añadir un id de usuario a un reto
+   *
+   * @param route ID de usuario o propio objeto
+   * @returns true si se ha podido añadir false si no
+   */
   public addUser(user: string | User): boolean {
     if (typeof user === "string") {
       if (!this._users.includes(user)) {
@@ -155,6 +186,13 @@ export class Challenge {
     return false;
   }
 
+  /**
+   *
+   * Función para eliminar un id de usuario a un reto
+   *
+   * @param route ID de usuario o propio objeto
+   * @returns true si se ha podido eliminar false si no
+   */
   public removeUser(user: string | User): boolean {
     let index: number;
     if (typeof user === "string") {
@@ -166,6 +204,17 @@ export class Challenge {
       this._users.splice(index, 1);
       return true;
     }
-    return false
+    return false;
+  }
+
+  public toString(): string {
+    let output = "";
+    output += `ID: ${this.id}\n`;
+    output += `Nombre: ${this.name}\n`;
+    output += `Rutas: ${this.routes}\n`;
+    output += `Actividad: ${this.activity}\n`;
+    output += `Kilómetros totales: ${this.total_kilometers}\n`;
+    output += `Usuarios: ${this.users}\n`;
+    return output;
   }
 }

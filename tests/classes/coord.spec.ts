@@ -1,9 +1,9 @@
 import "mocha";
 import { expect } from "chai";
-import { Coord } from "../src/classes/coord";
+import { Coord } from "../../src/classes/coord";
 
 describe("Coord class test", () => {
-  it("Cooord constructor ", () => {
+  it("Coord constructor ", () => {
     const coord1 = new Coord(40.7128, -74.006);
     const coord2 = new Coord(23.111, -55.006);
 

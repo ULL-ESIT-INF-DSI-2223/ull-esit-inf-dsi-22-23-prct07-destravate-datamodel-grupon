@@ -3,17 +3,27 @@ import { Statistics } from "./statistics";
 import { Group } from "./group";
 import { Challenge } from "./challenge";
 import { Route } from "./route";
+import { Stringable } from "../interfaces/stringable";
 
-export class User {
-  private _id: string
-  private _name: string
-  private _activity: Activity
-  private _friends: string[] = []
-  private _groups: number[] = []
-  private _statistics: Statistics
-  private _favourite_routes: number[] = []
-  private _active_challenges: number[] = []
-  private _historical: [Date, number][] = []
+/**
+ *
+ * Clase que representa un usuario
+ * Atributos
+ *  id - ID único del usuario
+ *  name_ - Nombre del grupo.
+ *  participants_ids_ - Colleción de IDs de usuarios miembros del grupo.
+ *
+ */
+export class User implements Stringable {
+  private _id: string;
+  private _name: string;
+  private _activity: Activity;
+  private _friends: string[] = [];
+  private _groups: number[] = [];
+  private _statistics: Statistics;
+  private _favourite_routes: number[] = [];
+  private _active_challenges: number[] = [];
+  private _historical: [Date, number][] = [];
 
   constructor(
     id: string,
@@ -62,10 +72,11 @@ export class User {
         this._active_challenges.push(challenge_id);
       }
     });
-    const historical_set = new Set(historical);
-    historical_set.forEach((element) => {
+    historical.forEach((element) => {
       if (element[0] > new Date()) {
-        throw new Error("La fecha de una ruta del historial no puede ser futura");
+        throw new Error(
+          "La fecha de una ruta del historial no puede ser futura"
+        );
       }
       if (element[1] < 0 || element[1] % 1 !== 0) {
         throw new Error(`ID ${element[1]} de ruta del historial no válido`);
@@ -142,7 +153,7 @@ export class User {
       this._friends.splice(index, 1);
       return true;
     }
-    return false
+    return false;
   }
 
   get groups(): number[] {
@@ -218,7 +229,11 @@ export class User {
 
   public addFavouriteRoute(route: number | Route): boolean {
     if (typeof route === "number") {
-      if (route >= 0 && route % 1 === 0 && !this._favourite_routes.includes(route)) {
+      if (
+        route >= 0 &&
+        route % 1 === 0 &&
+        !this._favourite_routes.includes(route)
+      ) {
         this._favourite_routes.push(route);
         return true;
       }
@@ -242,7 +257,7 @@ export class User {
       this._favourite_routes.splice(index, 1);
       return true;
     }
-    return false
+    return false;
   }
 
   get active_challenges(): number[] {
@@ -264,7 +279,11 @@ export class User {
 
   public addActiveChallenge(challenge: number | Challenge): boolean {
     if (typeof challenge === "number") {
-      if (challenge >= 0 && challenge % 1 === 0 && !this._active_challenges.includes(challenge)) {
+      if (
+        challenge >= 0 &&
+        challenge % 1 === 0 &&
+        !this._active_challenges.includes(challenge)
+      ) {
         this._active_challenges.push(challenge);
         return true;
       }
@@ -288,7 +307,7 @@ export class User {
       this._active_challenges.splice(index, 1);
       return true;
     }
-    return false
+    return false;
   }
 
   get historical(): [Date, number][] {
@@ -296,12 +315,13 @@ export class User {
   }
 
   set historical(historical: [Date, number][]) {
-    const historical_set = new Set(historical);
     const tmp = this._historical.splice(0);
-    historical_set.forEach((element) => {
+    historical.forEach((element) => {
       if (element[0] > new Date()) {
         this._historical = tmp;
-        throw new Error("La fecha de una ruta del historial no puede ser futura");
+        throw new Error(
+          "La fecha de una ruta del historial no puede ser futura"
+        );
       }
       if (element[1] < 0 || element[1] % 1 !== 0) {
         throw new Error(`ID ${element[1]} de ruta del historial no válido`);
@@ -318,8 +338,8 @@ export class User {
         return true;
       }
     } else {
-        this._historical.push([date, route.id]);
-        return true;
+      this._historical.push([date, route.id]);
+      return true;
     }
     return false;
   }
@@ -327,18 +347,47 @@ export class User {
   public removeRouteFromHistorical(date: Date, route: number | Route): boolean {
     let index = -1;
     if (typeof route === "number") {
-      this._historical.forEach((element, i) => {if (date.toDateString() === element[0].toDateString() && route === element[1]) {
-        index = i;
-      }})
+      this._historical.forEach((element, i) => {
+        if (
+          date.toDateString() === element[0].toDateString() &&
+          route === element[1]
+        ) {
+          index = i;
+        }
+      });
     } else {
-      this._historical.forEach((element, i) => {if (date.toDateString() === element[0].toDateString() && route.id === element[1]) {
-        index = i;
-      }})
+      this._historical.forEach((element, i) => {
+        if (
+          date.toDateString() === element[0].toDateString() &&
+          route.id === element[1]
+        ) {
+          index = i;
+        }
+      });
     }
     if (index > -1) {
       this._historical.splice(index, 1);
       return true;
     }
-    return false
+    return false;
+  }
+
+  public toString(): string {
+    let output = "";
+    output += `ID: ${this.id}\n`;
+    output += `Nombre: ${this.name}\n`;
+    output += `Actividad: ${this.activity}\n`;
+    output += `Amigos: ${this.friends}\n`;
+    output += `Grupos: ${this.groups}\n`;
+    output += `Estadísticas:\n${this.statistics.toString()}`;
+    output += `Rutas favoritas: ${this.favourite_routes}\n`;
+    output += `Retos activos: ${this.active_challenges}\n`;
+    output += `Historial:\n`;
+    this._historical.forEach((element) => {
+      output += `  - ${element[0].getDate()}/${
+        element[0].getMonth() + 1
+      }/${element[0].getFullYear()}: ${element[1]}\n`;
+    });
+    return output;
   }
 }

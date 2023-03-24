@@ -1,77 +1,53 @@
 import "mocha";
 import { expect } from "chai";
-import { Challenge } from "../src/classes/challenge";
-import { Route } from "../src/classes/route";
-import { User } from "../src/classes/user";
-import { Statistics } from "../src/classes/statistics";
-import { Coord } from "../src/classes/coord";
+import { Challenge } from "../../src/classes/challenge";
+import { Route } from "../../src/classes/route";
+import { User } from "../../src/classes/user";
+import { Statistics } from "../../src/classes/statistics";
+import { Coord } from "../../src/classes/coord";
 
 describe("Challenge class tests", () => {
   it("Challenge constructor", () => {
     expect(
-      new Challenge(
-        1,
-        "Reto Extremo",
-        [2, 4, 5],
-        "Running",
-        60,
-        ["pepaso", "rodrigodigo"]
-      )
+      new Challenge(1, "Reto Extremo", [2, 4, 5], "Running", 60, [
+        "pepaso",
+        "rodrigodigo",
+      ])
     ).to.be.instanceof(Challenge);
     expect(
       () =>
-        new Challenge(
-          -1,
-          "Reto Extremo",
-          [2, 4, 5],
-          "Running",
-          60,
-          ["pepaso", "rodrigodigo"]
-        )
+        new Challenge(-1, "Reto Extremo", [2, 4, 5], "Running", 60, [
+          "pepaso",
+          "rodrigodigo",
+        ])
     ).to.throw("ID del reto no válido");
     expect(
       () =>
-        new Challenge(
-          1.5,
-          "Reto Extremo",
-          [2, 4, 5],
-          "Running",
-          60,
-          ["pepaso", "rodrigodigo"]
-        )
+        new Challenge(1.5, "Reto Extremo", [2, 4, 5], "Running", 60, [
+          "pepaso",
+          "rodrigodigo",
+        ])
     ).to.throw("ID del reto no válido");
     expect(
       () =>
-        new Challenge(
-          1,
-          "Reto Extremo",
-          [-2, 4, 5],
-          "Running",
-          60,
-          ["pepaso", "rodrigodigo"]
-        )
+        new Challenge(1, "Reto Extremo", [-2, 4, 5], "Running", 60, [
+          "pepaso",
+          "rodrigodigo",
+        ])
     ).to.throw("ID -2 de ruta no válido");
     expect(
       () =>
-        new Challenge(
-          1,
-          "Reto Extremo",
-          [2, 4.5, 5],
-          "Running",
-          60,
-          ["pepaso", "rodrigodigo"]
-        )
+        new Challenge(1, "Reto Extremo", [2, 4.5, 5], "Running", 60, [
+          "pepaso",
+          "rodrigodigo",
+        ])
     ).to.throw("ID 4.5 de ruta no válido");
     expect(
       () =>
-        new Challenge(
-          1,
-          "Reto Extremo",
-          [2, 4, 5],
-          "Running",
-          -10,
-          ["pepaso", "rodrigodigo"]
-        )
+        new Challenge(1, "Reto Extremo", [2, 4, 5], "Running", -10, [
+          "pepaso",
+          "rodrigodigo",
+        ])
     ).to.throw("El total de kilómetros debe ser positivo");
   });
 
@@ -136,12 +112,40 @@ describe("Challenge class tests", () => {
     );
     expect(challenge.addRoute(7)).to.be.true;
     expect(challenge.routes).to.be.eql([2, 4, 5, 7]);
-    expect(challenge.addRoute(new Route(8, "Las Cañadas", new Coord(20.3, -2.2), new Coord(20.4, -2.0), 2000, 200, ["pepaso", "rodrigodigo"], "Running", 200))).to.be.true;
+    expect(
+      challenge.addRoute(
+        new Route(
+          8,
+          "Las Cañadas",
+          new Coord(20.3, -2.2),
+          new Coord(20.4, -2.0),
+          2000,
+          200,
+          ["pepaso", "rodrigodigo"],
+          "Running",
+          200
+        )
+      )
+    ).to.be.true;
     expect(challenge.routes).to.be.eql([2, 4, 5, 7, 8]);
     expect(challenge.addRoute(-1)).to.be.false;
     expect(challenge.addRoute(6.5)).to.be.false;
     expect(challenge.addRoute(5)).to.be.false;
-    expect(challenge.addRoute(new Route(7, "Cruz del Carmen - Punta del Hidalgo", new Coord(21.3, -1.2), new Coord(20.9, -1.8), 10000, 1000, ["pepaso", "marcelo"], "Running", 150))).to.be.false;
+    expect(
+      challenge.addRoute(
+        new Route(
+          7,
+          "Cruz del Carmen - Punta del Hidalgo",
+          new Coord(21.3, -1.2),
+          new Coord(20.9, -1.8),
+          10000,
+          1000,
+          ["pepaso", "marcelo"],
+          "Running",
+          150
+        )
+      )
+    ).to.be.false;
   });
 
   it("removeRoute function", () => {
@@ -155,10 +159,38 @@ describe("Challenge class tests", () => {
     );
     expect(challenge.removeRoute(7)).to.be.true;
     expect(challenge.routes).to.be.eql([2, 4, 5, 8]);
-    expect(challenge.removeRoute(new Route(8, "Las Cañadas", new Coord(20.3, -2.2), new Coord(20.4, -2.0), 2000, 200, ["pepaso", "rodrigodigo"], "Running", 200))).to.be.true;
+    expect(
+      challenge.removeRoute(
+        new Route(
+          8,
+          "Las Cañadas",
+          new Coord(20.3, -2.2),
+          new Coord(20.4, -2.0),
+          2000,
+          200,
+          ["pepaso", "rodrigodigo"],
+          "Running",
+          200
+        )
+      )
+    ).to.be.true;
     expect(challenge.routes).to.be.eql([2, 4, 5]);
     expect(challenge.removeRoute(8)).to.be.false;
-    expect(challenge.removeRoute(new Route(7, "Cruz del Carmen - Punta del Hidalgo", new Coord(21.3, -1.2), new Coord(20.9, -1.8), 10000, 1000, ["pepaso", "marcelo"], "Running", 150))).to.be.false;
+    expect(
+      challenge.removeRoute(
+        new Route(
+          7,
+          "Cruz del Carmen - Punta del Hidalgo",
+          new Coord(21.3, -1.2),
+          new Coord(20.9, -1.8),
+          10000,
+          1000,
+          ["pepaso", "marcelo"],
+          "Running",
+          150
+        )
+      )
+    ).to.be.false;
   });
 
   it("activity property", () => {
@@ -201,13 +233,9 @@ describe("Challenge class tests", () => {
       60,
       ["pepaso", "rodrigodigo"]
     );
-    expect(challenge.users).to.be.eql(
-      ["pepaso", "rodrigodigo"]
-    );
+    expect(challenge.users).to.be.eql(["pepaso", "rodrigodigo"]);
     challenge.users = ["alfredillo", "tomasote"];
-    expect(challenge.users).to.be.eql(
-      ["alfredillo", "tomasote"]
-    );
+    expect(challenge.users).to.be.eql(["alfredillo", "tomasote"]);
   });
 
   it("addUser function", () => {
@@ -220,9 +248,7 @@ describe("Challenge class tests", () => {
       ["pepaso", "rodrigodigo"]
     );
     expect(challenge.addUser("alfredillo")).to.be.true;
-    expect(challenge.users).to.be.eql(
-      ["pepaso", "rodrigodigo", "alfredillo"]
-    );
+    expect(challenge.users).to.be.eql(["pepaso", "rodrigodigo", "alfredillo"]);
     expect(
       challenge.addUser(
         new User(
@@ -241,9 +267,12 @@ describe("Challenge class tests", () => {
         )
       )
     ).to.be.true;
-    expect(challenge.users).to.be.eql(
-      ["pepaso", "rodrigodigo", "alfredillo", "tomasote"]
-    );
+    expect(challenge.users).to.be.eql([
+      "pepaso",
+      "rodrigodigo",
+      "alfredillo",
+      "tomasote",
+    ]);
     expect(challenge.addUser("pepaso")).to.be.false;
     expect(
       challenge.addUser(
@@ -272,9 +301,7 @@ describe("Challenge class tests", () => {
       ["pepaso", "rodrigodigo", "alfredillo", "tomasote"]
     );
     expect(challenge.removeUser("alfredillo")).to.be.true;
-    expect(challenge.users).to.be.eql(
-      ["pepaso", "rodrigodigo", "tomasote"]
-    );
+    expect(challenge.users).to.be.eql(["pepaso", "rodrigodigo", "tomasote"]);
     expect(
       challenge.removeUser(
         new User(
@@ -293,9 +320,7 @@ describe("Challenge class tests", () => {
         )
       )
     ).to.be.true;
-    expect(challenge.users).to.be.eql(
-      ["pepaso", "rodrigodigo"]
-    );
+    expect(challenge.users).to.be.eql(["pepaso", "rodrigodigo"]);
     expect(challenge.removeUser("alfredillo")).to.be.false;
     expect(
       challenge.removeUser(
@@ -315,5 +340,24 @@ describe("Challenge class tests", () => {
         )
       )
     ).to.be.false;
+  });
+
+  it("toString function", () => {
+    const challenge: Challenge = new Challenge(
+      1,
+      "Reto Extremo",
+      [2, 4, 5],
+      "Running",
+      60,
+      ["pepaso", "rodrigodigo", "alfredillo", "tomasote"]
+    );
+    const output_string =
+      "ID: 1\n" +
+      "Nombre: Reto Extremo\n" +
+      "Rutas: 2,4,5\n" +
+      "Actividad: Running\n" +
+      "Kilómetros totales: 60\n" +
+      "Usuarios: pepaso,rodrigodigo,alfredillo,tomasote\n";
+    expect(challenge.toString()).to.be.equal(output_string);
   });
 });

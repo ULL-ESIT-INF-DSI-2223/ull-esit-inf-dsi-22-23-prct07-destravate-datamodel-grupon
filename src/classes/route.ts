@@ -156,4 +156,16 @@ export class Route {
     }
     return false;
   }
+  public toString(): string {
+    let output = `ID del ruta: ${this._id}\n`;
+    output += `Nombre del ruta: ${this._name}\n`;
+    output += `ID que han visitado la ruta: ${this._visitors_id}\n`;
+    output += `Coordenadas de inicio: ${this._ini_cords.toString()}\n`;
+    output += `Coordenadas de finalización: ${this._end_cords.toString()}\n`;
+    output += `Longitud de la ruta: ${this._length}\n`;
+    output += `Desnivel medio de la ruta: ${this._average_slope}\n`;
+    output += `Actividad de la ruta: ${this._activity}\n`;
+    output += `Puntuación media de la ruta: ${this._avg_score}\n`;
+    return output;
+  }
 }

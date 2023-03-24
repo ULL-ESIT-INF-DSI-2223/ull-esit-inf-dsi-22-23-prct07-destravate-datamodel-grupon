@@ -1,4 +1,6 @@
-export class Statistics {
+import { Stringable } from "../interfaces/stringable";
+
+export class Statistics implements Stringable {
   constructor(
     private _week_kilometers: number,
     private _week_unevenness: number,
@@ -117,5 +119,16 @@ export class Statistics {
       throw "El desnivel total acumulado del año no puede ser menor al desnivel total acumulado del mes";
     }
     this._year_unevenness = year_unevenness;
+  }
+
+  public toString(): string {
+    let output = "";
+    output += `  - Kilómetros de la semana: ${this.week_kilometers}\n`;
+    output += `  - Desnivel de la semana: ${this.week_unevenness}\n`;
+    output += `  - Kilómetros de la mes: ${this.month_kilometers}\n`;
+    output += `  - Desnivel de la mes: ${this.month_unevenness}\n`;
+    output += `  - Kilómetros de la año: ${this.year_kilometers}\n`;
+    output += `  - Desnivel de la año: ${this.year_unevenness}\n`;
+    return output;
   }
 }

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "tsc-watch --onSuccess \"node dist/ejercicio-2/MyArray.js\"",
+    "start": "tsc-watch --onSuccess \"node dist/index.js\"",
     "doc": "typedoc",
     "test": "nyc mocha",
     "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls && rm -rf .nyc_output"
@@ -22,6 +22,7 @@
   "homepage": "https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct07-destravate-datamodel-grupon#readme",
   "devDependencies": {
     "@types/chai": "^4.3.4",
+    "@types/inquirer": "^9.0.3",
     "@types/lowdb": "^1.0.11",
     "@types/mocha": "^10.0.1",
     "@types/prompt-sync": "^4.2.0",

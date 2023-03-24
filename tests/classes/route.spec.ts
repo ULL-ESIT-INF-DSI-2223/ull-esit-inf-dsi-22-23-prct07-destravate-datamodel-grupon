@@ -1,9 +1,9 @@
 import { expect } from "chai";
 import "mocha";
-import { Route } from "../src/classes/route";
-import { Coord } from "../src/classes/coord";
-import { User } from "../src/classes/user";
-import { Statistics } from "../src/classes/statistics";
+import { Route } from "../../src/classes/route";
+import { Coord } from "../../src/classes/coord";
+import { User } from "../../src/classes/user";
+import { Statistics } from "../../src/classes/statistics";
 
 describe("Route class test", () => {
   it("Constructor ", () => {
@@ -251,5 +251,29 @@ describe("Route class test", () => {
     expect(() => (myRoute.avg_score = -1)).to.throw(
       "Puntuación media no válida"
     );
+  });
+  it("toString", () => {
+    const myRoute = new Route(
+      0,
+      "Ruta1",
+      new Coord(40.7128, -74.006),
+      new Coord(37.7749, -122.4194),
+      100,
+      23,
+      [],
+      "Running",
+      10
+    );
+    const output_string =
+      "ID del ruta: 0\n" +
+      "Nombre del ruta: Ruta1\n" +
+      "ID que han visitado la ruta: \n" +
+      "Coordenadas de inicio: (40.7128, -74.006)\n" +
+      "Coordenadas de finalización: (37.7749, -122.4194)\n" +
+      "Longitud de la ruta: 100\n" +
+      "Desnivel medio de la ruta: 23\n" +
+      "Actividad de la ruta: Running\n" +
+      "Puntuación media de la ruta: 10\n";
+    expect(myRoute.toString()).to.be.eql(output_string);
   });
 });
