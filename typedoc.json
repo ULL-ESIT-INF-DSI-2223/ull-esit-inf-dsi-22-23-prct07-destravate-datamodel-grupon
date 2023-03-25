@@ -1,4 +1,12 @@
 {
-  "entryPoints": ["./src/**/*"],
+  "entryPoints": [
+    "./src/*",
+    "./src/classes/*",
+    "./src/collections/*",
+    "./src/databases/*",
+    "./src/enums/*",
+    "./src/interfaces/*",
+    "./src/types/*"
+  ],
   "out": "./docs"
 }
