@@ -1,61 +1,89 @@
 import inquirer from "inquirer";
+
 import { RouteCollection } from "./collections/routeCollection";
 import { routeExample1 } from "./examples/routeExample";
+import { challengeExample } from "./examples/challengeExample";
+import { ChallengeCollection } from "./collections/challengeCollection";
 
 const route_collection = new RouteCollection(routeExample1);
+const user_collection = new ChallengeCollection(challengeExample);
 
 enum Commands {
-  ShowRoutes = "Show Routes",
+  RoutesOptions = "Show options for Routes",
+
   Quit = "Quit",
 }
-enum RoutesChoices {
-  sortAlphabetically = "Alphabetically",
-  sortReversedAlphabetically = "Alphabetically reversed order",
-  Menu = "Menu",
+enum RouteComandOptions {
+  ShowRoutesAlphabetically = "Show Routes alphabetically",
+  ShowRoutesReversedAlphabetically = "Show Routes alphabetically reversed",
+  ShowRoutesByVisitors = "Show Routes order by number of visitors",
+  ShowRoutesByVisitorsReversed = "Show Routes order by number of visitors reversed",
+  ShowRoutesByLength = "Show Routes order by number of Length",
+  ShowRoutesByLengthReversed = "Show Routes order by number of Length reversed",
 }
+
 function printRequested(selection: number): void {
   switch (selection) {
     case 1:
       console.log(route_collection.toString());
       break;
-
     default:
       break;
   }
 }
 
 let selector = -1;
-
-function showRoutesPrompt(): void {
+async function RoutePrompt() {
   console.clear();
-
-  inquirer
+  await inquirer
     .prompt({
       type: "list",
-      name: "showRoutesPrompt",
-      message: "Choose option:",
-      choices: Object.values(RoutesChoices),
+      name: "command",
+      message: "Choose option",
+      choices: Object.values(RouteComandOptions),
     })
     .then((answers) => {
       switch (answers["command"]) {
-        case RoutesChoices.sortAlphabetically:
+        case RouteComandOptions.ShowRoutesAlphabetically:
+          selector = 1;
           route_collection.sortAlphabetically();
           promptUser();
           break;
-        case RoutesChoices.sortReversedAlphabetically:
+        case RouteComandOptions.ShowRoutesReversedAlphabetically:
           route_collection.sortReversedAlphabetically();
+          selector = 1;
           promptUser();
           break;
-        case RoutesChoices.Menu:
+        case RouteComandOptions.ShowRoutesByVisitors:
+          route_collection.sortByNumberUsers();
+          selector = 1;
           promptUser();
+          break;
+        case RouteComandOptions.ShowRoutesByVisitorsReversed:
+          route_collection.sortReversedByNumberUsers();
+          selector = 1;
+          promptUser();
+          break;
+
+        case RouteComandOptions.ShowRoutesByLength:
+          route_collection.sortByNumberUsers();
+          selector = 1;
+          promptUser();
+          break;
+        case RouteComandOptions.ShowRoutesByLengthReversed:
+          route_collection.sortReversedByNumberUsers();
+          selector = 1;
+          promptUser();
+          break;
       }
     });
 }
 
-function promptUser(): void {
+async function promptUser() {
   console.clear();
   printRequested(selector);
-  inquirer
+
+  await inquirer
     .prompt({
       type: "list",
       name: "command",
@@ -64,10 +92,8 @@ function promptUser(): void {
     })
     .then((answers) => {
       switch (answers["command"]) {
-        case Commands.ShowRoutes:
-          selector = 1;
-          showRoutesPrompt();
-          break;
+        case Commands.RoutesOptions:
+          RoutePrompt();
       }
     });
 }
