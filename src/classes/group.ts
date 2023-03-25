@@ -1,15 +1,7 @@
 import { Route } from "./route";
 import { Statistics } from "./statistics";
 import { User } from "./user";
-/**
- *
- * Clase que representa una ruta
- * Atributos
- *  id_ - ID único del grupo.
- *  name_ - Nombre del grupo.
- *  participants_ids_ - Colleción de IDs de usuarios miembros del grupo.
- *
- */
+
 export class Group {
   private _favourite_routes: number[] = [];
   private _historical: [Date, number][] = [];
@@ -18,7 +10,18 @@ export class Group {
   private _members_id: string[];
   private _statistics: Statistics;
   private _members_ranking: User[];
+  private _admins: string[] = [];
 
+  /**
+   *
+   * Constructor de la clase Group que representa un grupo
+   *
+   * @param id ID del grupo. Debe ser un entero positivo
+   * @param name Nombre del grupo
+   * @param members IDs de los miembros del grupo. Se eliminan los IDs repetidos
+   * @param favourite_routes IDs de las rutas favoritas del grupo. Se eliminan los IDs repetidos y se comprueban que sean válidos
+   * @param historical Historial del grupo. Se comprueba que las fechas no sean futuras y los IDs de las rutas sean válidos
+   */
   constructor(
     id: number,
     name: string,
@@ -84,15 +87,18 @@ export class Group {
   public get id(): number {
     return this._id;
   }
+
   public set id(id: number) {
     if (id < 0 || id % 1 !== 0) {
       throw new Error(`ID de Grupo no válido`);
     }
     this._id = id;
   }
+
   public get name(): string {
     return this._name;
   }
+
   public set name(name: string) {
     this._name = name;
   }
@@ -126,6 +132,13 @@ export class Group {
     });
   }
 
+  /**
+   *
+   * Añade una ruta favorita al grupo
+   *
+   * @param route ID de la ruta o ruta a añadir
+   * @returns true si el ID de la ruta se pudo añadir, false si el ID ya estaba guardado o era inválido
+   */
   public addFavouriteRoute(route: number | Route): boolean {
     if (typeof route === "number") {
       if (
@@ -145,6 +158,13 @@ export class Group {
     return false;
   }
 
+  /**
+   *
+   * Elimina una ruta favorita del grupo
+   *
+   * @param route ID de la ruta o ruta a eliminar
+   * @returns true si el ID de la ruta se pudo eliminar, false si el ID no estaba guardado
+   */
   public removeFavouriteRoute(route: number | Route): boolean {
     let index: number;
     if (typeof route === "number") {
@@ -180,6 +200,13 @@ export class Group {
     });
   }
 
+  /**
+   *
+   * Añade un miembro al grupo
+   *
+   * @param member Miembro a añadir
+   * @returns true si el miembro se pudo añadir, false si el miembro ya estaba guardado
+   */
   public addMember(member: User): boolean {
     if (!this._members_id.includes(member.id)) {
       this._members_id.push(member.id);
@@ -205,6 +232,13 @@ export class Group {
     return false;
   }
 
+  /**
+   *
+   * Elimina un miembro del grupo
+   *
+   * @param route ID del miembro a eliminar
+   * @returns true si el miembro se pudo eliminar, false si el miembro no estaba guardado
+   */
   public removeMember(member_id: string): boolean {
     const index = this._members_id.indexOf(member_id);
 
@@ -236,15 +270,71 @@ export class Group {
       this._members_id.splice(index, 1);
       this._members_ranking.splice(index_in_ranking, 1);
       this._statistics = new Statistics(s1, s2, s3, s4, s5, s6);
-
-      this._members_ranking.sort((a, b) =>
-        a.statistics.year_kilometers > b.statistics.year_kilometers ? 1 : -1
-      );
       return true;
     }
     return false;
   }
 
+  get admins(): string[] {
+    return this._admins;
+  }
+
+  set admins(admins: string[]) {
+    const admins_set = new Set(admins);
+    admins_set.forEach((id) => {
+      this._admins.push(id);
+    });
+  }
+
+  /**
+   *
+   * Añade un administrador al grupo
+   *
+   * @param admin ID del administrador o administrador a añadir
+   * @returns true si el ID del administrador se pudo añadir, false si el ID ya estaba guardado
+   */
+  public addAdmin(admin: string | User): boolean {
+    if (typeof admin === "string") {
+      if (!this._admins.includes(admin)) {
+        this._admins.push(admin);
+        return true;
+      }
+    } else {
+      if (!this._admins.includes(admin.id)) {
+        this._admins.push(admin.id);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   *
+   * Elimina un administrador al grupo
+   *
+   * @param admin ID del administrador o administrador a añadir
+   * @returns true si el ID del administrador se pudo eliminar, false si el ID no estaba guardado
+   */
+  public removeAdmin(admin: string | User): boolean {
+    let index: number;
+    if (typeof admin === "string") {
+      index = this._admins.indexOf(admin);
+    } else {
+      index = this._admins.indexOf(admin.id);
+    }
+    if (index > -1) {
+      this._admins.splice(index, 1);
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   *
+   * Devuelve la información del grupo en forma de cadena
+   *
+   * @returns Cadena con la información del grupo
+   */
   public toString(): string {
     let output = `ID del grupo: ${this._id}\n`;
     output += `Nombre del grupo: ${this._name}\n`;

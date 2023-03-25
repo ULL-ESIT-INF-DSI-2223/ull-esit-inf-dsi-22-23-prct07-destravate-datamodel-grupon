@@ -6,6 +6,12 @@ export class Collection<T extends Stringable & { id: U }, U>
 {
   protected _elements: T[] = [];
 
+  /**
+   *
+   * Constructor de la clase Collection que representa una colección
+   *
+   * @param elements Elementos de la colección. No pueden haber varios elementos con el mismo ID
+   */
   constructor(elements: T[]) {
     const elements_id_set = new Set<U>();
     elements.forEach((element) => {
@@ -17,20 +23,32 @@ export class Collection<T extends Stringable & { id: U }, U>
     this._elements = elements;
   }
 
+  get elements(): T[] {
+    return this._elements;
+  }
+
+  /**
+   *
+   * Añade un elemento a la colección
+   *
+   * @param element Elemento a añadir
+   * @returns true si el elemento se pudo añadir, false si un elemento con el mismo ID ya estaba guardado
+   */
   public add(element: T): boolean {
-    let repeated = false;
-    this._elements.forEach((e) => {
-      if (element.id === e.id) {
-        repeated = true;
-      }
-    });
-    if (!repeated) {
+    if (!this.hasID(element.id)) {
       this._elements.push(element);
       return true;
     }
     return false;
   }
 
+  /**
+   *
+   * Actualiza un elemento de la colección
+   *
+   * @param element Elemento a actualizar
+   * @returns true si el elemento se pudo actualizar, false si el elemento no existe
+   */
   public update(element: T): boolean {
     if (this.remove(element.id)) {
       this._elements.push(element);
@@ -39,6 +57,13 @@ export class Collection<T extends Stringable & { id: U }, U>
     return false;
   }
 
+  /**
+   *
+   * Elimina un elemento de la colección por su ID
+   *
+   * @param id ID del elemento a eliminar
+   * @returns true si el elemento se pudo eliminar, false si el elemento no estaba guardado
+   */
   public remove(id: U): boolean {
     let index = -1;
     this._elements.forEach((e, i) => {
@@ -53,6 +78,13 @@ export class Collection<T extends Stringable & { id: U }, U>
     return false;
   }
 
+  /**
+   *
+   * Devuelve un elemento de la colección
+   *
+   * @param index Índice del elemento a devolver
+   * @returns Elemento en la posición introducida, undefined si el índice es inválido
+   */
   public get(index: number): T | undefined {
     if (index >= 0 && index < this.length()) {
       return this._elements[index];
@@ -60,15 +92,46 @@ export class Collection<T extends Stringable & { id: U }, U>
     return undefined;
   }
 
+  /**
+   *
+   * Devuelve el número de elementos de la colección
+   *
+   * @returns Número de elementos de la colección
+   */
   public length(): number {
     return this._elements.length;
   }
 
+  /**
+   *
+   * Comprueba si existe algún elemento con el ID introducido en la colección
+   *
+   * @param idCheck ID a comprobar
+   * @returns true si existe un elemento con el mismo ID, false en caso contrario
+   */
+  public hasID(idCheck: U): boolean {
+    let result = false;
+    this._elements.forEach((element) => {
+      if (element.id === idCheck) {
+        result = true;
+      }
+    });
+    return result;
+  }
+
+  /**
+   *
+   * Devuelve los elementos de la colección en forma de cadena
+   *
+   * @returns Cadena con la información de los elementos de la colección
+   */
   public toString(): string {
     let output = "";
-    this._elements.forEach((element) => {
-      output += `${element.toString()}\n`;
-    });
+    for (let i = 0; i < this._elements.length; i++) {
+      output += "--------------------\n";
+      output += `${this._elements[i].toString()}\n`;
+    }
+    output += "--------------------\n";
     return output;
   }
 }

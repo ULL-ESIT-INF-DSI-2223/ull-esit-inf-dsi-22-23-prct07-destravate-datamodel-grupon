@@ -1,5 +1,5 @@
-import { User } from "../../src/classes/user";
-import { Statistics } from "../../src/classes/statistics";
+import { User } from "../classes/user";
+import { Statistics } from "../classes/statistics";
 
 const user1: User = new User(
   "pepaso",

@@ -145,6 +145,57 @@ describe("Collection class test", () => {
     ).to.be.false;
   });
 
+  it("elements property", () => {
+    const collection = new Collection<Route, number>([
+      new Route(
+        0,
+        "Ruta1",
+        new Coord(40.7128, -74.006),
+        new Coord(37.7749, -122.4194),
+        100,
+        23,
+        [],
+        "Running",
+        10
+      ),
+      new Route(
+        3,
+        "El Teide",
+        new Coord(21.3, -2.2),
+        new Coord(20.4, -2.0),
+        3000,
+        200,
+        ["pepaso", "rodrigodigo"],
+        "Bicycle",
+        200
+      ),
+    ]);
+    expect(collection.elements).to.be.eql([
+      new Route(
+        0,
+        "Ruta1",
+        new Coord(40.7128, -74.006),
+        new Coord(37.7749, -122.4194),
+        100,
+        23,
+        [],
+        "Running",
+        10
+      ),
+      new Route(
+        3,
+        "El Teide",
+        new Coord(21.3, -2.2),
+        new Coord(20.4, -2.0),
+        3000,
+        200,
+        ["pepaso", "rodrigodigo"],
+        "Bicycle",
+        200
+      ),
+    ]);
+  });
+
   it("update function", () => {
     const collection = new Collection<Route, number>([
       new Route(
@@ -317,6 +368,36 @@ describe("Collection class test", () => {
     expect(collection.get(3)).to.be.undefined;
   });
 
+  it("hasID", () => {
+    const collection = new Collection<Route, number>([
+      new Route(
+        0,
+        "Ruta1",
+        new Coord(40.7128, -74.006),
+        new Coord(37.7749, -122.4194),
+        100,
+        23,
+        [],
+        "Running",
+        10
+      ),
+      new Route(
+        3,
+        "El Teide",
+        new Coord(21.3, -2.2),
+        new Coord(20.4, -2.0),
+        3000,
+        200,
+        ["pepaso", "rodrigodigo"],
+        "Bicycle",
+        200
+      ),
+    ]);
+
+    expect(collection.hasID(-1)).to.be.false;
+    expect(collection.hasID(3)).to.be.true;
+  });
+
   it("toString function", () => {
     const collection = new Collection<Route, number>([
       new Route(
@@ -343,6 +424,7 @@ describe("Collection class test", () => {
       ),
     ]);
     const output_string =
+      "--------------------\n" +
       "ID del ruta: 0\n" +
       "Nombre del ruta: Ruta1\n" +
       "ID que han visitado la ruta: \n" +
@@ -352,6 +434,7 @@ describe("Collection class test", () => {
       "Desnivel medio de la ruta: 23\n" +
       "Actividad de la ruta: Running\n" +
       "Puntuación media de la ruta: 10\n\n" +
+      "--------------------\n" +
       "ID del ruta: 3\n" +
       "Nombre del ruta: El Teide\n" +
       "ID que han visitado la ruta: pepaso,rodrigodigo\n" +
@@ -360,7 +443,8 @@ describe("Collection class test", () => {
       "Longitud de la ruta: 3000\n" +
       "Desnivel medio de la ruta: 200\n" +
       "Actividad de la ruta: Bicycle\n" +
-      "Puntuación media de la ruta: 200\n\n";
+      "Puntuación media de la ruta: 200\n\n" +
+      "--------------------\n";
     expect(collection.toString()).to.be.equal(output_string);
   });
 });

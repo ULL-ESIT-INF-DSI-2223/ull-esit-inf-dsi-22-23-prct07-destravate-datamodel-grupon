@@ -1,5 +1,6 @@
 import { Route } from "../classes/route";
 import { Coord } from "../classes/coord";
+
 const r1 = new Route(
   0,
   "Ruta1",
@@ -11,6 +12,7 @@ const r1 = new Route(
   "Running",
   9
 );
+
 const r2 = new Route(
   1,
   "Ruta2",
@@ -22,6 +24,7 @@ const r2 = new Route(
   "Running",
   0
 );
+
 const r3 = new Route(
   2,
   "Ruta3",
@@ -33,6 +36,7 @@ const r3 = new Route(
   "Running",
   3
 );
+
 const r4 = new Route(
   3,
   "Ruta4",
@@ -44,6 +48,7 @@ const r4 = new Route(
   "Running",
   4
 );
+
 const r5 = new Route(
   4,
   "Ruta5",
@@ -67,6 +72,7 @@ const r6 = new Route(
   "Running",
   3
 );
+
 const r7 = new Route(
   777,
   "Ruta53",
@@ -78,6 +84,7 @@ const r7 = new Route(
   "Bicycle",
   3
 );
+
 const r8 = new Route(
   20,
   "Ruta77",
@@ -89,6 +96,7 @@ const r8 = new Route(
   "Running",
   4
 );
+
 const r9 = new Route(
   21,
   "Ruta21",
@@ -100,6 +108,7 @@ const r9 = new Route(
   "Bicycle",
   6
 );
+
 const r10 = new Route(
   90,
   "Ruta90",
@@ -112,4 +121,4 @@ const r10 = new Route(
   3
 );
 
-export const routeExample1 = [r1, r2, r3, r4, r5, r6, r7, r8, r9, r10];
+export const routeExample = [r1, r2, r3, r4, r5, r6, r7, r8, r9, r10];

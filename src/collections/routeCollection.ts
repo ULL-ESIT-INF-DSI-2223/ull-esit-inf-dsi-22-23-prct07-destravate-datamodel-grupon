@@ -1,17 +1,20 @@
 import { Route } from "../classes/route";
 import { Collection } from "./collection";
 
-/**
- * Colección de rutas
- */
 export class RouteCollection extends Collection<Route, number> {
+  /**
+   *
+   * Constructor de la clase RouteCollection que representa una colección de rutas
+   *
+   * @param elements Rutas de la colección. No pueden haber varios rutas con el mismo ID
+   */
   constructor(elements: Route[]) {
     super(elements);
   }
 
   /**
    *
-   * Ordena los elementos alfabeticamente
+   * Ordena los usuarios alfabéticamente por el nombre en orden ascendente
    *
    */
   public sortAlphabetically(): void {
@@ -20,7 +23,7 @@ export class RouteCollection extends Collection<Route, number> {
 
   /**
    *
-   * Ordena los elementos alfabeticamente de manera inversa
+   * Ordena los usuarios alfabéticamente por el nombre en orden descendente
    *
    */
   public sortReversedAlphabetically(): void {
@@ -30,7 +33,7 @@ export class RouteCollection extends Collection<Route, number> {
 
   /**
    *
-   * Ordena los elementos segun el número de visitantes de menor a mayor
+   * Ordena las rutas por el número de usuarios en orden ascendente
    *
    */
   public sortByNumberUsers(): void {
@@ -41,7 +44,7 @@ export class RouteCollection extends Collection<Route, number> {
 
   /**
    *
-   * Ordena los elementos segun el número de visitantes de mayor a menor
+   * Ordena las rutas por el número de usuarios en orden descendente
    *
    */
   public sortReversedByNumberUsers(): void {
@@ -51,7 +54,7 @@ export class RouteCollection extends Collection<Route, number> {
 
   /**
    *
-   * Ordena los elementos por la longitud de ruta de menor a mayor
+   * Ordena las rutas por longitud en orden ascendente
    *
    */
   public sortByLenght(): void {
@@ -60,7 +63,7 @@ export class RouteCollection extends Collection<Route, number> {
 
   /**
    *
-   * Ordena los elementos por la longitud de ruta de mayor a menor
+   * Ordena las rutas por longitud en orden descendente
    *
    */
   public sortReversedByLenght(): void {
@@ -70,7 +73,7 @@ export class RouteCollection extends Collection<Route, number> {
 
   /**
    *
-   * Ordena los elementos por la puntuación de la ruta de menor a mayor
+   * Ordena las rutas por clasificación en orden ascendente
    *
    */
   public sortByScore(): void {
@@ -79,16 +82,17 @@ export class RouteCollection extends Collection<Route, number> {
 
   /**
    *
-   * Ordena los elementos por la puntuación de la ruta de mayor a menor
+   * Ordena las rutas por clasificación en orden descendente
    *
    */
   public sortReversedByScore(): void {
     this.sortByScore();
     this._elements.reverse();
   }
+
   /**
    *
-   * Ordena los elementos por ripo de actovidad
+   * Ordena las rutas por la actividad para la que está destinada
    *
    */
   public sortByActivity(): void {

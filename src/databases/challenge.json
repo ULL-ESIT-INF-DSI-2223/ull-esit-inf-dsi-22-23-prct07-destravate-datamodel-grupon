@@ -1,0 +1,49 @@
+{
+  "challenge": [
+    {
+      "_id": 1,
+      "_name": "Reto Extremo",
+      "_routes": [
+        2,
+        4,
+        5
+      ],
+      "_activity": "Running",
+      "_total_kilometers": 60,
+      "_users": [
+        "pepaso",
+        "rodrigodigo"
+      ]
+    },
+    {
+      "_id": 2,
+      "_name": "Turboreto",
+      "_routes": [
+        1,
+        2
+      ],
+      "_activity": "Bicycle",
+      "_total_kilometers": 20,
+      "_users": [
+        "marcelo"
+      ]
+    },
+    {
+      "_id": 3,
+      "_name": "Tarta",
+      "_routes": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "_activity": "Bicycle",
+      "_total_kilometers": 500,
+      "_users": [
+        "marcelo",
+        "tomasote",
+        "cupcake"
+      ]
+    }
+  ]
+}

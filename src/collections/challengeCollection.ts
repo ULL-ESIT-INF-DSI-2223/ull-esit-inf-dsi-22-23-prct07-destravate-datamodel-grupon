@@ -2,12 +2,19 @@ import { Challenge } from "../classes/challenge";
 import { Collection } from "./collection";
 
 export class ChallengeCollection extends Collection<Challenge, number> {
+  /**
+   *
+   * Constructor de la clase ChallengeCollection que representa una colección de retos
+   *
+   * @param elements Retos de la colección. No pueden haber varios retos con el mismo ID
+   */
   constructor(elements: Challenge[]) {
     super(elements);
   }
+
   /**
    *
-   * Ordena los elementos alfabeticamente
+   * Ordena los retos alfabéticamente por el nombre en orden ascendente
    *
    */
   public sortByName(): void {
@@ -16,7 +23,7 @@ export class ChallengeCollection extends Collection<Challenge, number> {
 
   /**
    *
-   * Ordena los elementos alfabeticamente de manera inversa
+   * Ordena los retos alfabéticamente por el nombre en orden descendente
    *
    */
   public sortReversedByName(): void {
@@ -26,7 +33,7 @@ export class ChallengeCollection extends Collection<Challenge, number> {
 
   /**
    *
-   * Ordena los elementos alfabeticamente
+   * Ordena los retos por el total de kilómetros en orden ascendente
    *
    */
   public sortByKilometers(): void {
@@ -37,7 +44,7 @@ export class ChallengeCollection extends Collection<Challenge, number> {
 
   /**
    *
-   * Ordena los elementos alfabeticamente de manera inversa
+   * Ordena los retos por el total de kilómetros en orden descendente
    *
    */
   public sortReversedByKilometers(): void {
@@ -47,7 +54,7 @@ export class ChallengeCollection extends Collection<Challenge, number> {
 
   /**
    *
-   * Ordena los elementos alfabeticamente
+   * Ordena los retos por el total de usuarios realizándolo en orden ascendente
    *
    */
   public sortByTotalUsers(): void {
@@ -56,7 +63,7 @@ export class ChallengeCollection extends Collection<Challenge, number> {
 
   /**
    *
-   * Ordena los elementos alfabeticamente de manera inversa
+   * Ordena los retos por el total de usuarios realizándolo en orden descendente
    *
    */
   public sortReversedByTotalUsers(): void {

@@ -1,17 +1,20 @@
 import { Group } from "../classes/group";
 import { Collection } from "./collection";
 
-/**
- * Colección de rutas
- */
 export class GroupCollection extends Collection<Group, number> {
+  /**
+   *
+   * Constructor de la clase GroupCollection que representa una colección de grupos
+   *
+   * @param elements Grupos de la colección. No pueden haber varios grupos con el mismo ID
+   */
   constructor(elements: Group[]) {
     super(elements);
   }
 
   /**
    *
-   * Ordena los elementos alfabeticamente
+   * Ordena los grupos alfabéticamente por el nombre en orden ascendente
    *
    */
   public sortByName(): void {
@@ -20,7 +23,7 @@ export class GroupCollection extends Collection<Group, number> {
 
   /**
    *
-   * Ordena los elementos alfabeticamente de manera inversa
+   * Ordena los grupos alfabéticamente por el nombre en orden descendente
    *
    */
   public sortReversedByName(): void {
@@ -30,7 +33,7 @@ export class GroupCollection extends Collection<Group, number> {
 
   /**
    *
-   * Ordena los elementos alfabeticamente
+   * Ordena los grupos por el total de kilómetros recorridos en la semana en orden ascendente
    *
    */
   public sortByTotalWeekKilometers(): void {
@@ -41,7 +44,7 @@ export class GroupCollection extends Collection<Group, number> {
 
   /**
    *
-   * Ordena los elementos alfabeticamente de manera inversa
+   * Ordena los grupos por el total de kilómetros recorridos en la semana en orden descendente
    *
    */
   public sortReversedTotalWeekKilometers(): void {
@@ -51,7 +54,7 @@ export class GroupCollection extends Collection<Group, number> {
 
   /**
    *
-   * Ordena los elementos alfabeticamente
+   * Ordena los grupos por el total de kilómetros recorridos en el mes en orden ascendente
    *
    */
   public sortByTotalMonthKilometers(): void {
@@ -62,7 +65,7 @@ export class GroupCollection extends Collection<Group, number> {
 
   /**
    *
-   * Ordena los elementos alfabeticamente de manera inversa
+   * Ordena los grupos por el total de kilómetros recorridos en el mes en orden descendente
    *
    */
   public sortReversedTotalMonthKilometers(): void {
@@ -72,7 +75,7 @@ export class GroupCollection extends Collection<Group, number> {
 
   /**
    *
-   * Ordena los elementos alfabeticamente
+   * Ordena los grupos por el total de kilómetros recorridos en el año en orden ascendente
    *
    */
   public sortByTotalYearKilometers(): void {
@@ -83,7 +86,7 @@ export class GroupCollection extends Collection<Group, number> {
 
   /**
    *
-   * Ordena los elementos alfabeticamente de manera inversa
+   * Ordena los grupos por el total de kilómetros recorridos en el año en orden descendente
    *
    */
   public sortReversedTotalYearKilometers(): void {
@@ -93,7 +96,7 @@ export class GroupCollection extends Collection<Group, number> {
 
   /**
    *
-   * Ordena los elementos segun el número de visitantes de menor a mayor
+   * Ordena los grupos por el número de miembros en orden ascendente
    *
    */
   public sortByNumberOfMembers(): void {
@@ -104,7 +107,7 @@ export class GroupCollection extends Collection<Group, number> {
 
   /**
    *
-   * Ordena los elementos segun el número de visitantes de mayor a menor
+   * Ordena los grupos por el número de miembros en orden descendente
    *
    */
   public sortReversedByNumberOfMembers(): void {

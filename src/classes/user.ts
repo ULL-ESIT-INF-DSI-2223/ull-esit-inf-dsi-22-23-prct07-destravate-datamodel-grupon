@@ -25,6 +25,20 @@ export class User implements Stringable {
   private _active_challenges: number[] = [];
   private _historical: [Date, number][] = [];
 
+  /**
+   *
+   * Constructor de la clase User que representa un usuario
+   *
+   * @param id ID del usuario
+   * @param name Nombre del usuario
+   * @param activity Actividad que realiza el usuario
+   * @param friends IDs de los amigos del usuario. Se eliminan los IDs repetidos y se comprueba que no esté inculido el ID del usuario
+   * @param groups IDs de los grupos del usuario. Se eliminan los IDs repetidos y se comprueba que sean válidos
+   * @param statistics Estadísticas de entrenamiento del usuario
+   * @param favourite_routes IDs de las favoritas rutas del usuario. Se eliminan los IDs repetidos y se comprueba que sean válidos
+   * @param active_challenges IDs de las retos activos del usuario. Se eliminan los IDs repetidos y se comprueba que sean válidos
+   * @param historical Historial del usuario. Se comprueba que las fechas no sean futuras y los IDs de las rutas sean válidos
+   */
   constructor(
     id: string,
     name: string,
@@ -127,6 +141,13 @@ export class User implements Stringable {
     });
   }
 
+  /**
+   *
+   * Añade un amigo al usuario
+   *
+   * @param friend ID del amigo o amigo a añadir
+   * @returns true si el ID del amigo se pudo añadir, false si el ID ya estaba guardado o era el propio usuario
+   */
   public addFriend(friend: string | User): boolean {
     if (typeof friend === "string") {
       if (!this._friends.includes(friend) && friend !== this.id) {
@@ -142,6 +163,13 @@ export class User implements Stringable {
     return false;
   }
 
+  /**
+   *
+   * Elimina un amigo del usuario
+   *
+   * @param friend ID del amigo o amigo a añadir
+   * @returns true si el ID del amigo se pudo eliminar, false si el ID no estaba guardado
+   */
   public removeFriend(friend: string | User): boolean {
     let index: number;
     if (typeof friend === "string") {
@@ -173,6 +201,13 @@ export class User implements Stringable {
     });
   }
 
+  /**
+   *
+   * Añade un grupo al usuario
+   *
+   * @param group ID del grupo o grupo a añadir
+   * @returns true si el ID del grupo se pudo añadir, false si el ID ya estaba guardado o era inválido
+   */
   public addGroup(group: number | Group): boolean {
     if (typeof group === "number") {
       if (group >= 0 && group % 1 === 0 && !this._groups.includes(group)) {
@@ -188,6 +223,13 @@ export class User implements Stringable {
     return false;
   }
 
+  /**
+   *
+   * Elimina un grupo del usuario
+   *
+   * @param group ID del grupo o grupo a añadir
+   * @returns true si el ID del grupo se pudo eliminar, false si el ID no estaba guardado
+   */
   public removeGroup(group: number | Group): boolean {
     let index: number;
     if (typeof group === "number") {
@@ -227,6 +269,13 @@ export class User implements Stringable {
     });
   }
 
+  /**
+   *
+   * Añade una ruta favorita al usuario
+   *
+   * @param route ID de la ruta o ruta a añadir
+   * @returns true si el ID de la ruta se pudo añadir, false si el ID ya estaba guardado o era inválido
+   */
   public addFavouriteRoute(route: number | Route): boolean {
     if (typeof route === "number") {
       if (
@@ -246,6 +295,13 @@ export class User implements Stringable {
     return false;
   }
 
+  /**
+   *
+   * Elimina una ruta favorita del usuario
+   *
+   * @param route ID de la ruta o ruta a añadir
+   * @returns true si el ID de la ruta se pudo eliminar, false si el ID no estaba guardado
+   */
   public removeFavouriteRoute(route: number | Route): boolean {
     let index: number;
     if (typeof route === "number") {
@@ -277,6 +333,13 @@ export class User implements Stringable {
     });
   }
 
+  /**
+   *
+   * Añade un reto activo al usuario
+   *
+   * @param challenge ID del reto o reto a añadir
+   * @returns true si el ID del reto se pudo añadir, false si el ID ya estaba guardado o era inválido
+   */
   public addActiveChallenge(challenge: number | Challenge): boolean {
     if (typeof challenge === "number") {
       if (
@@ -296,6 +359,13 @@ export class User implements Stringable {
     return false;
   }
 
+  /**
+   *
+   * Elimina un reto del usuario
+   *
+   * @param challenge ID del reto o reto a añadir
+   * @returns true si el ID del reto se pudo eliminar, false si el ID no estaba guardado
+   */
   public removeActiveChallenge(challenge: number | Challenge): boolean {
     let index: number;
     if (typeof challenge === "number") {
@@ -331,9 +401,17 @@ export class User implements Stringable {
     });
   }
 
+  /**
+   *
+   * Añade una entrada al historial del usuario
+   *
+   * @param date Fecha de la entrada
+   * @param route ID de la ruta o ruta de la entrada
+   * @returns true si la entrada se pudo añadir, false si el ID era inválido o la fecha era futura
+   */
   public addRouteToHistorical(date: Date, route: number | Route): boolean {
     if (typeof route === "number") {
-      if (route >= 0 && route % 1 === 0) {
+      if ((route >= 0 && route % 1 === 0) || date > new Date()) {
         this._historical.push([date, route]);
         return true;
       }
@@ -344,6 +422,14 @@ export class User implements Stringable {
     return false;
   }
 
+  /**
+   *
+   * Elimina una entrada al historial del usuario
+   *
+   * @param date Fecha de la entrada
+   * @param route ID de la ruta o ruta de la entrada
+   * @returns true si la entrada se pudo eliminar, false la entrada no estaba guardada
+   */
   public removeRouteFromHistorical(date: Date, route: number | Route): boolean {
     let index = -1;
     if (typeof route === "number") {
@@ -372,6 +458,12 @@ export class User implements Stringable {
     return false;
   }
 
+  /**
+   *
+   * Devuelve la información del usuario en forma de cadena
+   *
+   * @returns Cadena con la información del usuario
+   */
   public toString(): string {
     let output = "";
     output += `ID: ${this.id}\n`;

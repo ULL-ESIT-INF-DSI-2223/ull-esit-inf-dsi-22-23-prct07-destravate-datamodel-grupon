@@ -2,12 +2,19 @@ import { User } from "../classes/user";
 import { Collection } from "./collection";
 
 export class UserCollection extends Collection<User, string> {
+  /**
+   *
+   * Constructor de la clase UserCollection que representa una colección de usuarios
+   *
+   * @param elements Usuarios de la colección. No pueden haber varios usuarios con el mismo ID
+   */
   constructor(elements: User[]) {
     super(elements);
   }
+
   /**
    *
-   * Ordena los elementos alfabeticamente
+   * Ordena los usuarios alfabéticamente por el nombre en orden ascendente
    *
    */
   public sortByName(): void {
@@ -16,7 +23,7 @@ export class UserCollection extends Collection<User, string> {
 
   /**
    *
-   * Ordena los elementos alfabeticamente de manera inversa
+   * Ordena los usuarios alfabéticamente por el nombre en orden descendente
    *
    */
   public sortReversedByName(): void {
@@ -26,7 +33,7 @@ export class UserCollection extends Collection<User, string> {
 
   /**
    *
-   * Ordena los elementos alfabeticamente
+   * Ordena los usuarios por el total de kilómetros recorridos en la semana en orden ascendente
    *
    */
   public sortByWeekKilometers(): void {
@@ -37,7 +44,7 @@ export class UserCollection extends Collection<User, string> {
 
   /**
    *
-   * Ordena los elementos alfabeticamente de manera inversa
+   * Ordena los usuarios por el total de kilómetros recorridos en la semana en orden descendente
    *
    */
   public sortReversedWeekKilometers(): void {
@@ -47,7 +54,7 @@ export class UserCollection extends Collection<User, string> {
 
   /**
    *
-   * Ordena los elementos alfabeticamente
+   * Ordena los usuarios por el total de kilómetros recorridos en el mes en orden ascendente
    *
    */
   public sortByMonthKilometers(): void {
@@ -58,7 +65,7 @@ export class UserCollection extends Collection<User, string> {
 
   /**
    *
-   * Ordena los elementos alfabeticamente de manera inversa
+   * Ordena los usuarios por el total de kilómetros recorridos en el mes en orden descendente
    *
    */
   public sortReversedMonthKilometers(): void {
@@ -68,7 +75,7 @@ export class UserCollection extends Collection<User, string> {
 
   /**
    *
-   * Ordena los elementos alfabeticamente
+   * Ordena los usuarios por el total de kilómetros recorridos en el año en orden ascendente
    *
    */
   public sortByYearKilometers(): void {
@@ -79,7 +86,7 @@ export class UserCollection extends Collection<User, string> {
 
   /**
    *
-   * Ordena los elementos alfabeticamente de manera inversa
+   * Ordena los usuarios por el total de kilómetros recorridos en el año en orden descendente
    *
    */
   public sortReversedYearKilometers(): void {

@@ -1,6 +1,17 @@
 import { Stringable } from "../interfaces/stringable";
 
 export class Statistics implements Stringable {
+  /**
+   *
+   * Constructor de la clase Statistics que representa unas estadísticas de entrenamiento
+   *
+   * @param _week_kilometers Cantidad de kilómetros recorridos en la semana. Debe ser un número positivo y menor que _month_kilometers
+   * @param _week_unevenness Desnivel total acumulado recorrido en la semana. Debe ser un número positivo y menor que _month_unevenness
+   * @param _month_kilometers Cantidad de kilómetros recorridos en el mes. Debe ser un número positivo y menor que _year_kilometers
+   * @param _month_unevenness Desnivel total acumulado recorrido en el mes. Debe ser un número positivo y menor que _year_unevenness
+   * @param _year_kilometers Cantidad de kilómetros recorridos en el año. Debe ser un número positivo y mayor que _month_kilometers
+   * @param _year_unevenness Desnivel total acumulado recorrido en el año. Debe ser un número positivo y mayor que _month_unevenness
+   */
   constructor(
     private _week_kilometers: number,
     private _week_unevenness: number,
@@ -121,6 +132,12 @@ export class Statistics implements Stringable {
     this._year_unevenness = year_unevenness;
   }
 
+  /**
+   *
+   * Devuelve la información de las estadísticas en forma de cadena
+   *
+   * @returns Cadena con la información de las estadísticas
+   */
   public toString(): string {
     let output = "";
     output += `  - Kilómetros de la semana: ${this.week_kilometers}\n`;

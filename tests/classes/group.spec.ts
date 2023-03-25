@@ -114,6 +114,7 @@ describe("Group class test", () => {
     expect(myGroup.id).to.be.eql(0);
     expect(() => (myGroup.id = -1)).to.throw("ID de Grupo no válido");
   });
+
   it("name property", () => {
     const usu0 = new User(
       "pepaso",
@@ -151,6 +152,7 @@ describe("Group class test", () => {
     myGroup.name = "Grupo2";
     expect(myGroup.name).to.be.eql("Grupo2");
   });
+
   it("members_id property", () => {
     const usu0 = new User(
       "pepaso",
@@ -186,6 +188,7 @@ describe("Group class test", () => {
     );
     expect(myGroup.members_id).to.be.eql(["pepaso", "tomasote"]);
   });
+
   it("statistics property", () => {
     const usu0 = new User(
       "pepaso",
@@ -230,6 +233,7 @@ describe("Group class test", () => {
     expect(myGroup.addMember(usu1)).to.be.true;
     expect(myGroup.addMember(usu1)).to.be.false;
   });
+
   it("members_ranking property", () => {
     const usu0 = new User(
       "pepaso",
@@ -387,6 +391,195 @@ describe("Group class test", () => {
     expect(() => (myGroup.historical = [[new Date(), 5.5]])).to.throw(
       "ID 5.5 de ruta del historial no válido"
     );
+  });
+
+  it("admins property", () => {
+    const usu0 = new User(
+      "pepaso",
+      "Pepe",
+      "Running",
+      ["rodrigodigo", "marcelo"],
+      [2, 5],
+      new Statistics(5, 200, 10, 500, 80, 4000),
+      [6, 4],
+      [1, 3],
+      [[new Date(), 4]]
+    );
+    const usu1 = new User(
+      "tomasote",
+      "Tomás",
+      "Bicycle",
+      ["pepaso", "marcelo"],
+      [2, 4],
+      new Statistics(5, 250, 15, 600, 50, 5500),
+      [6, 4, 8],
+      [1, 3, 4],
+      [
+        [new Date(), 4],
+        [new Date("2022-12-17T03:24:00"), 2],
+      ]
+    );
+    const myGroup = new Group(
+      1,
+      "Grupo1",
+      [usu0, usu1],
+      [6, 4],
+      [[new Date(), 4]]
+    );
+    expect(myGroup.admins).to.be.eql([]);
+    myGroup.admins = ["alfredillo", "tomasote"];
+    expect(myGroup.admins).to.be.eql(["alfredillo", "tomasote"]);
+  });
+
+  it("addAdmin function", () => {
+    const usu0 = new User(
+      "pepaso",
+      "Pepe",
+      "Running",
+      ["rodrigodigo", "marcelo"],
+      [2, 5],
+      new Statistics(5, 200, 10, 500, 80, 4000),
+      [6, 4],
+      [1, 3],
+      [[new Date(), 4]]
+    );
+    const usu1 = new User(
+      "tomasote",
+      "Tomás",
+      "Bicycle",
+      ["pepaso", "marcelo"],
+      [2, 4],
+      new Statistics(5, 250, 15, 600, 50, 5500),
+      [6, 4, 8],
+      [1, 3, 4],
+      [
+        [new Date(), 4],
+        [new Date("2022-12-17T03:24:00"), 2],
+      ]
+    );
+    const myGroup = new Group(
+      1,
+      "Grupo1",
+      [usu0, usu1],
+      [6, 4],
+      [[new Date(), 4]]
+    );
+    expect(myGroup.addAdmin("alfredillo")).to.be.true;
+    expect(myGroup.admins).to.be.eql(["alfredillo"]);
+    expect(
+      myGroup.addAdmin(
+        new User(
+          "tomasote",
+          "Tomás",
+          "Bicycle",
+          ["pepaso", "marcelo"],
+          [2, 4],
+          new Statistics(5, 250, 15, 600, 80, 5500),
+          [6, 4, 8],
+          [1, 3, 4],
+          [
+            [new Date(), 4],
+            [new Date("2022-12-17T03:24:00"), 2],
+          ]
+        )
+      )
+    ).to.be.true;
+    expect(myGroup.admins).to.be.eql(["alfredillo", "tomasote"]);
+    expect(myGroup.addAdmin("alfredillo")).to.be.false;
+    expect(
+      myGroup.addAdmin(
+        new User(
+          "tomasote",
+          "Tomás",
+          "Bicycle",
+          ["pepaso", "marcelo"],
+          [2, 4],
+          new Statistics(5, 250, 15, 600, 80, 5500),
+          [6, 4, 8],
+          [1, 3, 4],
+          [
+            [new Date(), 4],
+            [new Date("2022-12-17T03:24:00"), 2],
+          ]
+        )
+      )
+    ).to.be.false;
+  });
+
+  it("removeFriend function", () => {
+    const usu0 = new User(
+      "pepaso",
+      "Pepe",
+      "Running",
+      ["rodrigodigo", "marcelo"],
+      [2, 5],
+      new Statistics(5, 200, 10, 500, 80, 4000),
+      [6, 4],
+      [1, 3],
+      [[new Date(), 4]]
+    );
+    const usu1 = new User(
+      "tomasote",
+      "Tomás",
+      "Bicycle",
+      ["pepaso", "marcelo"],
+      [2, 4],
+      new Statistics(5, 250, 15, 600, 50, 5500),
+      [6, 4, 8],
+      [1, 3, 4],
+      [
+        [new Date(), 4],
+        [new Date("2022-12-17T03:24:00"), 2],
+      ]
+    );
+    const myGroup = new Group(
+      1,
+      "Grupo1",
+      [usu0, usu1],
+      [6, 4],
+      [[new Date(), 4]]
+    );
+    myGroup.admins = ["alfredillo", "tomasote"];
+    expect(myGroup.removeAdmin("alfredillo")).to.be.true;
+    expect(myGroup.admins).to.be.eql(["tomasote"]);
+    expect(
+      myGroup.removeAdmin(
+        new User(
+          "tomasote",
+          "Tomás",
+          "Bicycle",
+          ["pepaso", "marcelo"],
+          [2, 4],
+          new Statistics(5, 250, 15, 600, 80, 5500),
+          [6, 4, 8],
+          [1, 3, 4],
+          [
+            [new Date(), 4],
+            [new Date("2022-12-17T03:24:00"), 2],
+          ]
+        )
+      )
+    ).to.be.true;
+    expect(myGroup.admins).to.be.eql([]);
+    expect(myGroup.removeAdmin("alfredillo")).to.be.false;
+    expect(
+      myGroup.removeAdmin(
+        new User(
+          "tomasote",
+          "Tomás",
+          "Bicycle",
+          ["pepaso", "marcelo"],
+          [2, 4],
+          new Statistics(5, 250, 15, 600, 80, 5500),
+          [6, 4, 8],
+          [1, 3, 4],
+          [
+            [new Date(), 4],
+            [new Date("2022-12-17T03:24:00"), 2],
+          ]
+        )
+      )
+    ).to.be.false;
   });
 
   it("toString", () => {

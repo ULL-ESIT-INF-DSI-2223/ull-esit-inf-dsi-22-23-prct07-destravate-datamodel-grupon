@@ -10,16 +10,17 @@ export class Challenge implements Stringable {
   private _activity: Activity;
   private _total_kilometers: number;
   private _users: string[] = [];
+
   /**
    *
-   * Constructor de la clase Challenge
+   * Constructor de la clase Challenge que representa un reto
    *
-   * @param id ID del Challenge
-   * @param name Nombre del Challenge
-   * @param routes Rutas del Challenge
-   * @param activity Actividad a realizar en el Challenge
-   * @param total_kilometers Kilómetros totales del Challenge
-   * @param users ID de usuarios que participan en el Challenge
+   * @param id ID del reto. Debe ser un entero positivo
+   * @param name Nombre del reto
+   * @param routes IDs de las rutas del reto. Se eliminan los IDs repetidos y se comprueba que sean válidos
+   * @param activity Actividad a realizar en el reto
+   * @param total_kilometers Kilómetros totales del reto. Debe ser un número positivo
+   * @param users IDs de los usuarios que participan en el reto. Se eliminan los IDs repetidos
    */
   constructor(
     id: number,
@@ -90,12 +91,13 @@ export class Challenge implements Stringable {
       }
     });
   }
+
   /**
    *
-   * Función para añadir una ruta
+   * Añade una ruta al reto
    *
-   * @param route ID de ruta o propio objeto
-   * @returns true si se ha podido añadir false si no
+   * @param route ID de la ruta o ruta a añadir
+   * @returns true si el ID de la ruta se pudo añadir, false si el ID ya estaba guardado o era inválido
    */
   public addRoute(route: number | Route): boolean {
     if (typeof route === "number") {
@@ -114,10 +116,10 @@ export class Challenge implements Stringable {
 
   /**
    *
-   * Función para eliminar una ruta
+   * Elimina una ruta del reto
    *
-   * @param route ID de ruta o propio objeto
-   * @returns true si se ha podido eliminar false si no
+   * @param route ID de la ruta o ruta a eliminar
+   * @returns true si el ID de la ruta se pudo eliminar, false si el ID no estaba guardado
    */
   public removeRoute(route: number | Route): boolean {
     let index: number;
@@ -166,10 +168,10 @@ export class Challenge implements Stringable {
 
   /**
    *
-   * Función para añadir un id de usuario a un reto
+   * Añade un usuario al reto
    *
-   * @param route ID de usuario o propio objeto
-   * @returns true si se ha podido añadir false si no
+   * @param user ID del usuario o usuario a añadir
+   * @returns true si el ID del usuario se pudo añadir, false si el ID ya estaba guardado
    */
   public addUser(user: string | User): boolean {
     if (typeof user === "string") {
@@ -188,10 +190,10 @@ export class Challenge implements Stringable {
 
   /**
    *
-   * Función para eliminar un id de usuario a un reto
+   * Elimina un usuario del reto
    *
-   * @param route ID de usuario o propio objeto
-   * @returns true si se ha podido eliminar false si no
+   * @param user ID del usuario o usuario a eliminar
+   * @returns true si el ID del usuario se pudo eliminar, false si el ID no estaba guardado
    */
   public removeUser(user: string | User): boolean {
     let index: number;
@@ -207,6 +209,12 @@ export class Challenge implements Stringable {
     return false;
   }
 
+  /**
+   *
+   * Devuelve la información del reto en forma de cadena
+   *
+   * @returns Cadena con la información del reto
+   */
   public toString(): string {
     let output = "";
     output += `ID: ${this.id}\n`;

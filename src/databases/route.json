@@ -1,0 +1,228 @@
+{
+  "route": [
+    {
+      "_id": 0,
+      "_name": "Ruta1",
+      "_ini_cords": {
+        "_latitude": 1,
+        "_longitude": 1
+      },
+      "_end_cords": {
+        "_latitude": 2,
+        "_longitude": 2
+      },
+      "_length": 1,
+      "_average_slope": 1,
+      "_visitors_id": [],
+      "_activity": "Running",
+      "_avg_score": 9
+    },
+    {
+      "_id": 1,
+      "_name": "Ruta2",
+      "_ini_cords": {
+        "_latitude": 1,
+        "_longitude": 1
+      },
+      "_end_cords": {
+        "_latitude": 3,
+        "_longitude": 3
+      },
+      "_length": 2,
+      "_average_slope": 2,
+      "_visitors_id": [
+        "usu1"
+      ],
+      "_activity": "Running",
+      "_avg_score": 0
+    },
+    {
+      "_id": 2,
+      "_name": "Ruta3",
+      "_ini_cords": {
+        "_latitude": 1,
+        "_longitude": 1
+      },
+      "_end_cords": {
+        "_latitude": 4,
+        "_longitude": 4
+      },
+      "_length": 3,
+      "_average_slope": 3,
+      "_visitors_id": [
+        "usu2",
+        "usu3"
+      ],
+      "_activity": "Running",
+      "_avg_score": 3
+    },
+    {
+      "_id": 3,
+      "_name": "Ruta4",
+      "_ini_cords": {
+        "_latitude": 1,
+        "_longitude": 1
+      },
+      "_end_cords": {
+        "_latitude": 5,
+        "_longitude": 5
+      },
+      "_length": 4,
+      "_average_slope": 4,
+      "_visitors_id": [
+        "usu2",
+        "usu3",
+        "usu4",
+        "usu5",
+        "usu7"
+      ],
+      "_activity": "Running",
+      "_avg_score": 4
+    },
+    {
+      "_id": 4,
+      "_name": "Ruta5",
+      "_ini_cords": {
+        "_latitude": 1,
+        "_longitude": 1
+      },
+      "_end_cords": {
+        "_latitude": 6,
+        "_longitude": 6
+      },
+      "_length": 5,
+      "_average_slope": 5,
+      "_visitors_id": [
+        "usu2",
+        "usu3",
+        "usu5"
+      ],
+      "_activity": "Running",
+      "_avg_score": 10
+    },
+    {
+      "_id": 15,
+      "_name": "Ruta52",
+      "_ini_cords": {
+        "_latitude": 1,
+        "_longitude": 1
+      },
+      "_end_cords": {
+        "_latitude": 62,
+        "_longitude": 16
+      },
+      "_length": 100,
+      "_average_slope": 5,
+      "_visitors_id": [
+        "usu2",
+        "usu3",
+        "usu5",
+        "usu1231",
+        "usu2121",
+        "usu52112",
+        "usu"
+      ],
+      "_activity": "Running",
+      "_avg_score": 3
+    },
+    {
+      "_id": 777,
+      "_name": "Ruta53",
+      "_ini_cords": {
+        "_latitude": 1,
+        "_longitude": 1
+      },
+      "_end_cords": {
+        "_latitude": 62,
+        "_longitude": 16
+      },
+      "_length": 100,
+      "_average_slope": 5,
+      "_visitors_id": [
+        "usu2",
+        "usu3",
+        "usu5",
+        "usu4"
+      ],
+      "_activity": "Bicycle",
+      "_avg_score": 3
+    },
+    {
+      "_id": 20,
+      "_name": "Ruta77",
+      "_ini_cords": {
+        "_latitude": 1,
+        "_longitude": 1
+      },
+      "_end_cords": {
+        "_latitude": 62,
+        "_longitude": 16
+      },
+      "_length": 100,
+      "_average_slope": 5,
+      "_visitors_id": [
+        "usu2",
+        "usu3",
+        "usu5",
+        "usu6",
+        "usu51",
+        "usu12211"
+      ],
+      "_activity": "Running",
+      "_avg_score": 4
+    },
+    {
+      "_id": 21,
+      "_name": "Ruta21",
+      "_ini_cords": {
+        "_latitude": 1,
+        "_longitude": 1
+      },
+      "_end_cords": {
+        "_latitude": 62,
+        "_longitude": 16
+      },
+      "_length": 1000,
+      "_average_slope": 2,
+      "_visitors_id": [
+        "usu2",
+        "usu3",
+        "usu5",
+        "usu1231",
+        "usu2121",
+        "usu52112",
+        "usu",
+        "u"
+      ],
+      "_activity": "Bicycle",
+      "_avg_score": 6
+    },
+    {
+      "_id": 90,
+      "_name": "Ruta90",
+      "_ini_cords": {
+        "_latitude": 1,
+        "_longitude": 1
+      },
+      "_end_cords": {
+        "_latitude": 62,
+        "_longitude": 16
+      },
+      "_length": 500,
+      "_average_slope": 2,
+      "_visitors_id": [
+        "usu2",
+        "usu3",
+        "usu5",
+        "usu1231",
+        "usu2121",
+        "usu52112",
+        "usu",
+        "u",
+        "a"
+      ],
+      "_activity": "Bicycle",
+      "_avg_score": 3
+    }
+  ]
+}
