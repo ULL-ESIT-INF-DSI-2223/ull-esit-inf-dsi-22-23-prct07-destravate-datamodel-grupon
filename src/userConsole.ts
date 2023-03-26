@@ -1,4 +1,4 @@
 import { UserGestor } from "./userGestor";
 
-const TestUserGestor = new UserGestor();
+const TestUserGestor = UserGestor.getUserGestorInstance();
 TestUserGestor.promptInitialMenu();

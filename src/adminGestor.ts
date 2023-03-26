@@ -4,6 +4,7 @@ import { GeneralCommands } from "./enums/GeneralComands";
 import { GroupsAdminCommands } from "./enums/GroupAdminComands";
 import { RouteAdminCommands } from "./enums/RouteAdminComands";
 import { ChallengeAdminCommands } from "./enums/ChallengeAdminComands";
+import { UserAdminCommands } from "./enums/UserAdminCommands";
 
 import { Activity } from "./types/activity";
 import { Coord } from "./classes/coord";
@@ -19,16 +20,41 @@ import { Group } from "./classes/group";
 import { JsonUserCollection } from "./databases/JsonUserCollection";
 import { userExample } from "./examples/userExample";
 import { User } from "./classes/user";
-import { UserAdminComands } from "./enums/UserAdminComands";
 import { Statistics } from "./classes/statistics";
 
 export class AdminGestor {
-  private _route_collection = new JsonRouteCollection(routeExample);
-  private _challenge_collection = new JsonChallengeCollection(challengeExample);
-  private _group_collection = new JsonGroupCollection(groupExample);
-  private _user_collection = new JsonUserCollection(userExample);
-  private _selector = -1;
+  private _route_collection;
+  private _challenge_collection;
+  private _group_collection;
+  private _user_collection;
+  private _selector;
+  private static adminGestorInstance: AdminGestor;
 
+  /**
+   * Constructor de la clase AdminGestor
+   */
+  private constructor() {
+    this._route_collection = new JsonRouteCollection(routeExample);
+    this._challenge_collection = new JsonChallengeCollection(challengeExample);
+    this._group_collection = new JsonGroupCollection(groupExample);
+    this._user_collection = new JsonUserCollection(userExample);
+    this._selector = -1;
+  }
+
+  /**
+   * Devuelve una instancia de AdminGestor siguiendo el patrón Singleton
+   * @returns Instancia única de AdminGestor
+   */
+  public static getAdminGestorInstance(): AdminGestor {
+    if (!AdminGestor.adminGestorInstance) {
+      AdminGestor.adminGestorInstance = new AdminGestor();
+    }
+    return AdminGestor.adminGestorInstance;
+  }
+
+  /**
+   * Muestra por consola la colección de elementos que se requiera
+   */
   private printRequested(): void {
     console.log("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
@@ -51,6 +77,10 @@ export class AdminGestor {
         break;
     }
   }
+
+  /**
+   * Muestra por consola el prompt para eliminar una ruta de la base de datos según el ID
+   */
   private async removeRoutePrompt() {
     let flag = false;
     while (!flag) {
@@ -73,6 +103,10 @@ export class AdminGestor {
     }
     this.promptMenu();
   }
+
+  /**
+   * Muestra por consola el prompt para añadir una ruta a la base de datos. Para esto pide todos los datos necesarios para crear una nueva ruta
+   */
   private async addRoutePrompt() {
     console.clear();
     let routeID = -1;
@@ -262,6 +296,10 @@ export class AdminGestor {
     this._route_collection.addRoute(RouteToAdd);
     this.promptMenu();
   }
+
+  /**
+   * Muestra por consola el prompt para actualizar una ruta a la base de datos. Para esto pide todos los datos necesarios para actualizar la ruta y la actualiza según su ID
+   */
   private async updateRoutePrompt() {
     console.clear();
     let routeID = -1;
@@ -456,7 +494,11 @@ export class AdminGestor {
     this._route_collection.updateRoute(RouteToAdd);
     this.promptMenu();
   }
-  private async RoutePrompt() {
+
+  /**
+   * Muestra por consola el prompt con las posibles acciones a realizar sobre las rutas de la base de datos
+   */
+  private async routePrompt() {
     console.clear();
     await inquirer
       .prompt({
@@ -505,6 +547,9 @@ export class AdminGestor {
       });
   }
 
+  /**
+   * Muestra por consola el prompt para eliminar un reto de la base de datos según el ID
+   */
   private async removeChallengePrompt() {
     let flag = false;
     while (!flag) {
@@ -527,6 +572,10 @@ export class AdminGestor {
     }
     this.promptMenu();
   }
+
+  /**
+   * Muestra por consola el prompt para añadir un reto a la base de datos. Para esto pide todos los datos necesarios para crear un nuevo reto
+   */
   private async addChallengePropmt() {
     console.clear();
     let challengeID = -1;
@@ -661,6 +710,10 @@ export class AdminGestor {
     this._challenge_collection.addChallenge(ChallengeToAdd);
     this.promptMenu();
   }
+
+  /**
+   * Muestra por consola el prompt para actualizar un reto a la base de datos. Para esto pide todos los datos necesarios para actualizar el reto y lo actualiza según su ID
+   */
   private async updateChallengePropmt() {
     console.clear();
     let challengeID = -1;
@@ -796,7 +849,11 @@ export class AdminGestor {
     this._challenge_collection.updateChallenge(ChallengeToAdd);
     this.promptMenu();
   }
-  private async ChallengePrompt() {
+
+  /**
+   * Muestra por consola el prompt con las posibles acciones a realizar sobre los retos de la base de datos
+   */
+  private async challengePrompt() {
     console.clear();
     await inquirer
       .prompt({
@@ -844,6 +901,9 @@ export class AdminGestor {
       });
   }
 
+  /**
+   * Muestra por consola el prompt para eliminar un usuario de la base de datos según el ID
+   */
   private async removeUserPrompt() {
     let flag = false;
     let foundedID = "";
@@ -872,11 +932,15 @@ export class AdminGestor {
     this._group_collection.storeGroups();
     this.promptMenu();
   }
+
+  /**
+   * Muestra por consola el prompt para añadir un usuario a la base de datos. Para esto pide los datos necesarios para crear un nuevo usuario
+   */
   private async addUserPropmt() {
     console.clear();
     let UserID = "";
     let UserName = "";
-    let UaerActivity: Activity = "Running";
+    let UserActivity: Activity = "Running";
     const Userfriends: string[] = [];
     const Usergroups: number[] = [];
     const Userstatistics: Statistics = new Statistics(0, 0, 0, 0, 0, 0);
@@ -919,15 +983,15 @@ export class AdminGestor {
       await inquirer
         .prompt({
           type: "input",
-          name: "UaerActivity",
+          name: "UserActivity",
           message: "Introduce user activity:",
         })
         .then((answers) => {
           if (
-            answers["UaerActivity"] !== "" &&
-            ["Bicycle", "Running"].includes(answers["UaerActivity"])
+            answers["UserActivity"] !== "" &&
+            ["Bicycle", "Running"].includes(answers["UserActivity"])
           ) {
-            UaerActivity = answers["UaerActivity"];
+            UserActivity = answers["UserActivity"];
             flag = false;
           } else {
             console.log("Invalid activity try again");
@@ -938,7 +1002,7 @@ export class AdminGestor {
     const UserToAdd = new User(
       UserID,
       UserName,
-      UaerActivity,
+      UserActivity,
       Userfriends,
       Usergroups,
       Userstatistics,
@@ -949,11 +1013,15 @@ export class AdminGestor {
     this._user_collection.addUser(UserToAdd);
     this.promptMenu();
   }
-  private async UpdateUserPropmt() {
+
+  /**
+   * Muestra por consola el prompt para actualizar un usuario a la base de datos. Para esto pide los datos necesarios para actualizar el usuario y lo actualiza según su ID
+   */
+  private async updateUserPropmt() {
     console.clear();
     let UserID = "";
     let UserName = "";
-    let UaerActivity: Activity = "Running";
+    let UserActivity: Activity = "Running";
     let Userfriends: string[] = [];
     let Usergroups: number[] = [];
     let Userstatistics: Statistics = new Statistics(0, 0, 0, 0, 0, 0);
@@ -996,15 +1064,15 @@ export class AdminGestor {
       await inquirer
         .prompt({
           type: "input",
-          name: "UaerActivity",
+          name: "UserActivity",
           message: "Introduce user activity:",
         })
         .then((answers) => {
           if (
-            answers["UaerActivity"] !== "" &&
-            ["Bicycle", "Running"].includes(answers["UaerActivity"])
+            answers["UserActivity"] !== "" &&
+            ["Bicycle", "Running"].includes(answers["UserActivity"])
           ) {
-            UaerActivity = answers["UaerActivity"];
+            UserActivity = answers["UserActivity"];
             flag = false;
           } else {
             console.log("Invalid activity try again");
@@ -1027,7 +1095,7 @@ export class AdminGestor {
     const UserToAdd = new User(
       UserID,
       UserName,
-      UaerActivity,
+      UserActivity,
       Userfriends,
       Usergroups,
       Userstatistics,
@@ -1039,62 +1107,68 @@ export class AdminGestor {
     this.promptMenu();
   }
 
-  async UserPrompt() {
+  /**
+   * Muestra por consola el prompt con las posibles acciones a realizar sobre los usuarios de la base de datos.
+   */
+  async userPrompt() {
     console.clear();
     await inquirer
       .prompt({
         type: "list",
         name: "command",
         message: "Choose option",
-        choices: Object.values(UserAdminComands),
+        choices: Object.values(UserAdminCommands),
       })
       .then((answers) => {
         switch (answers["command"]) {
-          case UserAdminComands.ShowUserAlphabetically:
+          case UserAdminCommands.ShowUserAlphabetically:
             this._user_collection.sortByName();
             this.promptMenu();
             break;
-          case UserAdminComands.ShowUserReversedAlphabetically:
+          case UserAdminCommands.ShowUserReversedAlphabetically:
             this._user_collection.sortReversedByName();
             this.promptMenu();
             break;
-          case UserAdminComands.ShowUsersByWeekKilometers:
+          case UserAdminCommands.ShowUsersByWeekKilometers:
             this._user_collection.sortByWeekKilometers();
             this.promptMenu();
             break;
-          case UserAdminComands.ShowUsersByWeekKilometersReversed:
+          case UserAdminCommands.ShowUsersByWeekKilometersReversed:
             this._user_collection.sortReversedMonthKilometers();
             this.promptMenu();
             break;
-          case UserAdminComands.ShowUsersByMonthKilometers:
+          case UserAdminCommands.ShowUsersByMonthKilometers:
             this._user_collection.sortByMonthKilometers();
             this.promptMenu();
             break;
-          case UserAdminComands.ShowUsersByMonthKilometersReversed:
+          case UserAdminCommands.ShowUsersByMonthKilometersReversed:
             this._user_collection.sortReversedMonthKilometers();
             this.promptMenu();
             break;
-          case UserAdminComands.ShowUsersByYearKilometers:
+          case UserAdminCommands.ShowUsersByYearKilometers:
             this._user_collection.sortByYearKilometers();
             this.promptMenu();
             break;
-          case UserAdminComands.ShowUsersByYearKilometersReversed:
+          case UserAdminCommands.ShowUsersByYearKilometersReversed:
             this._user_collection.sortReversedYearKilometers();
             this.promptMenu();
             break;
-          case UserAdminComands.AddNewUser:
+          case UserAdminCommands.AddNewUser:
             this.addUserPropmt();
             break;
-          case UserAdminComands.RemoveUser:
+          case UserAdminCommands.RemoveUser:
             this.removeUserPrompt();
             break;
-          case UserAdminComands.UpdateUser:
-            this.UpdateUserPropmt();
+          case UserAdminCommands.UpdateUser:
+            this.updateUserPropmt();
             break;
         }
       });
   }
 
+  /**
+   * Muestra por consola el prompt para eliminar un grupo de la base de datos según el ID
+   */
   private async removeGroupPrompt() {
     let flag = false;
     let foundedID = -1;
@@ -1124,6 +1198,10 @@ export class AdminGestor {
     this._user_collection.storeUsers();
     this.promptMenu();
   }
+
+  /**
+   * Muestra por consola el prompt para añadir un grupo a la base de datos. Para esto pide los datos necesarios para crear un nuevo grupo
+   */
   private async addGroupPropmt() {
     console.clear();
     let GroupID = -1;
@@ -1168,6 +1246,10 @@ export class AdminGestor {
     this._group_collection.addGroup(GroupToAdd);
     this.promptMenu();
   }
+
+  /**
+   * Muestra por consola el prompt para actualizar un grupo a la base de datos. Para esto pide los datos necesarios para actualizar el grupo y lo actualiza según su ID
+   */
   private async updateGroupPropmt() {
     console.clear();
     let GroupID = -1;
@@ -1225,7 +1307,11 @@ export class AdminGestor {
     this._group_collection.updateGroup(GroupToAdd);
     this.promptMenu();
   }
-  private async GroupPrompt() {
+
+  /**
+   * Muestra por consola el prompt con las posibles acciones a realizar sobre los grupos de la base de datos
+   */
+  private async groupPrompt() {
     console.clear();
     await inquirer
       .prompt({
@@ -1289,11 +1375,12 @@ export class AdminGestor {
       });
   }
 
+  /**
+   * Muestra por consola el menú principal para la selección de una opción por parte del usuario
+   */
   public async promptMenu() {
     console.clear();
-
     this.printRequested();
-
     await inquirer
       .prompt({
         type: "list",
@@ -1304,19 +1391,19 @@ export class AdminGestor {
       .then((answers) => {
         switch (answers["command"]) {
           case GeneralCommands.RoutesOptions:
-            this.RoutePrompt();
+            this.routePrompt();
             this._selector = 1;
             break;
           case GeneralCommands.ChallengeOptions:
-            this.ChallengePrompt();
+            this.challengePrompt();
             this._selector = 2;
             break;
           case GeneralCommands.UserOptions:
-            this.UserPrompt();
+            this.userPrompt();
             this._selector = 3;
             break;
           case GeneralCommands.GroupOptions:
-            this.GroupPrompt();
+            this.groupPrompt();
             this._selector = 4;
             break;
         }

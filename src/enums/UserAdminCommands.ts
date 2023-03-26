@@ -1,7 +1,7 @@
 /**
  * Enum con todos los comandos de administrador de usuarios
  */
-export enum UserAdminComands {
+export enum UserAdminCommands {
   ShowUserAlphabetically = "Show Users alphabetically",
   ShowUserReversedAlphabetically = "Show Users alphabetically reversed",
   ShowUsersByWeekKilometers = "Show Users order by total kilometers in a week",

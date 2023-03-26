@@ -1,5 +1,5 @@
 /**
- * Enum para todos los comandos de administrador del menu principal
+ * Enum para los comandos de administrador de retos
  */
 export enum ChallengeAdminCommands {
   ShowChallengeAlphabetically = "Show Challenges alphabetically",

@@ -683,6 +683,24 @@
           20
         ]
       ]
+    },
+    {
+      "_id": "fito",
+      "_name": "fitipaldis",
+      "_activity": "Running",
+      "_friends": [],
+      "_groups": [],
+      "_statistics": {
+        "_week_kilometers": 0,
+        "_week_unevenness": 0,
+        "_month_kilometers": 0,
+        "_month_unevenness": 0,
+        "_year_kilometers": 0,
+        "_year_unevenness": 0
+      },
+      "_favourite_routes": [],
+      "_active_challenges": [],
+      "_historical": []
     }
   ]
 }

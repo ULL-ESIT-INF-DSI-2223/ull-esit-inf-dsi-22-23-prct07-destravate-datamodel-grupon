@@ -1,7 +1,7 @@
 import inquirer from "inquirer";
 
 import { UserNormalUserComands } from "./enums/UserMenuCommands";
-import { UserLogginRegisterMenu } from "./enums/UserLogginRegisterMenu";
+import { UserLoginRegisterMenu } from "./enums/UserLoginRegisterMenu";
 import { UserFriendsAndUsersCommands } from "./enums/UserFriendsAndUsersCommands";
 import { UserGoupCommands } from "./enums/UserGoupCommands";
 import { UserRouteCommands } from "./enums/UserRouteCommands";
@@ -21,14 +21,42 @@ import { User } from "./classes/user";
 import { Statistics } from "./classes/statistics";
 
 export class UserGestor {
-  private _route_collection = new JsonRouteCollection(routeExample);
-  private _challenge_collection = new JsonChallengeCollection(challengeExample);
-  private _group_collection = new JsonGroupCollection(groupExample);
-  private _user_collection = new JsonUserCollection(userExample);
-  private _selector = -1;
-  private _logged = false;
-  private _logged_id = "";
+  private _route_collection;
+  private _challenge_collection;
+  private _group_collection;
+  private _user_collection;
+  private _selector;
+  private _logged;
+  private _logged_id;
+  private static userGestorInstance: UserGestor;
 
+  /**
+   * Constructor de la clase UserGestor
+   */
+  private constructor() {
+    this._route_collection = new JsonRouteCollection(routeExample);
+    this._challenge_collection = new JsonChallengeCollection(challengeExample);
+    this._group_collection = new JsonGroupCollection(groupExample);
+    this._user_collection = new JsonUserCollection(userExample);
+    this._selector = -1;
+    this._logged = false;
+    this._logged_id = "";
+  }
+
+  /**
+   * Devuelve una instancia de UserGestor siguiendo el patrón Singleton
+   * @returns Instancia única de UserGestor
+   */
+  public static getUserGestorInstance(): UserGestor {
+    if (!UserGestor.userGestorInstance) {
+      UserGestor.userGestorInstance = new UserGestor();
+    }
+    return UserGestor.userGestorInstance;
+  }
+
+  /**
+   * Muestra por consola la colección de elementos que se requiera
+   */
   private printRequested(): void {
     console.log("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
@@ -45,13 +73,15 @@ export class UserGestor {
       case 4:
         console.log(this._group_collection.toString());
         break;
-
       default:
         console.log();
         break;
     }
   }
 
+  /**
+   * Muestra por consola el menú principal para la selección de una opción por parte del usuario
+   */
   private async promptMenu() {
     console.clear();
 
@@ -67,25 +97,29 @@ export class UserGestor {
       .then((answers) => {
         switch (answers["command"]) {
           case UserNormalUserComands.RoutesOptions:
-            this.RoutePrompt();
+            this.routePrompt();
             this._selector = 1;
             break;
           case UserNormalUserComands.ChallengeOptions:
+            this.challengePrompt();
             this._selector = 2;
             break;
           case UserNormalUserComands.UserOptions:
-            this.UserPrompt();
+            this.userPrompt();
             this._selector = 3;
             break;
           case UserNormalUserComands.GroupOptions:
-            this.GroupPrompt();
+            this.groupPrompt();
             this._selector = 4;
             break;
         }
       });
   }
 
-  private async UserPrompt() {
+  /**
+   * Muestra por consola el prompt con las posibles acciones a realizar sobre usuarios
+   */
+  private async userPrompt() {
     console.clear();
     await inquirer
       .prompt({
@@ -132,11 +166,15 @@ export class UserGestor {
             this.addFriendPrompt();
             break;
           case UserFriendsAndUsersCommands.RemoveFriend:
-            this.remmoveFriend();
+            this.removeFriend();
             break;
         }
       });
   }
+
+  /**
+   * Muestra por consola el prompt para añadir un amigo al usuario activo. Para esto pide el ID del usuario a ser añadido como amigo
+   */
   private async addFriendPrompt() {
     const sleep = (ms: number | undefined) =>
       new Promise((r) => setTimeout(r, ms));
@@ -176,7 +214,11 @@ export class UserGestor {
     this._user_collection.storeUsers();
     this.promptMenu();
   }
-  private async remmoveFriend() {
+
+  /**
+   * Muestra por consola el prompt para eliminar un amigo del usuario activo. Para esto pide el ID del usuario a ser añadido como amigo
+   */
+  private async removeFriend() {
     const sleep = (ms: number | undefined) =>
       new Promise((r) => setTimeout(r, ms));
     console.clear();
@@ -228,7 +270,10 @@ export class UserGestor {
     this.promptMenu();
   }
 
-  private async JoinGrouppPrompt() {
+  /**
+   * Muestra por consola el prompt para unir al usuario activo a un grupo. Para esto pide el ID del grupo al que se quiere unir el usuario
+   */
+  private async joinGroupPrompt() {
     console.clear();
     const sleep = (ms: number | undefined) =>
       new Promise((r) => setTimeout(r, ms));
@@ -279,7 +324,11 @@ export class UserGestor {
     this._group_collection.storeGroups();
     this.promptMenu();
   }
-  private async LeaveGrouppPrompt() {
+
+  /**
+   * Muestra por consola el prompt para abandonar un grupo del usuario activo. Para esto pide el ID del grupo que quiere abandonar el usuario
+   */
+  private async leaveGroupPrompt() {
     console.clear();
     let found = false;
     let found_id = -1;
@@ -335,7 +384,10 @@ export class UserGestor {
     this.promptMenu();
   }
 
-  private async CreateGroupPrompt() {
+  /**
+   * Muestra por consola el prompt para crear un nuevo un grupo por parte del usuario activo. Para esto pide los datos necesarios para crear un nuevo grupo
+   */
+  private async createGroupPrompt() {
     console.clear();
     let GroupID = -1;
     let GroupName = "default";
@@ -401,7 +453,11 @@ export class UserGestor {
     this._group_collection.storeGroups();
     this.promptMenu();
   }
-  private async DeleteGroupPrompt() {
+
+  /**
+   * Muestra por consola el prompt para eliminar un grupo creado por el usuario activo. Para esto pide el ID del grupo que quiere eliminar el usuario
+   */
+  private async deleteGroupPrompt() {
     let flag = false;
     let foundedID = -1;
 
@@ -439,7 +495,10 @@ export class UserGestor {
     this.promptMenu();
   }
 
-  private async GroupPrompt() {
+  /**
+   * Muestra por consola el prompt con las posibles acciones a realizar sobre los grupos del usuario
+   */
+  private async groupPrompt() {
     console.clear();
     await inquirer
       .prompt({
@@ -491,21 +550,25 @@ export class UserGestor {
             this.promptMenu();
             break;
           case UserGoupCommands.JoinGroup:
-            this.JoinGrouppPrompt();
+            this.joinGroupPrompt();
             break;
           case UserGoupCommands.LeaveGroup:
-            this.LeaveGrouppPrompt();
+            this.leaveGroupPrompt();
             break;
           case UserGoupCommands.CreateGoup:
-            this.CreateGroupPrompt();
+            this.createGroupPrompt();
             break;
           case UserGoupCommands.DeleteGroup:
-            this.DeleteGroupPrompt();
+            this.deleteGroupPrompt();
             break;
         }
       });
   }
-  private async RoutePrompt() {
+
+  /**
+   * Muestra por consola el prompt con las posibles acciones a realizar sobre rutas
+   */
+  private async routePrompt() {
     console.clear();
     await inquirer
       .prompt({
@@ -544,7 +607,11 @@ export class UserGestor {
         }
       });
   }
-  private async ChallengePrompt() {
+
+  /**
+   * Muestra por consola el prompt con las posibles acciones a realizar sobre retos
+   */
+  private async challengePrompt() {
     console.clear();
     await inquirer
       .prompt({
@@ -583,11 +650,14 @@ export class UserGestor {
       });
   }
 
+  /**
+   * Muestra por consola el prompt para registrar un nuevo usuario en el sistema. Para esto pide los datos necesarios para crear un nuevo usuario
+   */
   private async promptRegister() {
     console.clear();
     let UserID = "";
     let UserName = "";
-    let UaerActivity: Activity = "Running";
+    let UserActivity: Activity = "Running";
     const Userfriends: string[] = [];
     const Usergroups: number[] = [];
     const Userstatistics: Statistics = new Statistics(0, 0, 0, 0, 0, 0);
@@ -630,15 +700,15 @@ export class UserGestor {
       await inquirer
         .prompt({
           type: "input",
-          name: "UaerActivity",
+          name: "UserActivity",
           message: "Introduce user activity:",
         })
         .then((answers) => {
           if (
-            answers["UaerActivity"] !== "" &&
-            ["Bicycle", "Running"].includes(answers["UaerActivity"])
+            answers["UserActivity"] !== "" &&
+            ["Bicycle", "Running"].includes(answers["UserActivity"])
           ) {
-            UaerActivity = answers["UaerActivity"];
+            UserActivity = answers["UserActivity"];
             flag = false;
           } else {
             console.log("Invalid activity try again");
@@ -649,7 +719,7 @@ export class UserGestor {
     const UserToAdd = new User(
       UserID,
       UserName,
-      UaerActivity,
+      UserActivity,
       Userfriends,
       Usergroups,
       Userstatistics,
@@ -662,7 +732,11 @@ export class UserGestor {
     this._logged = true;
     this.promptMenu();
   }
-  private async promptLoggin() {
+  
+  /**
+   * Muestra por consola el prompt para iniciar sesión en el sistema. Para esto pide el ID del usuario
+   */
+  private async promptLogin() {
     console.clear();
     while (!this._logged) {
       await inquirer
@@ -682,6 +756,10 @@ export class UserGestor {
     }
     this.promptMenu();
   }
+
+  /**
+   * Muestra por consola el de inicio de sesión por parte del usuario
+   */
   public async promptInitialMenu() {
     console.clear();
 
@@ -692,15 +770,15 @@ export class UserGestor {
         type: "list",
         name: "command",
         message: "Choose option",
-        choices: Object.values(UserLogginRegisterMenu),
+        choices: Object.values(UserLoginRegisterMenu),
       })
       .then((answers) => {
         switch (answers["command"]) {
-          case UserLogginRegisterMenu.Register:
+          case UserLoginRegisterMenu.Register:
             this.promptRegister();
             break;
-          case UserLogginRegisterMenu.Loggin:
-            this.promptLoggin();
+          case UserLoginRegisterMenu.Login:
+            this.promptLogin();
             break;
         }
       });

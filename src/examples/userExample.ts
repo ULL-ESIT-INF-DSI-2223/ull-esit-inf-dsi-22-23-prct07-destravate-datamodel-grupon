@@ -1,6 +1,8 @@
 import { User } from "../classes/user";
 import { Statistics } from "../classes/statistics";
 
+// Fichero de recuperación en caso de que se borren los usuarios de la base de datos
+
 const user1: User = new User(
   "pepaso",
   "Pepe",

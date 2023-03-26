@@ -1,5 +1,7 @@
 import { Challenge } from "../classes/challenge";
 
+// Fichero de recuperación en caso de que se borren los retos de la base de datos
+
 const challenge1: Challenge = new Challenge(
   1,
   "Reto Extremo",

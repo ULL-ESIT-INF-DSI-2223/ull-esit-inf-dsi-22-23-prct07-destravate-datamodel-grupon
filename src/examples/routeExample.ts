@@ -1,6 +1,8 @@
 import { Route } from "../classes/route";
 import { Coord } from "../classes/coord";
 
+// Fichero de recuperación en caso de que se borren las rutas de la base de datos
+
 const r1 = new Route(
   0,
   "Ruta1",

@@ -1,6 +1,8 @@
 import { Group } from "../classes/group";
 import { userExample } from "./userExample";
 
+// Fichero de recuperación en caso de que se borren los grupos de la base de datos
+
 const g1 = new Group(
   1,
   "Grupo1",

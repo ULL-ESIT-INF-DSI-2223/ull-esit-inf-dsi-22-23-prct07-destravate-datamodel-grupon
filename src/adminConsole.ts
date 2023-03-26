@@ -1,4 +1,4 @@
 import { AdminGestor } from "./adminGestor";
 
-const TestAdminGestor = new AdminGestor();
+const TestAdminGestor = AdminGestor.getAdminGestorInstance();
 TestAdminGestor.promptMenu();
