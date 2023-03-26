@@ -9,6 +9,7 @@ describe("RouteCollection class test", () => {
     const collection = new RouteCollection(routeExample);
     expect(collection).to.be.instanceOf(RouteCollection);
   });
+
   it("sortAlphabetically", () => {
     const collection = new RouteCollection(routeExample);
     collection.sortAlphabetically();
@@ -18,15 +19,17 @@ describe("RouteCollection class test", () => {
     expect((collection.get(9) as Route).name).to.be.eql("Ruta1");
     expect((collection.get(0) as Route).name).to.be.eql("Ruta90");
   });
+
   it("sortByNumberUsers", () => {
     const collection = new RouteCollection(routeExample);
     collection.sortByNumberUsers();
-    expect((collection.get(0) as Route).name).to.be.eql("Ruta1");
-    expect((collection.get(9) as Route).name).to.be.eql("Ruta90");
-    collection.sortReversedByNumberUsers();
-    expect((collection.get(9) as Route).name).to.be.eql("Ruta1");
     expect((collection.get(0) as Route).name).to.be.eql("Ruta90");
+    expect((collection.get(9) as Route).name).to.be.eql("Ruta52");
+    collection.sortReversedByNumberUsers();
+    expect((collection.get(9) as Route).name).to.be.eql("Ruta90");
+    expect((collection.get(0) as Route).name).to.be.eql("Ruta52");
   });
+
   it("sortByLenght", () => {
     const collection = new RouteCollection(routeExample);
     collection.sortByLenght();
@@ -36,6 +39,7 @@ describe("RouteCollection class test", () => {
     expect((collection.get(9) as Route).name).to.be.eql("Ruta1");
     expect((collection.get(0) as Route).name).to.be.eql("Ruta21");
   });
+
   it("sortByScore", () => {
     const collection = new RouteCollection(routeExample);
     collection.sortByScore();
@@ -45,6 +49,7 @@ describe("RouteCollection class test", () => {
     expect((collection.get(9) as Route).name).to.be.eql("Ruta2");
     expect((collection.get(0) as Route).name).to.be.eql("Ruta5");
   });
+
   it("sortByActivity", () => {
     const collection = new RouteCollection(routeExample);
     collection.sortByActivity();

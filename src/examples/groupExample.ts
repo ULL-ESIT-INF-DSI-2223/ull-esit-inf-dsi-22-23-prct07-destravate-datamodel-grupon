@@ -7,8 +7,8 @@ const g1 = new Group(
   [userExample[0]],
   [15, 0],
   [
-    [new Date("2021-10-17T03:24:00"), 15],
-    [new Date("2021-10-13T03:24:00"), 13],
+    [new Date("2021-10-17T03:24:00"), 0],
+    [new Date("2021-10-13T03:24:00"), 15],
   ]
 );
 
@@ -28,10 +28,7 @@ const g3 = new Group(
   "Grupo3",
   [userExample[4], userExample[5]],
   [777],
-  [
-    [new Date("2003-10-17T03:24:00"), 2],
-    [new Date("2020-03-21T03:24:00"), 77],
-  ]
+  [[new Date("2020-03-21T03:24:00"), 777]]
 );
 
 const g4 = new Group(

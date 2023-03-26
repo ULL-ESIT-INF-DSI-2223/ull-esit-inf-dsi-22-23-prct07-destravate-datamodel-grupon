@@ -12,6 +12,7 @@
 - [Clases básicas](https://ull-esit-inf-dsi-2223.github.io/ull-esit-inf-dsi-22-23-prct07-destravate-datamodel-grupon/#clases-básicas)
 - [Interfaces](https://ull-esit-inf-dsi-2223.github.io/ull-esit-inf-dsi-22-23-prct07-destravate-datamodel-grupon/#interfaces)
 - [Colecciones de objetos](https://ull-esit-inf-dsi-2223.github.io/ull-esit-inf-dsi-22-23-prct07-destravate-datamodel-grupon/#colecciones-de-objetos)
+- [Colecciones de la base de datos](https://ull-esit-inf-dsi-2223.github.io/ull-esit-inf-dsi-22-23-prct07-destravate-datamodel-grupon/#colecciones-de-la-base-de-datos)
 - [Bibliografía](https://ull-esit-inf-dsi-2223.github.io/ull-esit-inf-dsi-22-23-prct07-destravate-datamodel-grupon/#bibliografía)
 
 ## Introducción
@@ -174,6 +175,7 @@ La clase genérica `Collection` implementa las interfaces `Collectable` e `Strin
 - `get`: Devuelve el elemento de la colección en el índice indicado o `undefined` si el índice es inválido.
 - `length`: Devuelve el número de elementos de la colección.
 - `hasID`: Comprueba si existe algún elemento en la colección con el ID introducido.
+- `getByID`: Devuelve el elemento de la colección por con el ID introducido si este existe.
 - `toString`: Devuelve una representación de todos los elementos de la colección en forma de cadena.
 
 ### Clase RouteCollection
@@ -228,6 +230,133 @@ La clase `ChallengeCollection` hereda de la clase `Collection`, concretándola p
 - `sortReversedByKilometers`: Ordena la colección por la cantidad de kilómetros de los retos en orden descendente.
 - `sortByTotalUsers`: Ordena la colección por el total de usuarios realizando los retos en orden ascendente.
 - `sortReversedByTotalUsers`: Ordena la colección por el total de usuarios realizando retos en orden descendente.
+
+## Colecciones de la base de datos
+
+Para la gestión del contenido de la base de datos y lograr que funcione con las clases que hemos elaborado previamente con el uso del paquete **Lowdb**, se han creado clases especializadas que extienden de las colecciones anteriores. Cada clase tiene asociado un tipo que representa el esquema de la clase que se va a guardar en el fichero JSON.
+
+### Clase JsonRouteCollection
+
+La clase `JsonRouteCollection` hereda de la clase `RouteCollection` y es la que se encarga de la gestión del fichero JSON correspondiente a las rutas. Esta recoge y almacena las rutas que se encuentren en el fichero JSON para poder gestionarlas a través del programa. Para poder convertir los objetos TypeScript a objetos JSON utiliza el siguiente esquema:
+
+```typescript
+type schemaType = {
+  group: {
+    _favourite_routes: number[];
+    _historical: [Date, number][];
+    _id: number;
+    _name: string;
+    _members_id: string[];
+    _statistics: Statistics;
+    _members_ranking: User[];
+    _admins: string[];
+  }[];
+};
+```
+
+Para la gestión de las rutas de la base de datos, la clase posee las siguientes funciones:
+
+- `addRoute`: Añade una ruta a la colección y actualiza la base de datos.
+- `removeRoute`: Elimina una ruta de la colección y actualiza la base de datos.
+- `updateRoute`: Actualiza una ruta de la colección y actualiza la base de datos.
+- `storeRoutes`: Actualiza la base de datos con los elementos de la colección.
+
+### Clase JsonUserCollection
+
+La clase `JsonUserCollection` hereda de la clase `UserCollection` y es la que se encarga de la gestión del fichero JSON correspondiente a los usuarios. Esta recoge y almacena los usuarios que se encuentren en el fichero JSON para poder gestionarlos a través del programa. Para poder convertir los objetos TypeScript a objetos JSON utiliza el siguiente esquema:
+
+```typescript
+type schemaType = {
+  user: {
+    _id: string;
+    _name: string;
+    _activity: Activity;
+    _friends: string[];
+    _groups: number[];
+    _statistics: Statistics;
+    _favourite_routes: number[];
+    _active_challenges: number[];
+    _historical: [Date, number][];
+  }[];
+};
+```
+
+Para la gestión de los usuarios de la base de datos, la clase posee las siguientes funciones:
+
+- `addUser`: Añade un usuario a la colección y actualiza la base de datos.
+- `removeUser`: Elimina un usuario de la colección y actualiza la base de datos.
+- `updateUser`: Actualiza un usuario de la colección y actualiza la base de datos.
+- `storeUsers`: Actualiza la base de datos con los elementos de la colección.
+
+### Clase JsonGroupCollection
+
+La clase `JsonGroupCollection` hereda de la clase `GroupCollection` y es la que se encarga de la gestión del fichero JSON correspondiente a los grupos. Esta recoge y almacena los grupos que se encuentren en el fichero JSON para poder gestionarlos a través del programa. Para poder convertir los objetos TypeScript a objetos JSON utiliza los siguientes esquemas, ya que la clase `Group` también guarda usuarios para el ranking:
+
+```typescript
+type userSchema = {
+  _id: string;
+  _name: string;
+  _activity: Activity;
+  _friends: string[];
+  _groups: number[];
+  _statistics: Statistics;
+  _favourite_routes: number[];
+  _active_challenges: number[];
+  _historical: [Date, number][];
+}[];
+
+type schemaType = {
+  group: {
+    _favourite_routes: number[];
+    _historical: [Date, number][];
+    _id: number;
+    _name: string;
+    _members_id: string[];
+    _statistics: Statistics;
+    _members_ranking: userSchema;
+    _admins: string[];
+  }[];
+};
+```
+
+Para la gestión de los grupos de la base de datos, la clase posee las siguientes funciones:
+
+- `addGroup`: Añade un grupo a la colección y actualiza la base de datos.
+- `removeGroup`: Elimina un grupo de la colección y actualiza la base de datos.
+- `updateGroup`: Actualiza un grupo de la colección y actualiza la base de datos.
+- `storeGroups`: Actualiza la base de datos con los elementos de la colección.
+
+### Clase JsonChallengeCollection
+
+La clase `JsonChallengeCollection` hereda de la clase `ChallengeCollection` y es la que se encarga de la gestión del fichero JSON correspondiente a los retos. Esta recoge y almacena los retos que se encuentren en el fichero JSON para poder gestionarlos a través del programa. Para poder convertir los objetos TypeScript a objetos JSON utiliza el siguiente esquema:
+
+```typescript
+type schemaType = {
+  challenge: {
+    _name: string;
+    _routes: number[];
+    _activity: Activity;
+    _total_kilometers: number;
+    _users: string[];
+    _id: number;
+  }[];
+};
+```
+
+Para la gestión de los retos de la base de datos, la clase posee las siguientes funciones:
+
+- `addChallenge`: Añade un reto a la colección y actualiza la base de datos.
+- `removeChallenge`: Elimina un reto de la colección y actualiza la base de datos.
+- `updateChallenge`: Actualiza un reto de la colección y actualiza la base de datos.
+- `storeChallenges`: Actualiza la base de datos con los elementos de la colección.
+
+### Gestores
+
+## Clase AdminGestor
+
+La clase `AdminGestor` se encarga de la gestión general de las funcionalidades de administrador del sistema. Para que un administrador pueda hacer uso de esta, proporciona una interfaz por consola al usuario de la aplicación gracias al paquete `Inquerer.js`. Las funcionalidades que permite la clase son:
+
+- `printRequested`: Muestra por consola la colección de elementos que se necesite.
 
 ## Bibliografía
 

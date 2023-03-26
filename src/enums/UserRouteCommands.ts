@@ -1,14 +1,11 @@
 /**
- * Enum con todos los comandos de administrador de rutas
+ * Enum con todos los comandos de usuario de rutas
  */
-export enum RouteAdminCommands {
+export enum UserRouteCommands {
   ShowRoutesAlphabetically = "Show Routes by Name",
   ShowRoutesReversedAlphabetically = "Show Routes by Name reversed",
   ShowRoutesByVisitors = "Show Routes order by number of visitors",
   ShowRoutesByVisitorsReversed = "Show Routes order by number of visitors reversed",
   ShowRoutesByLength = "Show Routes order by number of Length",
   ShowRoutesByLengthReversed = "Show Routes order by number of Length reversed",
-  AddNewRoute = "Add new route",
-  RemoveRoute = "Remove route",
-  UpdateRoute = "Update Route",
 }

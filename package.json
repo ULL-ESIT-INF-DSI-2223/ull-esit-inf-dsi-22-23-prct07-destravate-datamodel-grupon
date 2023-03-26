@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "tsc-watch --onSuccess \"node dist/index.js\"",
+    "admin": "tsc && node dist/adminConsole.js",
+    "user": "tsc && node dist/userConsole.js",
     "doc": "typedoc",
     "test": "nyc mocha",
     "coverage": "nyc npm test && nyc report --reporter=lcov"

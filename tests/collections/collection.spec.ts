@@ -368,7 +368,7 @@ describe("Collection class test", () => {
     expect(collection.get(3)).to.be.undefined;
   });
 
-  it("hasID", () => {
+  it("hasID function", () => {
     const collection = new Collection<Route, number>([
       new Route(
         0,
@@ -396,6 +396,61 @@ describe("Collection class test", () => {
 
     expect(collection.hasID(-1)).to.be.false;
     expect(collection.hasID(3)).to.be.true;
+  });
+
+  it("getByID function", () => {
+    const collection = new Collection<Route, number>([
+      new Route(
+        0,
+        "Ruta1",
+        new Coord(40.7128, -74.006),
+        new Coord(37.7749, -122.4194),
+        100,
+        23,
+        [],
+        "Running",
+        10
+      ),
+      new Route(
+        3,
+        "El Teide",
+        new Coord(21.3, -2.2),
+        new Coord(20.4, -2.0),
+        3000,
+        200,
+        ["pepaso", "rodrigodigo"],
+        "Bicycle",
+        200
+      ),
+    ]);
+
+    expect(collection.getByID(0)).to.be.eql(
+      new Route(
+        0,
+        "Ruta1",
+        new Coord(40.7128, -74.006),
+        new Coord(37.7749, -122.4194),
+        100,
+        23,
+        [],
+        "Running",
+        10
+      )
+    );
+    expect(collection.getByID(3)).to.be.eql(
+      new Route(
+        3,
+        "El Teide",
+        new Coord(21.3, -2.2),
+        new Coord(20.4, -2.0),
+        3000,
+        200,
+        ["pepaso", "rodrigodigo"],
+        "Bicycle",
+        200
+      )
+    );
+    expect(collection.getByID(5)).to.be.undefined;
   });
 
   it("toString function", () => {

@@ -22,9 +22,16 @@ type schemaType = {
 
 export class JsonUserCollection extends UserCollection {
   private database: lowdb.LowdbSync<schemaType>;
+
+  /**
+   *
+   * Constructor de la clase JsonUserCollection que representa una colección de usuarios del fichero JSON
+   *
+   * @param elements Usuarios de la colección
+   */
   constructor(elements: User[]) {
     super(elements);
-    this.database = lowdb(new FileSync("./src/databases/user.json"));
+    this.database = lowdb(new FileSync("./databases/user.json"));
     if (this.database.has("user").value()) {
       const dbItems = this.database.get("user").value();
       dbItems.forEach((item) => {
@@ -48,21 +55,50 @@ export class JsonUserCollection extends UserCollection {
     }
   }
 
+  /**
+   *
+   * Añade un usuario al fichero JSON
+   *
+   * @param user Usuario a añadir
+   * @returns true si el usuario se pudo añadir, false si un usuario con el mismo ID ya estaba guardado
+   */
   public addUser(user: User): boolean {
     const result = super.add(user);
     this.storeUsers();
     return result;
   }
+
+  /**
+   *
+   * Elimina un usuario de la colección por su ID
+   *
+   * @param id ID del usuario a eliminar
+   * @returns true si el usuario se pudo eliminar, false si el usuario no estaba guardada
+   */
   public removeUser(id: string): boolean {
     const result = super.remove(id);
     this.storeUsers();
     return result;
   }
+
+  /**
+   *
+   * Actualiza un usuario del fichero JSON
+   *
+   * @param user usuario a actualizar
+   * @returns true si el usuario se pudo actualizar, false si el usuario no existe
+   */
   public updateUser(user: User): boolean {
     const result = super.update(user);
     this.storeUsers();
     return result;
   }
+
+  /**
+   *
+   * Almacena los usuarios en el fichero JSON
+   *
+   */
   public storeUsers() {
     this.database.set("user", [...this._elements.values()]).write();
   }

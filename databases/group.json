@@ -2,130 +2,17 @@
   "group": [
     {
       "_favourite_routes": [
-        20,
-        21
-      ],
-      "_historical": [
-        [
-          "2013-10-17T03:24:00.000Z",
-          20
-        ],
-        [
-          "2010-03-21T03:24:00.000Z",
-          21
-        ]
-      ],
-      "_id": 4,
-      "_name": "Cuatro",
-      "_members_id": [
-        "alehandro",
-        "lucaspelucas"
-      ],
-      "_statistics": {
-        "_week_kilometers": 25,
-        "_week_unevenness": 500,
-        "_month_kilometers": 97,
-        "_month_unevenness": 1200,
-        "_year_kilometers": 1233,
-        "_year_unevenness": 11000
-      },
-      "_members_ranking": [
-        {
-          "_id": "alehandro",
-          "_name": "Alejandro",
-          "_activity": "Bicycle",
-          "_friends": [
-            "saulin",
-            "marcelo"
-          ],
-          "_groups": [
-            2,
-            9
-          ],
-          "_statistics": {
-            "_week_kilometers": 1,
-            "_week_unevenness": 250,
-            "_month_kilometers": 2,
-            "_month_unevenness": 600,
-            "_year_kilometers": 3,
-            "_year_unevenness": 5500
-          },
-          "_favourite_routes": [
-            1,
-            2,
-            8
-          ],
-          "_active_challenges": [
-            9,
-            4
-          ],
-          "_historical": [
-            [
-              "2023-03-25T23:05:22.607Z",
-              1
-            ],
-            [
-              "2004-01-12T03:24:00.000Z",
-              3
-            ]
-          ]
-        },
-        {
-          "_id": "lucaspelucas",
-          "_name": "Lucas",
-          "_activity": "Bicycle",
-          "_friends": [
-            "davidsote",
-            "miau"
-          ],
-          "_groups": [
-            2,
-            8
-          ],
-          "_statistics": {
-            "_week_kilometers": 24,
-            "_week_unevenness": 250,
-            "_month_kilometers": 95,
-            "_month_unevenness": 600,
-            "_year_kilometers": 1230,
-            "_year_unevenness": 5500
-          },
-          "_favourite_routes": [
-            6,
-            7
-          ],
-          "_active_challenges": [
-            1,
-            5,
-            2
-          ],
-          "_historical": [
-            [
-              "2023-03-25T23:05:22.607Z",
-              4
-            ],
-            [
-              "2022-12-17T03:24:00.000Z",
-              2
-            ]
-          ]
-        }
-      ],
-      "_admins": []
-    },
-    {
-      "_favourite_routes": [
         15,
         0
       ],
       "_historical": [
         [
           "2021-10-17T03:24:00.000Z",
-          15
+          0
         ],
         [
           "2021-10-13T03:24:00.000Z",
-          13
+          15
         ]
       ],
       "_id": 1,
@@ -148,11 +35,15 @@
           "_activity": "Running",
           "_friends": [
             "rodrigodigo",
-            "marcelo"
+            "tomasote",
+            "saulin",
+            "pedrillo",
+            "pepapi",
+            "picolo",
+            "elpepe"
           ],
           "_groups": [
-            2,
-            5
+            1
           ],
           "_statistics": {
             "_week_kilometers": 5,
@@ -163,16 +54,15 @@
             "_year_unevenness": 4000
           },
           "_favourite_routes": [
-            6,
+            15,
             4
           ],
           "_active_challenges": [
-            1,
-            3
+            1
           ],
           "_historical": [
             [
-              "2023-03-25T23:05:22.607Z",
+              "2022-12-17T03:24:00.000Z",
               4
             ]
           ]
@@ -216,11 +106,12 @@
           "_activity": "Bicycle",
           "_friends": [
             "pepaso",
-            "tomasote"
+            "tomasote",
+            "davidsote",
+            "alehandro"
           ],
           "_groups": [
-            1,
-            4
+            2
           ],
           "_statistics": {
             "_week_kilometers": 15,
@@ -232,20 +123,17 @@
           },
           "_favourite_routes": [
             2,
-            9
+            21
           ],
-          "_active_challenges": [
-            1,
-            2
-          ],
+          "_active_challenges": [],
           "_historical": [
             [
-              "2023-03-25T23:05:22.607Z",
-              4
+              "2022-12-17T03:24:00.000Z",
+              2
             ],
             [
               "2023-01-18T03:24:00.000Z",
-              4
+              21
             ]
           ]
         },
@@ -255,7 +143,8 @@
           "_activity": "Running",
           "_friends": [
             "saulin",
-            "marcelo"
+            "pepaso",
+            "davidsote"
           ],
           "_groups": [
             2
@@ -269,19 +158,17 @@
             "_year_unevenness": 5500
           },
           "_favourite_routes": [
-            6
+            15
           ],
-          "_active_challenges": [
-            4
-          ],
+          "_active_challenges": [],
           "_historical": [
             [
-              "2023-03-25T23:05:22.607Z",
-              7
+              "2021-12-17T03:24:00.000Z",
+              15
             ],
             [
               "2022-12-17T03:24:00.000Z",
-              9
+              21
             ]
           ]
         }
@@ -294,12 +181,8 @@
       ],
       "_historical": [
         [
-          "2003-10-17T03:24:00.000Z",
-          2
-        ],
-        [
           "2020-03-21T03:24:00.000Z",
-          77
+          777
         ]
       ],
       "_id": 3,
@@ -326,7 +209,7 @@
             "tomasote"
           ],
           "_groups": [
-            2
+            3
           ],
           "_statistics": {
             "_week_kilometers": 6,
@@ -337,21 +220,18 @@
             "_year_unevenness": 5500
           },
           "_favourite_routes": [
-            6,
-            8
+            15,
+            20
           ],
-          "_active_challenges": [
-            1,
-            4
-          ],
+          "_active_challenges": [],
           "_historical": [
             [
-              "2023-03-25T23:05:22.607Z",
-              4
+              "2022-12-17T03:24:00.000Z",
+              15
             ],
             [
               "2020-10-15T03:24:00.000Z",
-              9
+              20
             ]
           ]
         },
@@ -361,11 +241,12 @@
           "_activity": "Running",
           "_friends": [
             "rodrigodigo",
-            "saulin"
+            "saulin",
+            "lucaspelucas",
+            "frigopie"
           ],
           "_groups": [
-            3,
-            5
+            3
           ],
           "_statistics": {
             "_week_kilometers": 9,
@@ -376,21 +257,123 @@
             "_year_unevenness": 5500
           },
           "_favourite_routes": [
-            6,
+            15,
             4
           ],
           "_active_challenges": [
-            2,
-            4
+            2
           ],
           "_historical": [
             [
-              "2023-03-25T23:05:22.607Z",
+              "2022-12-17T03:24:00.000Z",
               4
             ],
             [
               "2019-08-04T03:24:00.000Z",
+              15
+            ]
+          ]
+        }
+      ],
+      "_admins": []
+    },
+    {
+      "_favourite_routes": [
+        20,
+        21
+      ],
+      "_historical": [
+        [
+          "2013-10-17T03:24:00.000Z",
+          20
+        ],
+        [
+          "2010-03-21T03:24:00.000Z",
+          21
+        ]
+      ],
+      "_id": 4,
+      "_name": "Cuatro",
+      "_members_id": [
+        "alehandro",
+        "lucaspelucas"
+      ],
+      "_statistics": {
+        "_week_kilometers": 25,
+        "_week_unevenness": 500,
+        "_month_kilometers": 97,
+        "_month_unevenness": 1200,
+        "_year_kilometers": 1233,
+        "_year_unevenness": 11000
+      },
+      "_members_ranking": [
+        {
+          "_id": "alehandro",
+          "_name": "Alejandro",
+          "_activity": "Bicycle",
+          "_friends": [
+            "saulin"
+          ],
+          "_groups": [
+            4
+          ],
+          "_statistics": {
+            "_week_kilometers": 1,
+            "_week_unevenness": 250,
+            "_month_kilometers": 2,
+            "_month_unevenness": 600,
+            "_year_kilometers": 3,
+            "_year_unevenness": 5500
+          },
+          "_favourite_routes": [
+            1,
+            2,
+            20
+          ],
+          "_active_challenges": [],
+          "_historical": [
+            [
+              "2022-12-17T03:24:00.000Z",
               1
+            ],
+            [
+              "2004-01-12T03:24:00.000Z",
+              2
+            ]
+          ]
+        },
+        {
+          "_id": "lucaspelucas",
+          "_name": "Lucas",
+          "_activity": "Bicycle",
+          "_friends": [
+            "davidsote",
+            "miau"
+          ],
+          "_groups": [
+            4
+          ],
+          "_statistics": {
+            "_week_kilometers": 24,
+            "_week_unevenness": 250,
+            "_month_kilometers": 95,
+            "_month_unevenness": 600,
+            "_year_kilometers": 1230,
+            "_year_unevenness": 5500
+          },
+          "_favourite_routes": [
+            15,
+            777
+          ],
+          "_active_challenges": [],
+          "_historical": [
+            [
+              "2022-12-17T03:24:00.000Z",
+              15
+            ],
+            [
+              "2022-12-17T03:24:00.000Z",
+              777
             ]
           ]
         }
@@ -433,10 +416,10 @@
           "_name": "Miau",
           "_activity": "Bicycle",
           "_friends": [
-            "guau"
+            "lucaspelucas"
           ],
           "_groups": [
-            2
+            5
           ],
           "_statistics": {
             "_week_kilometers": 1,
@@ -447,21 +430,20 @@
             "_year_unevenness": 5500
           },
           "_favourite_routes": [
-            6,
+            15,
             4
           ],
           "_active_challenges": [
-            2,
             3
           ],
           "_historical": [
             [
-              "2023-03-25T23:05:22.608Z",
-              1
+              "2022-12-17T03:24:00.000Z",
+              15
             ],
             [
               "2021-11-07T03:24:00.000Z",
-              1
+              3
             ]
           ]
         },
@@ -470,11 +452,10 @@
           "_name": "Sergio",
           "_activity": "Bicycle",
           "_friends": [
-            "davidsote",
-            "marcelo"
+            "davidsote"
           ],
           "_groups": [
-            1
+            5
           ],
           "_statistics": {
             "_week_kilometers": 4,
@@ -487,12 +468,10 @@
           "_favourite_routes": [
             1
           ],
-          "_active_challenges": [
-            1
-          ],
+          "_active_challenges": [],
           "_historical": [
             [
-              "2023-03-25T23:05:22.608Z",
+              "2022-12-17T03:24:00.000Z",
               1
             ]
           ]
@@ -501,11 +480,9 @@
           "_id": "fredo",
           "_name": "Alfredo",
           "_activity": "Running",
-          "_friends": [
-            "marcelo"
-          ],
+          "_friends": [],
           "_groups": [
-            4
+            5
           ],
           "_statistics": {
             "_week_kilometers": 12,
@@ -516,21 +493,20 @@
             "_year_unevenness": 5500
           },
           "_favourite_routes": [
-            6,
-            5
+            15,
+            4
           ],
           "_active_challenges": [
-            1,
-            5
+            1
           ],
           "_historical": [
             [
-              "2023-03-25T23:05:22.608Z",
-              6
+              "2022-12-17T03:24:00.000Z",
+              4
             ],
             [
               "2020-11-17T03:24:00.000Z",
-              5
+              15
             ]
           ]
         }

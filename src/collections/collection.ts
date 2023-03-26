@@ -106,14 +106,31 @@ export class Collection<T extends Stringable & { id: U }, U>
    *
    * Comprueba si existe algún elemento con el ID introducido en la colección
    *
-   * @param idCheck ID a comprobar
+   * @param id_check ID a comprobar
    * @returns true si existe un elemento con el mismo ID, false en caso contrario
    */
-  public hasID(idCheck: U): boolean {
+  public hasID(id_check: U): boolean {
     let result = false;
     this._elements.forEach((element) => {
-      if (element.id === idCheck) {
+      if (element.id === id_check) {
         result = true;
+      }
+    });
+    return result;
+  }
+
+  /**
+   *
+   *  Devuelve un elemento de la colección por su ID
+   *
+   * @param id_check ID del elemento a buscar
+   * @returns El elemento con el ID si existe, undefined en caso contrario
+   */
+  public getByID(id_check: U): T | undefined {
+    let result: T | undefined = undefined;
+    this._elements.forEach((element) => {
+      if (element.id === id_check) {
+        result = element;
       }
     });
     return result;

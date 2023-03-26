@@ -8,7 +8,7 @@ const r1 = new Route(
   new Coord(2, 2),
   1,
   1,
-  [],
+  ["irene123"],
   "Running",
   9
 );
@@ -20,7 +20,7 @@ const r2 = new Route(
   new Coord(3, 3),
   2,
   2,
-  ["usu1"],
+  ["pepaso", "alehandro", "frigopie"],
   "Running",
   0
 );
@@ -32,7 +32,7 @@ const r3 = new Route(
   new Coord(4, 4),
   3,
   3,
-  ["usu2", "usu3"],
+  ["saulin", "alehandro", "tortugo93", "picolo", "frifayar"],
   "Running",
   3
 );
@@ -44,7 +44,7 @@ const r4 = new Route(
   new Coord(5, 5),
   4,
   4,
-  ["usu2", "usu3", "usu4", "usu5", "usu7"],
+  ["tomasote", "miau", "francisca", "pepapi"],
   "Running",
   4
 );
@@ -56,7 +56,7 @@ const r5 = new Route(
   new Coord(6, 6),
   5,
   5,
-  ["usu2", "usu3", "usu5"],
+  ["davidsote", "fredo", "frifayar", "cupcake", "elpepe"],
   "Running",
   10
 );
@@ -68,7 +68,7 @@ const r6 = new Route(
   new Coord(62, 16),
   100,
   5,
-  ["usu2", "usu3", "usu5", "usu1231", "usu2121", "usu52112", "usu"],
+  ["rodrigodigo", "pedrillo", "davidsote", "lucaspelucas", "miau", "fredo"],
   "Running",
   3
 );
@@ -80,7 +80,7 @@ const r7 = new Route(
   new Coord(62, 16),
   100,
   5,
-  ["usu2", "usu3", "usu5", "usu4"],
+  ["lucaspelucas"],
   "Bicycle",
   3
 );
@@ -92,7 +92,7 @@ const r8 = new Route(
   new Coord(62, 16),
   100,
   5,
-  ["usu2", "usu3", "usu5", "usu6", "usu51", "usu12211"],
+  ["tomasote", "pedrillo", "picolo", "cupcake", "elpepe"],
   "Running",
   4
 );
@@ -104,7 +104,7 @@ const r9 = new Route(
   new Coord(62, 16),
   1000,
   2,
-  ["usu2", "usu3", "usu5", "usu1231", "usu2121", "usu52112", "usu", "u"],
+  ["saulin", "rodrigodigo", "pepapi", "fritanga"],
   "Bicycle",
   6
 );
@@ -116,7 +116,7 @@ const r10 = new Route(
   new Coord(62, 16),
   500,
   2,
-  ["usu2", "usu3", "usu5", "usu1231", "usu2121", "usu52112", "usu", "u", "a"],
+  [],
   "Bicycle",
   3
 );

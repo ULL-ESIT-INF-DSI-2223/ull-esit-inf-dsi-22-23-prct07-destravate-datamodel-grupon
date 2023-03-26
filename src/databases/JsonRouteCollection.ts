@@ -21,13 +21,19 @@ type schemaType = {
 
 export class JsonRouteCollection extends RouteCollection {
   private database: lowdb.LowdbSync<schemaType>;
+
+  /**
+   *
+   * Constructor de la clase JsonRouteCollection que representa una colección de rutas del fichero JSON
+   *
+   * @param elements Rutas de la colección
+   */
   constructor(elements: Route[]) {
     super(elements);
-    this.database = lowdb(new FileSync("./src/databases/route.json"));
+    this.database = lowdb(new FileSync("./databases/route.json"));
     if (this.database.has("route").value()) {
       const dbItems = this.database.get("route").value();
       dbItems.forEach((item) => {
-        console.log(item._id);
         super.add(
           new Route(
             item._id,
@@ -48,21 +54,50 @@ export class JsonRouteCollection extends RouteCollection {
     }
   }
 
+  /**
+   *
+   * Añade una ruta al fichero JSON
+   *
+   * @param route Ruta a añadir
+   * @returns true si la ruta se pudo añadir, false si una ruta con el mismo ID ya estaba guardado
+   */
   public addRoute(route: Route): boolean {
     const result = super.add(route);
     this.storeRoutes();
     return result;
   }
+
+  /**
+   *
+   * Elimina una ruta de la colección por su ID
+   *
+   * @param id ID de la ruta a eliminar
+   * @returns true si la ruta se pudo eliminar, false si la ruta no estaba guardada
+   */
   public removeRoute(id: number): boolean {
     const result = super.remove(id);
     this.storeRoutes();
     return result;
   }
+
+  /**
+   *
+   * Actualiza una ruta del fichero JSON
+   *
+   * @param route Ruta a actualizar
+   * @returns true si la ruta se pudo actualizar, false si la ruta no existe
+   */
   public updateRoute(route: Route): boolean {
     const result = super.update(route);
     this.storeRoutes();
     return result;
   }
+
+  /**
+   *
+   * Almacena las rutas en el fichero JSON
+   *
+   */
   public storeRoutes() {
     this.database.set("route", [...this._elements.values()]).write();
   }

@@ -1,7 +1,7 @@
 /**
- * Enum para todos los comandos de administrador de grupos
+ * Enum para todos los comandos de usuario de grupos
  */
-export enum GroupsAdminCommands {
+export enum UserGoupCommands {
   ShowGroupsAlphabetically = "Show Groups alphabetically",
   ShowGroupsAlphabeticallyReversed = "Show Groups alphabetically reversed",
   ShowGroupsByWeekKilometers = "Show Groups order by total kilometers in a week",
@@ -12,7 +12,8 @@ export enum GroupsAdminCommands {
   ShowGroupsByYearKilometersReversed = "Show Groups order by total kilometers in a year reversed",
   ShowGroupsByNumberOfMembers = "Show Groups order by number of members",
   ShowGroupsByNumberOfMembersReversed = "Show Groups order by number of members reversed",
-  AddNewGroup = "Add new Group",
-  RemoveGroup = "Remove Group",
-  UpdateGroup = "Update Group",
+  JoinGroup = "Join Group",
+  LeaveGroup = "Leave Group",
+  CreateGoup = "Create new group",
+  DeleteGroup = "Delete Group",
 }

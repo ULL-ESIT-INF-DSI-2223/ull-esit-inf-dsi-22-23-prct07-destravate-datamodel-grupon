@@ -35,9 +35,9 @@ describe("ChallengeCollection class test", () => {
     const collection = new ChallengeCollection(challengeExample);
     collection.sortByTotalUsers();
     expect((collection.get(0) as Challenge).id).to.be.equal(2);
-    expect((collection.get(2) as Challenge).id).to.be.equal(3);
+    expect((collection.get(2) as Challenge).id).to.be.equal(1);
     collection.sortReversedByTotalUsers();
-    expect((collection.get(0) as Challenge).id).to.be.equal(3);
+    expect((collection.get(0) as Challenge).id).to.be.equal(1);
     expect((collection.get(2) as Challenge).id).to.be.equal(2);
   });
 });

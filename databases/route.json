@@ -13,7 +13,9 @@
       },
       "_length": 1,
       "_average_slope": 1,
-      "_visitors_id": [],
+      "_visitors_id": [
+        "irene123"
+      ],
       "_activity": "Running",
       "_avg_score": 9
     },
@@ -31,7 +33,9 @@
       "_length": 2,
       "_average_slope": 2,
       "_visitors_id": [
-        "usu1"
+        "pepaso",
+        "alehandro",
+        "frigopie"
       ],
       "_activity": "Running",
       "_avg_score": 0
@@ -50,8 +54,11 @@
       "_length": 3,
       "_average_slope": 3,
       "_visitors_id": [
-        "usu2",
-        "usu3"
+        "saulin",
+        "alehandro",
+        "tortugo93",
+        "picolo",
+        "frifayar"
       ],
       "_activity": "Running",
       "_avg_score": 3
@@ -70,11 +77,10 @@
       "_length": 4,
       "_average_slope": 4,
       "_visitors_id": [
-        "usu2",
-        "usu3",
-        "usu4",
-        "usu5",
-        "usu7"
+        "tomasote",
+        "miau",
+        "francisca",
+        "pepapi"
       ],
       "_activity": "Running",
       "_avg_score": 4
@@ -93,9 +99,11 @@
       "_length": 5,
       "_average_slope": 5,
       "_visitors_id": [
-        "usu2",
-        "usu3",
-        "usu5"
+        "davidsote",
+        "fredo",
+        "frifayar",
+        "cupcake",
+        "elpepe"
       ],
       "_activity": "Running",
       "_avg_score": 10
@@ -114,13 +122,12 @@
       "_length": 100,
       "_average_slope": 5,
       "_visitors_id": [
-        "usu2",
-        "usu3",
-        "usu5",
-        "usu1231",
-        "usu2121",
-        "usu52112",
-        "usu"
+        "rodrigodigo",
+        "pedrillo",
+        "davidsote",
+        "lucaspelucas",
+        "miau",
+        "fredo"
       ],
       "_activity": "Running",
       "_avg_score": 3
@@ -139,10 +146,7 @@
       "_length": 100,
       "_average_slope": 5,
       "_visitors_id": [
-        "usu2",
-        "usu3",
-        "usu5",
-        "usu4"
+        "lucaspelucas"
       ],
       "_activity": "Bicycle",
       "_avg_score": 3
@@ -161,12 +165,11 @@
       "_length": 100,
       "_average_slope": 5,
       "_visitors_id": [
-        "usu2",
-        "usu3",
-        "usu5",
-        "usu6",
-        "usu51",
-        "usu12211"
+        "tomasote",
+        "pedrillo",
+        "picolo",
+        "cupcake",
+        "elpepe"
       ],
       "_activity": "Running",
       "_avg_score": 4
@@ -185,14 +188,10 @@
       "_length": 1000,
       "_average_slope": 2,
       "_visitors_id": [
-        "usu2",
-        "usu3",
-        "usu5",
-        "usu1231",
-        "usu2121",
-        "usu52112",
-        "usu",
-        "u"
+        "saulin",
+        "rodrigodigo",
+        "pepapi",
+        "fritanga"
       ],
       "_activity": "Bicycle",
       "_avg_score": 6
@@ -210,17 +209,7 @@
       },
       "_length": 500,
       "_average_slope": 2,
-      "_visitors_id": [
-        "usu2",
-        "usu3",
-        "usu5",
-        "usu1231",
-        "usu2121",
-        "usu52112",
-        "usu",
-        "u",
-        "a"
-      ],
+      "_visitors_id": [],
       "_activity": "Bicycle",
       "_avg_score": 3
     }
