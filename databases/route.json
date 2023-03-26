@@ -13,9 +13,7 @@
       },
       "_length": 1,
       "_average_slope": 1,
-      "_visitors_id": [
-        "irene123"
-      ],
+      "_visitors_id": ["irene123"],
       "_activity": "Running",
       "_avg_score": 9
     },
@@ -32,11 +30,7 @@
       },
       "_length": 2,
       "_average_slope": 2,
-      "_visitors_id": [
-        "pepaso",
-        "alehandro",
-        "frigopie"
-      ],
+      "_visitors_id": ["pepaso", "alehandro", "frigopie"],
       "_activity": "Running",
       "_avg_score": 0
     },
@@ -76,12 +70,7 @@
       },
       "_length": 4,
       "_average_slope": 4,
-      "_visitors_id": [
-        "tomasote",
-        "miau",
-        "francisca",
-        "pepapi"
-      ],
+      "_visitors_id": ["tomasote", "miau", "francisca", "pepapi"],
       "_activity": "Running",
       "_avg_score": 4
     },
@@ -98,13 +87,7 @@
       },
       "_length": 5,
       "_average_slope": 5,
-      "_visitors_id": [
-        "davidsote",
-        "fredo",
-        "frifayar",
-        "cupcake",
-        "elpepe"
-      ],
+      "_visitors_id": ["davidsote", "fredo", "frifayar", "cupcake", "elpepe"],
       "_activity": "Running",
       "_avg_score": 10
     },
@@ -145,9 +128,7 @@
       },
       "_length": 100,
       "_average_slope": 5,
-      "_visitors_id": [
-        "lucaspelucas"
-      ],
+      "_visitors_id": ["lucaspelucas"],
       "_activity": "Bicycle",
       "_avg_score": 3
     },
@@ -164,13 +145,7 @@
       },
       "_length": 100,
       "_average_slope": 5,
-      "_visitors_id": [
-        "tomasote",
-        "pedrillo",
-        "picolo",
-        "cupcake",
-        "elpepe"
-      ],
+      "_visitors_id": ["tomasote", "pedrillo", "picolo", "cupcake", "elpepe"],
       "_activity": "Running",
       "_avg_score": 4
     },
@@ -187,12 +162,7 @@
       },
       "_length": 1000,
       "_average_slope": 2,
-      "_visitors_id": [
-        "saulin",
-        "rodrigodigo",
-        "pepapi",
-        "fritanga"
-      ],
+      "_visitors_id": ["saulin", "rodrigodigo", "pepapi", "fritanga"],
       "_activity": "Bicycle",
       "_avg_score": 6
     },

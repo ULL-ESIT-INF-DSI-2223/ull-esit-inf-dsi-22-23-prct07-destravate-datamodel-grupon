@@ -3,11 +3,7 @@
     {
       "_id": 1,
       "_name": "Reto Extremo",
-      "_routes": [
-        2,
-        4,
-        15
-      ],
+      "_routes": [2, 4, 15],
       "_activity": "Running",
       "_total_kilometers": 60,
       "_users": [
@@ -22,33 +18,18 @@
     {
       "_id": 2,
       "_name": "Turboreto",
-      "_routes": [
-        1,
-        2
-      ],
+      "_routes": [1, 2],
       "_activity": "Running",
       "_total_kilometers": 20,
-      "_users": [
-        "davidsote",
-        "cupcake"
-      ]
+      "_users": ["davidsote", "cupcake"]
     },
     {
       "_id": 3,
       "_name": "Tarta",
-      "_routes": [
-        777,
-        21,
-        90
-      ],
+      "_routes": [777, 21, 90],
       "_activity": "Bicycle",
       "_total_kilometers": 500,
-      "_users": [
-        "tomasote",
-        "miau",
-        "irene123",
-        "elpepe"
-      ]
+      "_users": ["tomasote", "miau", "irene123", "elpepe"]
     }
   ]
 }

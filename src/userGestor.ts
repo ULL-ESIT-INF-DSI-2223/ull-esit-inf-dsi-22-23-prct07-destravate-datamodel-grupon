@@ -732,7 +732,7 @@ export class UserGestor {
     this._logged = true;
     this.promptMenu();
   }
-  
+
   /**
    * Muestra por consola el prompt para iniciar sesión en el sistema. Para esto pide el ID del usuario
    */
